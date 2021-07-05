@@ -15,6 +15,7 @@
     <typeAlias alias="storeDto" type="kr.swcore.sdmes.store.dto.StoreDTO"/>
     <typeAlias alias="suppDto" type="kr.swcore.sdmes.supp.dto.SuppDTO"/>
     <typeAlias alias="contDto" type="kr.swcore.sdmes.cont.dto.ContDTO"/>
+    <typeAlias alias="contFileDto" type="kr.swcore.sdmes.cont.dto.ContFileDTO"/>
     </typeAliases>
  
 </configuration>

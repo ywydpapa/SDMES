@@ -25,6 +25,5 @@ public class ContDTO {
 	private String goodsTitle;
 	private String codeDesc;
 	private String contNation;
-	private String fileName;
 
 }

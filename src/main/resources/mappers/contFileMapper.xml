@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contFile">
+
+	<select id="listFile" resultType="ContFileDto">
+		select *
+		from swc_contfiledata a
+		where a.attrib not like 'XXX%' and a.contNo = #{contNo} and a.compNo = #{compNo}
+	</select>
+
+	<insert id="uploadFile">
+		insert into swc_contfiledata
+		(fileId, compNo, fileName, fileDesc, fileContent, fileType, contNo, insertUserNo, modifyUserNo, regDatetime, modDatetime, attrib)
+		values (#{fileId}, #{compNo}, #{fileName}, #{fileDesc}, #{fileContent}, #{fileType}, #{contNo}, #{insertUserNo}, null, now(), null, '10000')
+	</insert>
+
+	<update id="deleteFile">
+		update swc_contfiledata
+		set modifyUserNo = #{modifyUserNo}, modDatetime = now(), attrib = 'XXX'
+		where attrib not like 'XXX%' and fileId = #{fileId} and compNo = #{compNo}
+	</update>
+
+	<select id="downloadFile" resultType="ContFileDto">
+		select *
+		from swc_contfiledata
+		where attrib not like 'XXX%' and fileId = #{fileId} and compNo = #{compNo}
+	</select>
+</mapper>

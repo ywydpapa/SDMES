@@ -65,36 +65,43 @@
 									</form>
 								</td>
 							</tr>
+							<th scope="row">첨부파일 리스트</th>
+							<td>
+								<c:forEach var="item" items="fileList">
+
+								</c:forEach>
+							</td>
+							</tr>
 							<tr>
 								<th scope="row" style="text-align: center;">설명</th>
 								<td colspan="4"><textarea name="comment" id="comment"
 										rows="8" class="form-control">${dto.comment}</textarea></td>
 							</tr>
 									<tr class="addgoods" align="center">
-													<th>계약상품</th>
-													<td>
-														<select class="form-control" id="contgoods">
-															<option value="">선택</option>
-															<c:forEach var="goods" items="${goods}">
-																<option value="${goods.goodsNo}">${goods.goodsTitle}</option>
-															</c:forEach>
-													     </select>
-													</td>
-													<td colspan="2"><input style="text-align:right" type="number" class="form-control" id="contgoodsqty"
-													min="0"	value="0">
-													</td>
-													<td><button class="form-control"onclick="fn_addgoods()">추가</button></td>
-													<td></td>
-													</tr>
-												<c:forEach var="addg" items="${addgoods}">
-													<tr class="addgoods"> 
-													<td></td>
-													<td style="text-align:center">${addg.goodsTitle}</td>
-													<td style="text-align:right">${addg.goodsQty}</td>
-													<td></td>
-													<td><button onclick="fn_delgoods('${addg.contdtlNo}',this)">삭제</button></td>
-													</tr>
+										<th>계약상품</th>
+										<td>
+											<select class="form-control" id="contgoods">
+												<option value="">선택</option>
+												<c:forEach var="goods" items="${goods}">
+													<option value="${goods.goodsNo}">${goods.goodsTitle}</option>
 												</c:forEach>
+											 </select>
+										</td>
+										<td colspan="2"><input style="text-align:right" type="number" class="form-control" id="contgoodsqty"
+										min="0"	value="0">
+										</td>
+										<td><button class="form-control"onclick="fn_addgoods()">추가</button></td>
+										<td></td>
+									</tr>
+									<c:forEach var="addg" items="${addgoods}">
+										<tr class="addgoods">
+										<td></td>
+										<td style="text-align:center">${addg.goodsTitle}</td>
+										<td style="text-align:right">${addg.goodsQty}</td>
+										<td></td>
+										<td><button onclick="fn_delgoods('${addg.contdtlNo}',this)">삭제</button></td>
+										</tr>
+									</c:forEach>
 						</tbody>
 					</table>
 				</div>

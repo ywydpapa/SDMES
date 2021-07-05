@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ 
+ 	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+ 
+    <typeAliases>
+    <typeAlias alias="userDto" type="kr.swcore.sdmes.user.dto.UserDTO"/>
+    <typeAlias alias="codeDto" type="kr.swcore.sdmes.code.dto.CodeDTO"/>
+    <typeAlias alias="goodsDto" type="kr.swcore.sdmes.goods.dto.GoodsDTO"/>
+    <typeAlias alias="storeDto" type="kr.swcore.sdmes.store.dto.StoreDTO"/>
+    <typeAlias alias="suppDto" type="kr.swcore.sdmes.supp.dto.SuppDTO"/>
+    <typeAlias alias="contDto" type="kr.swcore.sdmes.cont.dto.ContDTO"/>
+    </typeAliases>
+ 
+</configuration>

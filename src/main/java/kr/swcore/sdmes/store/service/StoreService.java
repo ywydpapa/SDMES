@@ -1,0 +1,17 @@
+package kr.swcore.sdmes.store.service;
+
+import java.util.List;
+
+import kr.swcore.sdmes.store.dto.StoreDTO;
+
+public interface StoreService {
+
+	StoreDTO storedetail(Integer storeioNo);
+	List<StoreDTO> listStore();
+	List<StoreDTO> listgoodsio();
+	List<StoreDTO> listsuppio();
+	Integer insertStore(StoreDTO dto);
+	Integer updateStore(StoreDTO dto);
+	Integer deleteStore(StoreDTO dto);
+	Integer insertStoreReq(StoreDTO dto);
+}

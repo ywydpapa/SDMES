@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cont">
+
+<select id="listcont" resultType="ContDTO">
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		left join swcmes_code sc on a.custNo = sc.codeNo 
+		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
+		where a.attrib not like 'XXX%' group by a.contNo 
+</select>
+
+<select id="listporder" resultType="ContDTO">
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		left join swcmes_code sc on a.custNo = sc.codeNo 
+		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
+		where a.attrib not like 'XXX%' and a.attrib like '2%' group by a.contNo 
+</select>
+
+
+<select id="detailcont" resultType="ContDTO">
+	SELECT * from swcmes_cont 
+	where contNo= #{contNo}  
+</select>
+
+<insert id="insertcont">
+	insert into swcmes_cont  
+	(custNo,contTitle,contAmount,contDate,deliveryDate,contNation,porderNo,comment,regDate,attrib)
+	values (#{custNo},#{contTitle},#{contAmount},#{contDate},#{deliveryDate},#{contNation},#{porderNo},#{comment},now(),'10000')
+</insert>
+
+<insert id="addgoods">
+	insert into swcmes_cont_goods
+	(contNo,goodsNo,goodsQty,regDate,attrib)
+	values (#{contNo},#{goodsNo},#{goodsQty},now(),'10000')
+</insert>
+
+<select id = "addgoodslist" resultType="ContDTO">
+	select a.*, sg.goodsTitle, IFNULL(a.goodsQty,0)-IFNULL(a.prdQty,0) remQty from swcmes_cont_goods a
+	left join swcmes_goods sg on sg.goodsNo = a.goodsNo 
+	where a.attrib not like 'XXXX%' and a.contNo = #{contNo}
+</select>
+
+
+<update id="updatecont">
+update swcmes_cont
+	set 
+	custNo = #{custNo}
+	,contAmount = #{contAmount}
+	,contDate = #{contDate} 
+	,contTitle = #{contTitle}
+	,deliveryDate = #{deliveryDate}
+	,contDate = #{contDate}
+	,contNation = #{contNation} 
+	,porderNo = #{porderNo}
+	,comment = #{comment}
+	,modDate = now()
+	where contNo = #{contNo}
+</update>
+
+<update id="deletecont">
+update swcmes_cont
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where contNo = #{contNo}
+</update>
+
+<update id="deleteaddgoods">
+update swcmes_cont_goods
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where contdtlNo = #{contdtlNo}
+</update>
+
+<update id="updateaddgoods">
+update swcmes_cont_goods
+	set 
+	 prdQty = ifnull(prdQty,0)+#{prdQty}  
+	,modDate = now()
+	where contdtlNo = #{contdtlNo}
+</update>
+
+<update id="setPorder">
+update swcmes_cont
+	set comment = #{comment}   
+	,modDate = now()
+	,attrib = '20000'
+	where contNo = #{contNo}
+</update>
+
+
+
+</mapper>

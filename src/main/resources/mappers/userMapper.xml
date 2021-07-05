@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+<select id="loginCheck" resultType="String">
+ 		SELECT userName from swc_user where userId=#{userId} and userPasswd=PASSWORD(#{userPasswd}) 
+</select>
+
+<select id="viewUser" resultType="UserDto">
+ 		SELECT * from swc_user where userId=#{userId} 
+</select>
+
+<update id = "updPasswd">
+	update swc_user set userPasswd = PASSWORD(#{Npasswd}) where userId=#{userId} and userPasswd= PASSWORD(#{Ppasswd})
+</update>
+
+</mapper>

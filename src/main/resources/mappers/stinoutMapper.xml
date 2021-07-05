@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+<select id="liststore" resultType="StoreDTO">
+	SELECT * from swcmes_store where attrib not like 'XXX%'  
+</select>
+
+<select id="detailstoreio" resultType="StoreDTO">
+	SELECT ss.suppTitle,ss.suppType,ss.suppUnit,ss.suppModel,sg.goodsTitle,sg.goodsType,sg.goodsUnit,sg.goodsModel,sc.codeDesc, a.* 
+	from swcmes_store a 
+	left join swcmes_goods sg on sg.goodsNo = a.goodsNo
+	left join swcmes_supp ss on ss.suppNo = a.suppNo 
+	left join swcmes_code sc on sc.codeNo = a.locateCode 
+where storeioNo= #{storeioNo}  
+</select>
+
+<select id="listgoodsio" resultType="StoreDTO">
+	SELECT sg.goodsTitle,sg.goodsType,sg.goodsUnit,sg.goodsModel,sc.codeDesc, a.* 
+	from swcmes_store a 
+	left join swcmes_goods sg on sg.goodsNo = a.goodsNo 
+	left join swcmes_code sc on sc.codeNo = a.locateCode 
+where a.attrib not like 'XXX%' and suppNo is null order by goodsType, regDate, modDate  
+</select>
+
+<select id="listsuppio" resultType="StoreDTO">
+	SELECT ss.suppTitle,ss.suppType,ss.suppUnit,ss.suppModel,sc.codeDesc,a.* 
+	from swcmes_store a 
+	left join swcmes_supp ss on ss.suppNo = a.suppNo 
+	left join swcmes_code sc on sc.codeNo = a.locateCode
+	where a.attrib not like 'XXX%' and goodsNo is null order by suppType, regDate, modDate 
+</select>
+
+<insert id="insertstore">
+	insert into swcmes_store 
+	(inoutTyp,goodsNo,suppNo,storeUnit,storeQty,locateCode,regDate,attrib,comment) 
+	values (#{inoutTyp},#{goodsNo},#{suppNo},#{storeUnit},#{storeQty},#{locateCode},now(),'10000',#{comment})
+</insert>
+
+<insert id="insertstoreReq">
+	insert into swcmes_store 
+	(inoutTyp,goodsNo,suppNo,storeUnit,storeQty,locateCode,regDate,attrib,comment,storeAmount) 
+	values (#{inoutTyp},#{goodsNo},#{suppNo},#{storeUnit},#{storeQty},#{locateCode},now(),'00000',#{comment},#{storeAmount})
+</insert>
+
+<update id="updatestore">
+update swcmes_store
+	set 
+	inoutTyp = #{inoutTyp}
+	,goodsNo = #{goodsNo}
+	,suppNo = #{suppNo}
+	,storeUnit = #{storeUnit}
+	,storeQty = #{storeQty}
+	,locateCode = #{locateCode}
+	,modDate = now()
+	,comment = #{comment}
+	where storeioNo = #{storeioNo}
+</update>
+
+<update id="deletestore">
+update swcmes_store
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where storeioNo = #{storeioNo}
+</update>
+
+</mapper>

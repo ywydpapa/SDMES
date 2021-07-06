@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="listFile" resultType="ContFileDto">
 		select *
-		from swc_contfiledata a
-		where a.attrib not like 'XXX%' and a.contNo = #{contNo} and a.compNo = #{compNo}
+		from swc_contfiledata
+		where attrib not like 'XXX%' and contNo = #{contNo} and compNo = #{compNo}
 	</select>
 
 	<insert id="uploadFile">

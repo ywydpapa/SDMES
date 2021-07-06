@@ -17,59 +17,61 @@ import org.springframework.web.multipart.MultipartRequest;
 
 @Controller
 public class UploadController {
-	    @RequestMapping(value = "/file/image", method = RequestMethod.POST)
-	    @ResponseBody
-	    public String uploadForm(MultipartRequest multipartRequest, HttpRequest request) throws IOException {
 
-	        return "ok";
-	    }
-	    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
-	    @ResponseBody
-	    public Object uploadFile(MultipartHttpServletRequest request) {
-	        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/local");
-	        //String uploadPath = "C:\\Users\\gusrl\\Pictures\\temp";
+	@RequestMapping(value = "/file/image", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadForm(MultipartRequest multipartRequest, HttpRequest request) throws IOException {
 
-	        String savedName = "";
-	        Iterator<String> itr = request.getFileNames();
-	        if(itr.hasNext()) {
-	            MultipartFile mpf = request.getFile(itr.next());
-	            System.out.println(mpf.getOriginalFilename() +" uploaded!");
-	            try {
-	                //just temporary save file info into ufile
-	                System.out.println("file length : " + mpf.getBytes().length);
-	                System.out.println("file name : " + mpf.getOriginalFilename());
-	                System.out.println("file ContentType : " + mpf.getContentType());
-
-	                String imgeType = "";
-	                String contentType = mpf.getContentType();
-	                if ("image/gif".equals(contentType)) {
-	                    imgeType = "gif";
-	                } else if ("image/png".equals(contentType)) {
-	                    imgeType = "png";
-	                } else if ("image/jpeg".equals(contentType)) {
-	                    imgeType = "jpeg";
-	                } else if ("image/bmp".equals(contentType)) {
-	                    imgeType = "bmp";
-	                } else if ("image/webp".equals(contentType)) {
-	                    imgeType = "webp";
-	                }
-
-	                if(imgeType.equals("")){
-	                    return false;
-	                }
-
-	                UUID uuid = UUID.randomUUID();
-	                String uuidStr = uuid.toString();
-	                String currentTime = String.valueOf(System.currentTimeMillis());
-	                savedName = uuidStr+"_"+currentTime+"."+imgeType;
-	                File target = new File(uploadPath, savedName);
-	                FileCopyUtils.copy(mpf.getBytes(), target);
-	            } catch (IOException e) {
-	                System.out.println(e.getMessage()); e.printStackTrace();
-	            }
-	            return savedName;
-	        } else {
-	            return false;
-	        }
-	    }
+		return "ok";
 	}
+
+	@RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public Object uploadFile(MultipartHttpServletRequest request) {
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/local");
+		//String uploadPath = "C:\\Users\\gusrl\\Pictures\\temp";
+
+		String savedName = "";
+		Iterator<String> itr = request.getFileNames();
+		if(itr.hasNext()) {
+			MultipartFile mpf = request.getFile(itr.next());
+			System.out.println(mpf.getOriginalFilename() +" uploaded!");
+			try {
+				//just temporary save file info into ufile
+				System.out.println("file length : " + mpf.getBytes().length);
+				System.out.println("file name : " + mpf.getOriginalFilename());
+				System.out.println("file ContentType : " + mpf.getContentType());
+
+				String imgeType = "";
+				String contentType = mpf.getContentType();
+				if ("image/gif".equals(contentType)) {
+					imgeType = "gif";
+				} else if ("image/png".equals(contentType)) {
+					imgeType = "png";
+				} else if ("image/jpeg".equals(contentType)) {
+					imgeType = "jpeg";
+				} else if ("image/bmp".equals(contentType)) {
+					imgeType = "bmp";
+				} else if ("image/webp".equals(contentType)) {
+					imgeType = "webp";
+				}
+
+				if(imgeType.equals("")){
+					return false;
+				}
+
+				UUID uuid = UUID.randomUUID();
+				String uuidStr = uuid.toString();
+				String currentTime = String.valueOf(System.currentTimeMillis());
+				savedName = uuidStr+"_"+currentTime+"."+imgeType;
+				File target = new File(uploadPath, savedName);
+				FileCopyUtils.copy(mpf.getBytes(), target);
+			} catch (IOException e) {
+				System.out.println(e.getMessage()); e.printStackTrace();
+			}
+			return savedName;
+		} else {
+			return false;
+		}
+	}
+}

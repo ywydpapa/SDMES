@@ -65,6 +65,7 @@ public class ContController {
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("fileList",null);
 		return mav;
 	}
 	
@@ -85,6 +86,7 @@ public class ContController {
 		mav.addObject("addgoods",contService.listaddGoods(contNo));
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("fileList",null);
 		return mav;
 	}
 	

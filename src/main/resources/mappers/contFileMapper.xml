@@ -12,8 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="uploadFile">
 		insert into swc_contfiledata
-		(fileId, compNo, fileName, fileDesc, fileContent, fileType, contNo, insertUserNo, modifyUserNo, regDatetime, modDatetime, attrib)
-		values (#{fileId}, #{compNo}, #{fileName}, #{fileDesc}, #{fileContent}, #{fileType}, #{contNo}, #{insertUserNo}, null, now(), null, '10000')
+		(fileId, compNo, fileName, fileDesc, fileContent, fileSize, fileType, contNo, insertUserNo, modifyUserNo, regDatetime, modDatetime, attrib)
+		values (#{fileId}, #{compNo}, #{fileName}, #{fileDesc}, #{fileContent}, #{fileSize}, #{fileType}, #{contNo}, #{insertUserNo}, null, now(), null, '10000')
 	</insert>
 
 	<update id="deleteFile">

@@ -15,8 +15,8 @@ public class ContFileDAOImpl implements ContFileDAO{
     SqlSession sqlSession;
 
     @Override
-    public List<ContFileDTO> listFile(ContDTO contDTO) {
-        return sqlSession.selectOne("contFile.listFile", contDTO);
+    public List<ContFileDTO> listFile(ContFileDTO contFileDTO) {
+        return sqlSession.selectOne("contFile.listFile", contFileDTO);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ContFileDAOImpl implements ContFileDAO{
     }
 
     @Override
-    public Integer downloadFile(ContFileDTO contFileDTO) {
+    public ContFileDTO downloadFile(ContFileDTO contFileDTO) {
         return sqlSession.selectOne("contFile.downloadFile", contFileDTO);
     }
 }

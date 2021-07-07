@@ -6,8 +6,8 @@ import kr.swcore.sdmes.cont.dto.ContFileDTO;
 import java.util.List;
 
 public interface ContFileDAO {
-    List<ContFileDTO> listFile(ContDTO contDTO);
+    List<ContFileDTO> listFile(ContFileDTO contFileDTO);
     Integer uploadFile(ContFileDTO contFileDTO);
     Integer deleteFile(ContFileDTO contFileDTO);
-    Integer downloadFile(ContFileDTO contFileDTO);
+    ContFileDTO downloadFile(ContFileDTO contFileDTO);
 }

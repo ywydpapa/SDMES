@@ -39,7 +39,7 @@ public class ContFileController {
     @RequestMapping("/listFile/{cont}")
     public ResponseEntity<?> listFile(HttpSession session, @PathVariable("cont") Integer cont) throws IOException {
         Integer compNo = SessionInfoGet.getCompNo(session);
-        ContDTO contDTO = new ContDTO();
+        ContFileDTO contDTO = new ContFileDTO();
         contDTO.setContNo(cont);
         contDTO.setCompNo(compNo);
 

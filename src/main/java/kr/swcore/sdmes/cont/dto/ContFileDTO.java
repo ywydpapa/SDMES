@@ -11,6 +11,7 @@ public class ContFileDTO {
     private String fileName;
     private String fileDesc;
     private byte[] fileContent;
+    private Long fileSize;
     private String fileType;
     private Integer contNo;
     private Integer insertUserNo;

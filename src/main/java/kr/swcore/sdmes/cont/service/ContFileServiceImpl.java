@@ -1,9 +1,10 @@
 package kr.swcore.sdmes.cont.service;
 
 import kr.swcore.sdmes.cont.dao.ContFileDAO;
-import kr.swcore.sdmes.cont.dto.ContDTO;
 import kr.swcore.sdmes.cont.dto.ContFileDTO;
+import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -21,12 +22,16 @@ public class ContFileServiceImpl implements ContFileService{
     ContFileDAO contFileDAO;
 
     public static String checkMimeType(InputStream file) throws IOException {
-        return null;
+        Tika tika = new Tika();
+        String mimeType = tika.detect(file);
+        mimeType = mimeType.replaceAll(" ","");
+        mimeType = StringUtils.isEmpty(mimeType) ? "" : mimeType;
+        return mimeType;
     }
 
     @Override
-    public List<ContFileDTO> listFile(HttpSession session, ContDTO contDTO) {
-        return null;
+    public List<ContFileDTO> listFile(HttpSession session, ContFileDTO contFileDTO) {
+        return contFileDAO.listFile(contFileDTO);
     }
 
     @Override
@@ -34,15 +39,18 @@ public class ContFileServiceImpl implements ContFileService{
         Integer insertUserNo = Integer.valueOf((String)session.getAttribute("userNo"));
         String fileDesc = fileList.getParameter("fileDesc") != null ? fileList.getParameter("fileDesc") : "";
         String uuid = UUID.randomUUID().toString() + System.currentTimeMillis();
-
         try {
             MultipartFile file = fileList.getFile("file");
+            InputStream inputStream = file.getInputStream();
+            String checkMimeType = checkMimeType(inputStream);
+            Long fileSize = file.getSize();
+
             contFileDTO.setFileId(uuid);
             contFileDTO.setFileName(file.getOriginalFilename());
-            contFileDTO.setFileContent(file.getBytes());
             contFileDTO.setFileDesc(fileDesc);
+            contFileDTO.setFileContent(file.getBytes());
+            contFileDTO.setFileType(checkMimeType);
             contFileDTO.setInsertUserNo(insertUserNo);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,11 +59,11 @@ public class ContFileServiceImpl implements ContFileService{
 
     @Override
     public Integer deleteFile(HttpSession session, ContFileDTO contFileDTO) {
-        return null;
+        return contFileDAO.deleteFile(contFileDTO);
     }
 
     @Override
     public ContFileDTO downloadFile(HttpSession session, ContFileDTO contFileDTO) {
-        return null;
+        return contFileDAO.downloadFile(contFileDTO);
     }
 }

@@ -22,22 +22,20 @@
 								<th scope="row" style="text-align: center;">납품처<input type="hidden" id="contNo" value="${dto.contNo}"></th>
 								<td colspan="2">
 								<select id="custNo" class="form-control">
-								<c:forEach var="cust" items="${cust}">
+									<c:forEach var="cust" items="${cust}">
 										<option value="${cust.codeNo}">${cust.codeDesc}(${cust.mesCode})</option>
-								</c:forEach>
+									</c:forEach>
 								</select>
 								</td>
 							</tr>
 							<tr >
 								<th scope="row" style="text-align: center;">납품예정일자</th>
-								<td><input type="date" style="text-align: right;"
-									class="form-control" id="deliveryDate"
-									value="${dto.deliveryDate}">
+								<td>
+									<input type="date" style="text-align: right;" class="form-control" id="deliveryDate" value="${dto.deliveryDate}">
 								</td>
 								<th scope="row" style="text-align: center;">계약금액</th>
-								<td colspan="2"><input type="text" style="text-align: right;"
-									class="form-control num_only num_comma num_sum CHK" id="contAmount"
-									value="<fmt:formatNumber value="${dto.contAmount}" pattern="#,###"/>" placeholder="">
+								<td colspan="2">
+									<input type="text" style="text-align: right;" class="form-control num_only num_comma num_sum CHK" id="contAmount" value="<fmt:formatNumber value="${dto.contAmount}" pattern="#,###"/>" placeholder="">
 								</td>
 							</tr>
 							<tr >
@@ -57,51 +55,78 @@
 								</td>
 							</tr>
 							<tr>
-							<th scope="row">첨부파일 등록</th>
-								<td>
-									<form action = "${path}/cont/fileUpload.do"id="uploadForm" enctype="multipart/form-data" method="post">
-										<input type="hidden" id="uploadServerImageName" value="${dto.fileName}">
-										<input type="file" style="text-align: right;" class="form-control form-control-sm" name="uploadFile" id="uploadFile">
+								<th scope="row">첨부파일 등록</th>
+								<td colspan="2">
+									<form action = "${path}/cont/uploadFile/${dto.contNo}"id="uploadForm" enctype="multipart/form-data" method="post">
+										<input type="file" style="max-width: 70%; display: inline-block; text-align: left; float: left;" class="form-control form-control-sm" name="uploadFile" id="uploadFile">
+										<button type="submit" style="display: inline-block;" class="btn btn-sm btn-info">첨부파일 등록</button>
 									</form>
 								</td>
 							</tr>
-							<th scope="row">첨부파일 리스트</th>
-							<td>
-								<c:forEach var="item" items="fileList">
-
-								</c:forEach>
-							</td>
+							<tr>
+								<th scope="row">첨부파일 설명</th>
+								<td colspan="4">
+									<div>
+										<textarea style="width: 100%" name="content" id="fileDesc"></textarea>
+									</div>
+								</td>
+							</tr>
+							<tr >
+								<th scope="row">첨부파일 리스트</th>
+								<td colspan="4">
+									<table class="scrolltbody">
+										<thead>
+											<th>파일이름</th>
+											<th>등록일</th>
+											<th>용량</th>
+											<th>설명</th>
+											<th>수정</th>
+											<th>삭제</th>
+										</thead>
+										<tbody>
+											<c:forEach var="item" items="${fileList}">
+												<tr>
+													<td><a href="javascript:downloadFile('${item.fileId}');" style="text-decoration: underline">${item.fileName}</a></td>
+													<td>${item.regDatetime}</td>
+													<td>${item.fileSize}</td>
+													<td>${item.fileDesc}</td>
+													<td style="text-align: center;"><button class="btn btn-sm btn-info" onclick="javascript:modifyFile('${item.fileId}');">수정</button></td>
+													<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${item.fileId}');">삭제</button></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row" style="text-align: center;">설명</th>
-								<td colspan="4"><textarea name="comment" id="comment"
-										rows="8" class="form-control">${dto.comment}</textarea></td>
+								<td colspan="4"><textarea name="comment" id="comment" rows="8" class="form-control">${dto.comment}</textarea></td>
 							</tr>
-									<tr class="addgoods" align="center">
-										<th>계약상품</th>
-										<td>
-											<select class="form-control" id="contgoods">
-												<option value="">선택</option>
-												<c:forEach var="goods" items="${goods}">
-													<option value="${goods.goodsNo}">${goods.goodsTitle}</option>
-												</c:forEach>
-											 </select>
-										</td>
-										<td colspan="2"><input style="text-align:right" type="number" class="form-control" id="contgoodsqty"
-										min="0"	value="0">
-										</td>
-										<td><button class="form-control"onclick="fn_addgoods()">추가</button></td>
-										<td></td>
-									</tr>
-									<c:forEach var="addg" items="${addgoods}">
-										<tr class="addgoods">
-										<td></td>
-										<td style="text-align:center">${addg.goodsTitle}</td>
-										<td style="text-align:right">${addg.goodsQty}</td>
-										<td></td>
-										<td><button onclick="fn_delgoods('${addg.contdtlNo}',this)">삭제</button></td>
-										</tr>
-									</c:forEach>
+							<tr class="addgoods" align="center">
+								<th>계약상품</th>
+								<td>
+									<select class="form-control" id="contgoods">
+										<option value="">선택</option>
+										<c:forEach var="goods" items="${goods}">
+											<option value="${goods.goodsNo}">${goods.goodsTitle}</option>
+										</c:forEach>
+									 </select>
+								</td>
+								<td colspan="2">
+									<input style="text-align:right" type="number" class="form-control" id="contgoodsqty" min="0"	value="0">
+								</td>
+								<td><button class="form-control"onclick="fn_addgoods()">추가</button></td>
+								<td></td>
+							</tr>
+							<c:forEach var="addg" items="${addgoods}">
+								<tr class="addgoods">
+									<td></td>
+									<td style="text-align:center">${addg.goodsTitle}</td>
+									<td style="text-align:right">${addg.goodsQty}</td>
+									<td></td>
+									<td><button onclick="fn_delgoods('${addg.contdtlNo}',this)">삭제</button></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -122,190 +147,206 @@
 		height: 0;
 		padding-top: 66.64%;
 	}
+
+	.scrolltbody {
+		display: block;
+		width: 100%;
+		max-width: 825px;
+		border-collapse: collapse;
+		border: 2px solid #000;
+	}
+	.scrolltbody th { border: 1px solid #000; background: #888888; }
+	.scrolltbody td { border: 1px solid #000; border-top: 0; }
+	.scrolltbody tbody {
+		display: block;
+		height: 200px;
+		overflow: auto;
+	}
+	.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { min-width: 320px; }
+	.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { min-width: 100px; }
+	.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { min-width: 100px; }
+	.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { min-width: 150px; }
+	.scrolltbody th:nth-of-type(5), .scrolltbody td:nth-of-type(5) { min-width: 75px; }
+	.scrolltbody th:last-child { min-width: 75px; }
+	.scrolltbody td:last-child { min-width: calc( 75px - 19px );  }
 </style>
 <!--//상품등록-->
+<script>
+	$(document).ready(function() {
 
-	<script>
-		$(document).ready(function() {
-		});
-		
-		function numberWithCommas(x) {
-		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
+	});
 
-		function numberWitioutCommas(x) {
-			  return x.toString().replace(/[\D\s\._\-]+/g, "");
-		}
-		
-function fn_newLine1(){
-	var mescontdata = {};
-	mescontdata.custNo = $("#custNo").val();
-	mescontdata.contAmount = $("#contAmount").val().replace(/[\D\s\._\-]+/g, "");
-	mescontdata.deliveryDate = $("#deliveryDate").val();
-	mescontdata.contDate = $("#contDate").val();
-	mescontdata.contNation = $("#contNation").val();
-	mescontdata.comment = $("#comment").val();
-	mescontdata.contTitle = $("#contTitle").val();
-	console.log(mescontdata);
-	$.ajax({
-		url : "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-		data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터 
-		method : "POST", // HTTP 요청 메소드(GET, POST 등) 
-		dataType : "json" // 서버에서 보내줄 데이터의 타입 
-		})
-	.done(function(data) {
-		if(data.code == 10001){
-			var url = "${path}/cont/listcont.do"; 
-			fn_Reload02(url);
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	function numberWitioutCommas(x) {
+		  return x.toString().replace(/[\D\s\._\-]+/g, "");
+	}
+
+	function fn_newLine1(){
+		var mescontdata = {};
+		mescontdata.custNo = $("#custNo").val();
+		mescontdata.contAmount = $("#contAmount").val().replace(/[\D\s\._\-]+/g, "");
+		mescontdata.deliveryDate = $("#deliveryDate").val();
+		mescontdata.contDate = $("#contDate").val();
+		mescontdata.contNation = $("#contNation").val();
+		mescontdata.comment = $("#comment").val();
+		mescontdata.contTitle = $("#contTitle").val();
+		console.log(mescontdata);
+		$.ajax({
+			url : "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		}).done(function(data) {
+			if(data.code == 10001){
+				var url = "${path}/cont/listcont.do";
+				fn_Reload02(url);
 			}else{
-			alert("저장 실패");
+				alert("저장 실패");
 			}
-		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-		.fail(function(xhr, status, errorThrown) { 
-		alert("통신 실패");
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
 		});
 	}
-	
+
 	function fn_SetPorder(){
 		var mesporder = {};
 		mesporder.contNo = $("#contNo").val();
 		mesporder.comment = $("#comment").val();
 		console.log(mesporder);
 		$.ajax({
-			url : "${path}/cont/setPorder.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-			data : mesporder, // HTTP 요청과 함께 서버로 보낼 데이터 
-			method : "POST", // HTTP 요청 메소드(GET, POST 등) 
-			dataType : "json" // 서버에서 보내줄 데이터의 타입 
+			url : "${path}/cont/setPorder.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : mesporder, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
 			})
 		.done(function(data) {
 			if(data.code == 10001){
-				var url = "${path}/cont/listcont.do"; 
+				var url = "${path}/cont/listcont.do";
 				fn_Reload02(url);
 				}else{
 				alert("저장 실패");
 				}
-			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-			.fail(function(xhr, status, errorThrown) { 
+			}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
 			alert("통신 실패");
-			});
+		});
 	}
 			
-function fn_updateLine1(){
-	var mescontdata = {};
-	mescontdata.contNo = $("#contNo").val();
-	mescontdata.custNo = $("#custNo").val();
-	mescontdata.contAmount = $("#contAmount").val().replace(/[\D\s\._\-]+/g, "");
-	mescontdata.deliveryDate = $("#deliveryDate").val();
-	mescontdata.contDate = $("#contDate").val();
-	mescontdata.contNation = $("#contNation").val();
-	mescontdata.comment = $("#comment").val();
-	mescontdata.contTitle = $("#contTitle").val();
-	console.log(mescontdata);
-	$.ajax({
-		url : "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-		data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터
-		method : "POST", // HTTP 요청 메소드(GET, POST 등)
-		dataType : "json" // 서버에서 보내줄 데이터의 타입
-		})
-	.done(function(data) {
-		if(data.code == 10001){
-			var url = "${path}/cont/listcont.do"; 
-			fn_Reload02(url);
-			}else{
-			alert("저장 실패");
-			}
-		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨. 
-		.fail(function(xhr, status, errorThrown) { 
-		alert("통신 실패");
+	function fn_updateLine1(){
+		var mescontdata = {};
+		mescontdata.contNo = $("#contNo").val();
+		mescontdata.custNo = $("#custNo").val();
+		mescontdata.contAmount = $("#contAmount").val().replace(/[\D\s\._\-]+/g, "");
+		mescontdata.deliveryDate = $("#deliveryDate").val();
+		mescontdata.contDate = $("#contDate").val();
+		mescontdata.contNation = $("#contNation").val();
+		mescontdata.comment = $("#comment").val();
+		mescontdata.contTitle = $("#contTitle").val();
+		console.log(mescontdata);
+		$.ajax({
+			url : "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		}).done(function(data) {
+			if(data.code == 10001){
+				var url = "${path}/cont/listcont.do";
+				fn_Reload02(url);
+				}else{
+				alert("저장 실패");
+				}
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
 		});
 	}
 
-		$("#goodsImage").change(function (event) {
-			var formData = new FormData(document.getElementById("uploadForm"));
-			if(this.files && this.files[0]){
-				var reader = new FileReader();
-				reader.onload = function (data) {
-					$("#oldImage").remove();
-					$("#newImage").show();
-					$("#imagenow").attr("src", data.target.result);
-				}
-				reader.readAsDataURL(this.files[0]);
-			}
-			$.ajax({
-				type: "post",
-				url	:'${path}/file/upload',
-				data: formData,
-				contentType: false,
-				processData: false,
-				success:function (data){
-					console.log(data);
-					$("#uploadServerImageName").val(data);
-					console.log('이미지 업로드 성공');
-				}
-			})
-		})
-		
-		
-function fn_addgoods(){
+	function fn_addgoods(){
 		var CONid = $("#contNo").val();
 		if (CONid != ""){
-		var contaddgoods ={};
-		contaddgoods.contNo = Number(CONid);
-		contaddgoods.goodsNo = $("#contgoods").val();
-		contaddgoods.goodsQty = $("#contgoodsqty").val();
-		if(contaddgoods.goodsNo == ""){
-			alert("상품을 선택해 주세요.");
-			$("#contgoods").focus();
-			return;
-		}
-		else if(contaddgoods.goodsQty < 1){
-			alert("수량을 입력해 주세요.");
-			$("#contgoodsqty").focus();
-			return;
-		}
-		console.log(contaddgoods);
-		$.ajax({
-			url : "${path}/cont/addgoods.do",  
-			data : contaddgoods,  
-			method : "POST",  
-			dataType : "json"  
-		})
-		.done(function(res) {
-		alert("저장성공");
-		var innerHtml = "";
-		innerHtml += '<tr> <td></td>';
-		innerHtml += '<td style="text-align:center">'+$("#contgoods option:checked").text()+' </td>';
-		innerHtml += '<td style="text-align:right">'+$("#contgoodsqty").val()+'</td>';
-		innerHtml += '<td></td>';
-		innerHtml += '<td><button onclick="fn_delgoods(\''+res.data+'\',this)">삭제</button></td>';
-		innerHtml += "</tr>";
-		$("#contdtlTable > tbody > tr[class=addgoods]:last").after(innerHtml);
-		$("#contgoods").val("");
-		$("#contgoodsqty").val("0");
-		});
-		}
-		else
-			{
-			alert("계약기본사항을 먼저 저장해 주세요!!");
+			var contaddgoods = {};
+			contaddgoods.contNo = Number(CONid);
+			contaddgoods.goodsNo = $("#contgoods").val();
+			contaddgoods.goodsQty = $("#contgoodsqty").val();
+			if(contaddgoods.goodsNo == ""){
+				alert("상품을 선택해 주세요.");
+				$("#contgoods").focus();
+				return;
+			} else if(contaddgoods.goodsQty < 1){
+				alert("수량을 입력해 주세요.");
+				$("#contgoodsqty").focus();
+				return;
 			}
-	}	
-		
-		
-		function fn_delgoods(contdtlNo, e){
-			var contdeladdgoods ={};
-			contdeladdgoods.contdtlNo = Number(contdtlNo); 
-			console.log(contdeladdgoods);
-
+			console.log(contaddgoods);
 			$.ajax({
-				url : "${path}/cont/deladdgoods.do",  
-				data : contdeladdgoods,  
-				method : "POST",  
-				dataType : "json"  
-			})
-			.done(function(data) {
-				alert("삭제성공");
-				$(e).parent().parent().remove();
+				url : "${path}/cont/addgoods.do",
+				data : contaddgoods,
+				method : "POST",
+				dataType : "json"
+			}).done(function(res) {
+				alert("저장성공");
+				var innerHtml = "";
+				innerHtml += '<tr> <td></td>';
+				innerHtml += '<td style="text-align:center">'+$("#contgoods option:checked").text()+' </td>';
+				innerHtml += '<td style="text-align:right">'+$("#contgoodsqty").val()+'</td>';
+				innerHtml += '<td></td>';
+				innerHtml += '<td><button onclick="fn_delgoods(\''+res.data+'\',this)">삭제</button></td>';
+				innerHtml += "</tr>";
+				$("#contdtlTable > tbody > tr[class=addgoods]:last").after(innerHtml);
+				$("#contgoods").val("");
+				$("#contgoodsqty").val("0");
+			});
+		} else {
+			alert("계약기본사항을 먼저 저장해 주세요!!");
+		}
+	}
+		
+	function fn_delgoods(contdtlNo, e){
+		var contdeladdgoods ={};
+		contdeladdgoods.contdtlNo = Number(contdtlNo);
+		console.log(contdeladdgoods);
+
+		$.ajax({
+			url : "${path}/cont/deladdgoods.do",
+			data : contdeladdgoods,
+			method : "POST",
+			dataType : "json"
+		}).done(function(data) {
+			alert("삭제성공");
+			$(e).parent().parent().remove();
+		});
+	}
+
+	function uploadFile() {
+		var uploadForm = $('#uploadForm')[0];
+		var uploadData = new FormData(uploadForm);
+
+		if(!uploadData.get('file').name) {
+			alert('파일을 선택해주세요');
+		}else {
+			uploadData.append('fileDesc', $('#fileDesc').val());
+			$.ajax({
+				url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
+				method : "POST",
+				data : uploadData,
+				contentType : false,
+				processData : false
+			}).done(function(result){
+				if(result.code == 10001){
+					alert('파일 업로드 완료');
+					$("#fileUploadModal").modal("hide");
+					var html = fileTableCreate(result.data);
+					$("#ItemFilelist").empty();
+					$("#ItemFilelist").html(html);
+					$("#tablist > li:nth-child(4) > a")[0].innerText = "파일첨부("+result.data.length+")";
+				}else {
+					alert('파일 업로드 실패');
+				}
+			}).fail(function(xhr, status, errorThrown) {
+				alert("통신 실패");
 			});
 		}
-
-	</script>
+	}
+</script>

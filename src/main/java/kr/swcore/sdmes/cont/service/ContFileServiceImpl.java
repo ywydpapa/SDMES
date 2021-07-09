@@ -36,7 +36,7 @@ public class ContFileServiceImpl implements ContFileService{
 
     @Override
     public Integer uploadFile(HttpSession session, ContFileDTO contFileDTO, MultipartHttpServletRequest fileList) {
-        Integer insertUserNo = Integer.valueOf((String)session.getAttribute("userNo"));
+        Integer insertUserNo = (Integer) session.getAttribute("userNo");
         String fileDesc = fileList.getParameter("fileDesc") != null ? fileList.getParameter("fileDesc") : "";
         String uuid = UUID.randomUUID().toString() + System.currentTimeMillis();
         try {
@@ -49,12 +49,14 @@ public class ContFileServiceImpl implements ContFileService{
             contFileDTO.setFileName(file.getOriginalFilename());
             contFileDTO.setFileDesc(fileDesc);
             contFileDTO.setFileContent(file.getBytes());
+            contFileDTO.setFileSize(fileSize);
             contFileDTO.setFileType(checkMimeType);
             contFileDTO.setInsertUserNo(insertUserNo);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return contFileDAO.uploadFile(contFileDTO);
+        Integer result = contFileDAO.uploadFile(contFileDTO);
+        return result;
     }
 
     @Override

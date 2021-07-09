@@ -36,8 +36,10 @@ public class UserController {
 			mav.setViewName("main");
 			mav.addObject("msg", "Success");
 			session.setAttribute("userId", userInfo.getUserId());
+			session.setAttribute("userNo", userInfo.getUserNo());
 			session.setAttribute("userName", userInfo.getUserName());
 			session.setAttribute("userRole", userInfo.getUserRole());
+			session.setAttribute("compNo", userInfo.getCompNo());
 		}else{
 			mav.setViewName("user/login");
 		}

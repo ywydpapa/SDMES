@@ -57,10 +57,10 @@
 							<tr>
 								<th scope="row">첨부파일 등록</th>
 								<td colspan="2">
-									<form action = "${path}/cont/uploadFile/${dto.contNo}"id="uploadForm" enctype="multipart/form-data" method="post">
-										<input type="file" style="max-width: 70%; display: inline-block; text-align: left; float: left;" class="form-control form-control-sm" name="uploadFile" id="uploadFile">
-										<button type="submit" style="display: inline-block;" class="btn btn-sm btn-info">첨부파일 등록</button>
-									</form>
+										<form id="uploadForm">
+											<input type="file" name="file" id="fileUpload" style="max-width: 70%; display: inline-block; text-align: left; float: left;" class="form-control form-control-sm"/>
+										</form>
+										<button type="button" style="display: inline-block; float: left; margin-left: 5px;" class="btn btn-sm btn-info" onclick="uploadFile()">첨부파일 등록</button>
 								</td>
 							</tr>
 							<tr>
@@ -74,24 +74,24 @@
 							<tr >
 								<th scope="row">첨부파일 리스트</th>
 								<td colspan="4">
-									<table class="scrolltbody">
+									<table id="scrolltbody" class="scrolltbody">
 										<thead>
 											<th>파일이름</th>
 											<th>등록일</th>
-											<th>용량</th>
+											<th>용량(byte)</th>
 											<th>설명</th>
-											<th>수정</th>
+<%--											<th>수정</th>--%>
 											<th>삭제</th>
 										</thead>
 										<tbody>
 											<c:forEach var="item" items="${fileList}">
 												<tr>
-													<td><a href="javascript:downloadFile('${item.fileId}');" style="text-decoration: underline">${item.fileName}</a></td>
+													<td title="${item.fileName}"><a href="javascript:downloadFile('${item.fileId}');" style="text-decoration: underline">${item.fileName}</a></td>
 													<td>${item.regDatetime}</td>
-													<td>${item.fileSize}</td>
-													<td>${item.fileDesc}</td>
-													<td style="text-align: center;"><button class="btn btn-sm btn-info" onclick="javascript:modifyFile('${item.fileId}');">수정</button></td>
-													<td style="text-align: center;"><button class="btn btn-sm btn-inverse" onclick="javascript:deleteFile('${item.fileId}');">삭제</button></td>
+													<td title="${item.fileSize}">${item.fileSize}</td>
+													<td title="${item.fileDesc}">${item.fileDesc}</td>
+<%--													<td style="text-align: center;"><button class="btn btn-sm btn-info" onclick="javascript:modifyFile('${item.fileId}');">수정</button></td>--%>
+													<td style="text-align: center;"><button class="btn btn-sm btn-dark" onclick="javascript:deleteFile('${item.fileId}');">삭제</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -151,7 +151,7 @@
 	.scrolltbody {
 		display: block;
 		width: 100%;
-		max-width: 825px;
+		max-width: 819px;
 		border-collapse: collapse;
 		border: 2px solid #000;
 	}
@@ -160,15 +160,16 @@
 	.scrolltbody tbody {
 		display: block;
 		height: 200px;
-		overflow: auto;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
-	.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { min-width: 320px; }
-	.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { min-width: 100px; }
-	.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { min-width: 100px; }
-	.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { min-width: 150px; }
-	.scrolltbody th:nth-of-type(5), .scrolltbody td:nth-of-type(5) { min-width: 75px; }
-	.scrolltbody th:last-child { min-width: 75px; }
-	.scrolltbody td:last-child { min-width: calc( 75px - 19px );  }
+	.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { min-width: 360px; max-width: 360px; width: 360px; text-overflow: ellipsis; overflow: hidden;}
+	.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { min-width: 110px; max-width: 110px; width: 110px; text-overflow: ellipsis; overflow: hidden;}
+	.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { min-width: 100px; max-width: 100px; width: 100px; text-overflow: ellipsis; overflow: hidden;}
+	.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { min-width: 150px; max-width: 150px; width: 150px; text-overflow: ellipsis; overflow: hidden;}
+	/*.scrolltbody th:nth-of-type(5), .scrolltbody td:nth-of-type(5) { min-width: 75px; }*/
+	.scrolltbody th:last-child { min-width: 95px; }
+	.scrolltbody td:last-child { min-width: calc( 95px - 19px );  }
 </style>
 <!--//상품등록-->
 <script>
@@ -319,28 +320,56 @@
 		});
 	}
 
-	function uploadFile() {
-		var uploadForm = $('#uploadForm')[0];
-		var uploadData = new FormData(uploadForm);
+	function fileListLoad(){
+		$("#scrolltbody > tbody").empty();
+		$("#fileUpload").val("");
+		$("#fileDesc").val("");
+		$.ajax({
+			url : "${path}/contFile/listFile/"+$("#contNo").val(),
+			method : "GET",
+			contentType : false,
+			processData : false
+		}).done(function(result){
+			if(result.code == 10001){
+				if(result.data.length > 0){
+					var html = "";
+					var data = result.data;
+					for(var i=0; i<data.length; i++){
+						html = html + '<tr>' +
+								'<td title="'+data[i].fileName+'"><a href="javascript:downloadFile(\''+data[i].fileId+'\');" style="text-decoration: underline">'+data[i].fileName+'</a></td>'+
+								'<td>'+data[i].regDatetime+'</td>'+
+								'<td title="'+data[i].fileSize+'">'+data[i].fileSize+'</td>'+
+								'<td title="'+data[i].fileDesc+'">'+data[i].fileDesc+'</td>'+
+								'<td style="text-align: center;"><button class="btn btn-sm btn-dark" onclick="javascript:deleteFile(\''+data[i].fileId+'\');">삭제</button></td>'+
+							'</tr>';
+					}
+					$("#scrolltbody > tbody").html(html);
+				}
+			}else {
+				alert('파일 리스트 불러오기 실패');
+			}
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
 
-		if(!uploadData.get('file').name) {
+	function uploadFile() {
+		var formData = new FormData($('#uploadForm')[0]);
+		formData.append('fileDesc', $('#fileDesc').val());
+
+		if(!formData.get('file').name) {
 			alert('파일을 선택해주세요');
 		}else {
-			uploadData.append('fileDesc', $('#fileDesc').val());
 			$.ajax({
-				url : "${path}/sopp/uploadfile/"+$("#soppNo").val(),
+				url : "${path}/contFile/uploadFile/"+$("#contNo").val(),
 				method : "POST",
-				data : uploadData,
+				data : formData,
 				contentType : false,
 				processData : false
 			}).done(function(result){
 				if(result.code == 10001){
 					alert('파일 업로드 완료');
-					$("#fileUploadModal").modal("hide");
-					var html = fileTableCreate(result.data);
-					$("#ItemFilelist").empty();
-					$("#ItemFilelist").html(html);
-					$("#tablist > li:nth-child(4) > a")[0].innerText = "파일첨부("+result.data.length+")";
+					fileListLoad();
 				}else {
 					alert('파일 업로드 실패');
 				}
@@ -348,5 +377,54 @@
 				alert("통신 실패");
 			});
 		}
+	}
+
+	function deleteFile(fileId) {
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return false;
+		}
+
+		var deleteData = {};
+		deleteData.contNo = $("#contNo").val();
+		deleteData.fileId = fileId;
+
+		$.ajax({
+			url : "${path}/contFile/deleteFile/"+$("#contNo").val()+"/"+fileId,
+			data : deleteData,
+			method : "POST",
+		}).done(function(result, status, xhr){
+			if(result.code == 10001){
+				alert('파일 삭제 완료');
+				fileListLoad();
+			}else {
+				alert('파일 삭제 실패');
+			}
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+
+	function downloadFile(fileId) {
+		var downloadData = {};
+		downloadData.contNo = $("#contNo").val();
+		downloadData.fileId = fileId;
+
+		$.ajax({
+			url : "${path}/contFile/downloadFile/"+$("#contNo").val()+"/"+fileId,
+			data : downloadData,
+			method : "POST",
+			xhrFields: {
+				responseType: 'blob'
+			},
+		}).done(function(data, status, xhr){
+			var fileName = xhr.getResponseHeader('content-disposition');
+			var link = document.createElement('a');
+			link.href = window.URL.createObjectURL(data);
+			link.download = fileName;
+			link.click();
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 </script>

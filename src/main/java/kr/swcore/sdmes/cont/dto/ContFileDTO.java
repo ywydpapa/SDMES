@@ -2,8 +2,6 @@ package kr.swcore.sdmes.cont.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 @Data
 public class ContFileDTO {
     private String fileId;
@@ -16,7 +14,7 @@ public class ContFileDTO {
     private Integer contNo;
     private Integer insertUserNo;
     private Integer modifyUserNo;
-    private Timestamp regDatetime;
-    private Timestamp modDatetime;
+    private String regDatetime;
+    private String modDatetime;
     private String attrib;
 }

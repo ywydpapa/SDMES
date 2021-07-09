@@ -1,6 +1,5 @@
 package kr.swcore.sdmes.cont.dao;
 
-import kr.swcore.sdmes.cont.dto.ContDTO;
 import kr.swcore.sdmes.cont.dto.ContFileDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -16,17 +15,17 @@ public class ContFileDAOImpl implements ContFileDAO{
 
     @Override
     public List<ContFileDTO> listFile(ContFileDTO contFileDTO) {
-        return sqlSession.selectOne("contFile.listFile", contFileDTO);
+        return sqlSession.selectList("contFile.listFile", contFileDTO);
     }
 
     @Override
     public Integer uploadFile(ContFileDTO contFileDTO) {
-        return sqlSession.selectOne("contFile.uploadFile", contFileDTO);
+        return sqlSession.insert("contFile.uploadFile", contFileDTO);
     }
 
     @Override
     public Integer deleteFile(ContFileDTO contFileDTO) {
-        return sqlSession.selectOne("contFile.deleteFile", contFileDTO);
+        return sqlSession.update("contFile.deleteFile", contFileDTO);
     }
 
     @Override

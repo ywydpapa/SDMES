@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
+import kr.swcore.sdmes.cont.dto.ContFileDTO;
+import kr.swcore.sdmes.cont.service.ContFileService;
+import kr.swcore.sdmes.util.SessionInfoGet;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +27,9 @@ public class ContController {
 	
 	@Inject
 	ContService contService;
+
+	@Inject
+	ContFileService contFileService;
 	
 	@Inject
 	GoodsService goodsService;
@@ -79,14 +86,19 @@ public class ContController {
 
 	
 	@RequestMapping("/detail/{contNo}")
-	public ModelAndView gddetail(@PathVariable("contNo") Integer contNo, ModelAndView mav) {
+	public ModelAndView gddetail(HttpSession session, @PathVariable("contNo") Integer contNo, ModelAndView mav) {
 		mav.setViewName("cont/detailcont");
 		mav.addObject("dto",contService.contDetail(contNo));
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("addgoods",contService.listaddGoods(contNo));
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
-		mav.addObject("fileList",null);
+
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		ContFileDTO contDTO = new ContFileDTO();
+		contDTO.setContNo(contNo);
+		contDTO.setCompNo(compNo);
+		mav.addObject("fileList",contFileService.listFile(session, contDTO));
 		return mav;
 	}
 	

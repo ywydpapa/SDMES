@@ -1,7 +1,6 @@
 package kr.swcore.sdmes.cont;
 
 import kr.swcore.sdmes.code.service.CodeService;
-import kr.swcore.sdmes.cont.dto.ContDTO;
 import kr.swcore.sdmes.cont.dto.ContFileDTO;
 import kr.swcore.sdmes.cont.service.ContFileService;
 import kr.swcore.sdmes.util.SessionInfoGet;
@@ -12,13 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,11 +33,11 @@ public class ContFileController {
     @Inject
     CodeService codeService;
 
-    @RequestMapping("/listFile/{cont}")
-    public ResponseEntity<?> listFile(HttpSession session, @PathVariable("cont") Integer cont) throws IOException {
-        Integer compNo = SessionInfoGet.getCompNo(session);
+    @RequestMapping("/listFile/{contNo}")
+    public ResponseEntity<?> listFile(HttpSession session, @PathVariable("contNo") Integer contNo) throws IOException {
+        Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
         ContFileDTO contDTO = new ContFileDTO();
-        contDTO.setContNo(cont);
+        contDTO.setContNo(contNo);
         contDTO.setCompNo(compNo);
 
         List<ContFileDTO> ContFileDTOList = contFileService.listFile(session, contDTO);
@@ -55,11 +52,11 @@ public class ContFileController {
         return ResponseEntity.ok(param);
     }
 
-    @RequestMapping("/uploadFile/{cont}")
-    public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("cont") Integer cont, MultipartHttpServletRequest fileList) throws IOException {
-        Integer compNo = SessionInfoGet.getCompNo(session);
+    @RequestMapping("/uploadFile/{contNo}")
+    public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("contNo") Integer contNo, MultipartHttpServletRequest fileList) throws IOException {
+        Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
         ContFileDTO contFileDTO = new ContFileDTO();
-        contFileDTO.setContNo(cont);
+        contFileDTO.setContNo(contNo);
         contFileDTO.setCompNo(compNo);
 
         Integer result = contFileService.uploadFile(session, contFileDTO, fileList);
@@ -75,11 +72,11 @@ public class ContFileController {
         return ResponseEntity.ok(param);
     }
 
-    @RequestMapping("/deleteFile/{cont}/{fileId}")
-    public ResponseEntity<?> deleteFile(HttpSession session, @PathVariable("cont") Integer cont, @PathVariable("fileId") String fileId){
-        Integer compNo = SessionInfoGet.getCompNo(session);
+    @RequestMapping("/deleteFile/{contNo}/{fileId}")
+    public ResponseEntity<?> deleteFile(HttpSession session, @PathVariable("contNo") Integer contNo, @PathVariable("fileId") String fileId){
+        Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
         ContFileDTO contFileDTO = new ContFileDTO();
-        contFileDTO.setContNo(cont);
+        contFileDTO.setContNo(contNo);
         contFileDTO.setFileId(fileId);
         contFileDTO.setCompNo(compNo);
 
@@ -95,11 +92,11 @@ public class ContFileController {
         return ResponseEntity.ok(param);
     }
 
-    @RequestMapping("/downloadfile/{cont}/{fileId}")
-    public ResponseEntity<?> downloadFile(HttpSession session, @PathVariable("cont") Integer cont, @PathVariable("fileId") String fileId) throws IOException {
-        Integer compNo = SessionInfoGet.getCompNo(session);
+    @RequestMapping("/downloadFile/{contNo}/{fileId}")
+    public ResponseEntity<?> downloadFile(HttpSession session, @PathVariable("contNo") Integer contNo, @PathVariable("fileId") String fileId) throws IOException {
+        Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
         ContFileDTO contFileDTO = new ContFileDTO();
-        contFileDTO.setContNo(cont);
+        contFileDTO.setContNo(contNo);
         contFileDTO.setFileId(fileId);
         contFileDTO.setCompNo(compNo);
 

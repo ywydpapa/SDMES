@@ -17,4 +17,5 @@ public class ContFileDTO {
     private String regDatetime;
     private String modDatetime;
     private String attrib;
+    private String tempFileld;
 }

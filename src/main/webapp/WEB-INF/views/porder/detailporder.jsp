@@ -48,7 +48,7 @@
 		function numberWitioutCommas(x) {
 			  return x.toString().replace(/[\D\s\._\-]+/g, "");
 		}
-		
+
 		function fn_updateLines(){
 			var $Aarr = $(".cdNo");
 			var $Barr = $(".PrdQty");
@@ -58,10 +58,10 @@
 				mesdata.prdQty = Number($Barr[i].value.replace(/[\D\s\._\-]+/g, ""));
 				console.log(mesdata);
 				$.ajax({
-					url : "${path}/cont/updateaddgoods.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-					data : mesdata, // HTTP 요청과 함께 서버로 보낼 데이터 
-					method : "POST", // HTTP 요청 메소드(GET, POST 등) 
-					dataType : "json" // 서버에서 보내줄 데이터의 타입 
+					url : "${path}/cont/updateaddgoods.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+					data : mesdata, // HTTP 요청과 함께 서버로 보낼 데이터
+					method : "POST", // HTTP 요청 메소드(GET, POST 등)
+					dataType : "json" // 서버에서 보내줄 데이터의 타입
 				})
 				.done(function(data) {
 				});
@@ -71,5 +71,4 @@
 			fn_Reload03(url3);
 		}
 
-		
 	</script>

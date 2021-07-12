@@ -4,12 +4,14 @@ import java.util.List;
 
 import kr.swcore.sdmes.cont.dto.ContDTO;
 
+import javax.servlet.http.HttpSession;
+
 public interface ContService {
 
 	ContDTO contDetail(Integer contNo);
 	List<ContDTO> listCont();
 	List<ContDTO> listPorder();
-	Integer insertCont(ContDTO dto);
+	Integer insertCont(HttpSession session, ContDTO dto);
 	Integer updateCont(ContDTO dto);
 	Integer deleteCont(ContDTO dto);
 	Integer insertaddGoods(ContDTO dto);

@@ -67,12 +67,16 @@ public class ContController {
 	
 	
 	@RequestMapping("writecont.do")
-	public ModelAndView wcont(ModelAndView mav) {
+	public ModelAndView wcont(HttpSession session, ModelAndView mav) {
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		Integer userNo = (Integer) session.getAttribute("userNo");
+
 		mav.setViewName("cont/detailcont");
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
 		mav.addObject("fileList",null);
+		mav.addObject("tempFileld", compNo+"-"+userNo+"-"+System.currentTimeMillis());
 		return mav;
 	}
 	
@@ -111,9 +115,9 @@ public class ContController {
 
 	
 	@RequestMapping("insert.do")
-	public ResponseEntity<?> insert(@ModelAttribute ContDTO dto) {
+	public ResponseEntity<?> insert(HttpSession session, @ModelAttribute ContDTO dto) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		int codeInsert = contService.insertCont(dto);
+		int codeInsert = contService.insertCont(session, dto);
 		if (codeInsert >0) {
 			param.put("code","10001"); 
 		}

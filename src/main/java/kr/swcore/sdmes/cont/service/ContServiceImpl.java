@@ -3,7 +3,11 @@ package kr.swcore.sdmes.cont.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
+import kr.swcore.sdmes.cont.dao.ContFileDAO;
+import kr.swcore.sdmes.cont.dto.ContFileDTO;
+import kr.swcore.sdmes.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
 import kr.swcore.sdmes.cont.dao.ContDAO;
@@ -14,6 +18,9 @@ public class ContServiceImpl implements ContService {
 
 	@Inject
 	ContDAO contDao;
+
+	@Inject
+	ContFileDAO contFileDAO;
 	
 	@Override
 	public ContDTO contDetail(Integer contNo) {
@@ -28,9 +35,23 @@ public class ContServiceImpl implements ContService {
 	}
 
 	@Override
-	public Integer insertCont(ContDTO dto) {
-		// TODO Auto-generated method stub
-		return contDao.insertCont(dto);
+	public Integer insertCont(HttpSession session, ContDTO dto) {
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		Integer reuslt = 0;
+		try{
+			contDao.insertCont(dto);
+			if(!dto.getTempFileld().equals("")){
+				ContFileDTO contFileDTO = new ContFileDTO();
+				contFileDTO.setContNo(dto.getContNo());
+				contFileDTO.setTempFileld(dto.getTempFileld());
+				contFileDTO.setCompNo(compNo);
+				contFileDAO.uploadFileWithNew(contFileDTO);
+			}
+			reuslt = 1;
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return reuslt;
 	}
 
 	@Override

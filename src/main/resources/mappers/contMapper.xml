@@ -28,6 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into swcmes_cont  
 	(custNo,contTitle,contAmount,contDate,deliveryDate,contNation,porderNo,comment,regDate,attrib)
 	values (#{custNo},#{contTitle},#{contAmount},#{contDate},#{deliveryDate},#{contNation},#{porderNo},#{comment},now(),'10000')
+	<selectKey keyProperty="contNo" resultType="integer"  order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
 </insert>
 
 <insert id="addgoods">

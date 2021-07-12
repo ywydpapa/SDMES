@@ -80,7 +80,6 @@
 											<th>등록일</th>
 											<th>용량(byte)</th>
 											<th>설명</th>
-<%--											<th>수정</th>--%>
 											<th>삭제</th>
 										</thead>
 										<tbody>
@@ -90,7 +89,6 @@
 													<td>${item.regDatetime}</td>
 													<td title="${item.fileSize}">${item.fileSize}</td>
 													<td title="${item.fileDesc}">${item.fileDesc}</td>
-<%--													<td style="text-align: center;"><button class="btn btn-sm btn-info" onclick="javascript:modifyFile('${item.fileId}');">수정</button></td>--%>
 													<td style="text-align: center;"><button class="btn btn-sm btn-dark" onclick="javascript:deleteFile('${item.fileId}');">삭제</button></td>
 												</tr>
 											</c:forEach>
@@ -194,6 +192,11 @@
 		mescontdata.contNation = $("#contNation").val();
 		mescontdata.comment = $("#comment").val();
 		mescontdata.contTitle = $("#contTitle").val();
+
+		<c:if test="${not empty tempFileld}">
+		mescontdata.tempFileld = '${tempFileld}';
+		</c:if>
+
 		console.log(mescontdata);
 		$.ajax({
 			url : "${path}/cont/insert.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
@@ -324,11 +327,23 @@
 		$("#scrolltbody > tbody").empty();
 		$("#fileUpload").val("");
 		$("#fileDesc").val("");
+
+		var contNo = $("#contNo").val();
+		if(contNo == "") {
+			contNo = 0;
+		}
+
+		<c:if test="${not empty tempFileld}">
+		var loadData = {};
+		loadData.tempFileld = '${tempFileld}';
+		</c:if>
+
 		$.ajax({
-			url : "${path}/contFile/listFile/"+$("#contNo").val(),
+			url : "${path}/contFile/listFile/"+contNo,
+			<c:if test="${not empty tempFileld}">
+			data : loadData,
+			</c:if>
 			method : "GET",
-			contentType : false,
-			processData : false
 		}).done(function(result){
 			if(result.code == 10001){
 				if(result.data.length > 0){
@@ -356,12 +371,20 @@
 	function uploadFile() {
 		var formData = new FormData($('#uploadForm')[0]);
 		formData.append('fileDesc', $('#fileDesc').val());
+		<c:if test="${not empty tempFileld}">
+		formData.append('tempFileld', '${tempFileld}');
+		</c:if>
+
+		var contNo = $("#contNo").val();
+		if(contNo == "") {
+			contNo = 0;
+		}
 
 		if(!formData.get('file').name) {
 			alert('파일을 선택해주세요');
 		}else {
 			$.ajax({
-				url : "${path}/contFile/uploadFile/"+$("#contNo").val(),
+				url : "${path}/contFile/uploadFile/"+contNo,
 				method : "POST",
 				data : formData,
 				contentType : false,
@@ -384,12 +407,17 @@
 			return false;
 		}
 
+		var contNo = $("#contNo").val();
+		if(contNo == "") {
+			contNo = 0;
+		}
+
 		var deleteData = {};
-		deleteData.contNo = $("#contNo").val();
+		deleteData.contNo = contNo;
 		deleteData.fileId = fileId;
 
 		$.ajax({
-			url : "${path}/contFile/deleteFile/"+$("#contNo").val()+"/"+fileId,
+			url : "${path}/contFile/deleteFile/"+contNo+"/"+fileId,
 			data : deleteData,
 			method : "POST",
 		}).done(function(result, status, xhr){

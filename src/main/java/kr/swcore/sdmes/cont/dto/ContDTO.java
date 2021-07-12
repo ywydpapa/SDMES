@@ -27,4 +27,7 @@ public class ContDTO {
 	private String contNation;
 	private Integer compNo;
 
+	// extends DTO
+	private String tempFileld;
+
 }

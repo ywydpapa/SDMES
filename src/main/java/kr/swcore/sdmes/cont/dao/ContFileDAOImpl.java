@@ -24,6 +24,16 @@ public class ContFileDAOImpl implements ContFileDAO{
     }
 
     @Override
+    public Integer uploadFileWithNew(ContFileDTO contFileDTO) {
+        return sqlSession.update("contFile.uploadFileWithNew", contFileDTO);
+    }
+
+    @Override
+    public Integer deleteFileWithFile(ContFileDTO contFileDTO) {
+        return sqlSession.update("contFile.deleteFileWithFile", contFileDTO);
+    }
+
+    @Override
     public Integer deleteFile(ContFileDTO contFileDTO) {
         return sqlSession.update("contFile.deleteFile", contFileDTO);
     }

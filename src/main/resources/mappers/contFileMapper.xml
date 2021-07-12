@@ -7,19 +7,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listFile" resultType="ContFileDto">
 		select *
 		from swc_contfiledata
-		where attrib not like 'XXX%' and contNo = #{contNo} and compNo = #{compNo} order by regDatetime desc;
+		where attrib not like 'XXX%' and (contNo = #{contNo} or tempFileld = #{tempFileld}) and compNo = #{compNo} order by regDatetime desc;
 	</select>
 
 	<insert id="uploadFile">
 		insert into swc_contfiledata
-		(fileId, compNo, fileName, fileDesc, fileContent, fileSize, fileType, contNo, insertUserNo, modifyUserNo, regDatetime, modDatetime, attrib)
-		values (#{fileId}, #{compNo}, #{fileName}, #{fileDesc}, #{fileContent}, #{fileSize}, #{fileType}, #{contNo}, #{insertUserNo}, null, now(), null, '10000')
+		(fileId, compNo, fileName, fileDesc, fileContent, fileSize, fileType, contNo, insertUserNo, modifyUserNo, regDatetime, modDatetime, tempFileld, attrib)
+		values (#{fileId}, #{compNo}, #{fileName}, #{fileDesc}, #{fileContent}, #{fileSize}, #{fileType}, #{contNo}, #{insertUserNo}, null, now(), null, #{tempFileld}, '10000')
 	</insert>
 
 	<update id="deleteFile">
 		update swc_contfiledata
 		set modifyUserNo = #{modifyUserNo}, modDatetime = now(), attrib = 'XXX'
 		where attrib not like 'XXX%' and fileId = #{fileId} and compNo = #{compNo}
+	</update>
+
+	<update id="uploadFileWithNew">
+		update swc_contfiledata
+		set contNo = #{contNo}
+		where attrib not like 'XXX%' and tempFileld = #{tempFileld} and compNo = #{compNo}
+	</update>
+
+	<update id="deleteFileWithFile">
 	</update>
 
 	<select id="downloadFile" resultType="ContFileDto">

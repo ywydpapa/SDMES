@@ -11,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.inject.Inject;
@@ -34,15 +36,13 @@ public class ContFileController {
     CodeService codeService;
 
     @RequestMapping("/listFile/{contNo}")
-    public ResponseEntity<?> listFile(HttpSession session, @PathVariable("contNo") Integer contNo) throws IOException {
+    public ResponseEntity<?> listFile(HttpSession session, @PathVariable("contNo") Integer contNo, @ModelAttribute ContFileDTO contFileDTO) throws IOException {
         Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
-        ContFileDTO contDTO = new ContFileDTO();
-        contDTO.setContNo(contNo);
-        contDTO.setCompNo(compNo);
+        contFileDTO.setCompNo(compNo);
 
-        List<ContFileDTO> ContFileDTOList = contFileService.listFile(session, contDTO);
+        List<ContFileDTO> ContFileDTOList = contFileService.listFile(session, contFileDTO);
         Map<String, Object> param = new HashMap<String, Object>();
-        if(ContFileDTOList != null && ContFileDTOList.size() > 0) {
+        if(ContFileDTOList != null && ContFileDTOList.size() >= 0) {
             param.put("code", "10001");
             param.put("data", ContFileDTOList);
         } else {
@@ -53,10 +53,15 @@ public class ContFileController {
     }
 
     @RequestMapping("/uploadFile/{contNo}")
-    public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("contNo") Integer contNo, MultipartHttpServletRequest fileList) throws IOException {
+    public ResponseEntity<?> uploadFile(HttpSession session, @PathVariable("contNo") Integer contNo, @RequestParam(required = false, value = "tempFileld") String tempFileld, MultipartHttpServletRequest fileList) throws IOException {
         Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+        Integer userNo = (Integer) session.getAttribute("userNo");
         ContFileDTO contFileDTO = new ContFileDTO();
-        contFileDTO.setContNo(contNo);
+        if(contNo == 0){
+            contFileDTO.setTempFileld(tempFileld);
+        } else {
+            contFileDTO.setContNo(contNo);
+        }
         contFileDTO.setCompNo(compNo);
 
         Integer result = contFileService.uploadFile(session, contFileDTO, fileList);
@@ -76,7 +81,9 @@ public class ContFileController {
     public ResponseEntity<?> deleteFile(HttpSession session, @PathVariable("contNo") Integer contNo, @PathVariable("fileId") String fileId){
         Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
         ContFileDTO contFileDTO = new ContFileDTO();
-        contFileDTO.setContNo(contNo);
+        if(contNo == 0) {
+            contFileDTO.setContNo(contNo);
+        }
         contFileDTO.setFileId(fileId);
         contFileDTO.setCompNo(compNo);
 

@@ -62,3 +62,28 @@
 		</tr>
 	</tbody>
 </table>
+
+<%--<table class="table table-striped table-bordered nowrap" id="storelistTable">--%>
+<%--	<thead>--%>
+<%--	<tr>--%>
+<%--		<th scope="col" width="100" align="center">구분</th>--%>
+<%--		<th scope="col" width="200" align="center">상품명</th>--%>
+<%--		<th scope="col" width="100" align="center">단위</th>--%>
+<%--		<th scope="col" width="100" align="center">입고량</th>--%>
+<%--		<th scope="col" width="100" align="center">출고량</th>--%>
+<%--		<th scope="col" width="100" align="center">발행일자</th>--%>
+<%--	</tr>--%>
+<%--	</thead>--%>
+<%--	<tbody>--%>
+<%--	<c:forEach var="row" items="${list01}">--%>
+<%--		<tr>--%>
+<%--			<td class="first">${row.goodsType}</td>--%>
+<%--			<td><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}')">${row.goodsTitle}(${row.goodsModel})</a></td>--%>
+<%--			<td>${row.goodsUnit}</td>--%>
+<%--			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>
+<%--			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>
+<%--			<td>${row.codeDesc}</td>--%>
+<%--		</tr>--%>
+<%--	</c:forEach>--%>
+<%--	</tbody>--%>
+<%--</table>--%>

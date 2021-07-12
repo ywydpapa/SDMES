@@ -10,7 +10,7 @@
 						<th scope="col" width="100" align="center">단위</th>
 						<th scope="col" width="100" align="center">입고량</th>
 						<th scope="col" width="100" align="center">출고량</th>
-						<th scope="col" width="100" align="center">위치</th>
+						<th scope="col" width="100" align="center">잔여량</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,9 +19,9 @@
 							<td class="first">${row.goodsType}</td>
 							<td><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}')">${row.goodsTitle}(${row.goodsModel})</a></td>
 							<td>${row.goodsUnit}</td>
-							<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
-							<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
-							<td>${row.codeDesc}</td>
+							<td style="text-align: right"><fmt:formatNumber value="${row.inStoreQty}" pattern="#,###" /></td>
+							<td style="text-align: right"><fmt:formatNumber value="${row.outStoreQty}" pattern="#,###" /></td>
+							<td style="text-align: right"><fmt:formatNumber value="${row.diffStoreQty}" pattern="#,###" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

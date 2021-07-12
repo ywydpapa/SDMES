@@ -27,5 +27,8 @@ public class StoreDTO {
 	private String codeDesc;
 	private String storeAmount;
 	
-	
+	// extends DTO
+	private String inStoreQty;
+	private String outStoreQty;
+	private String diffStoreQty;
 }

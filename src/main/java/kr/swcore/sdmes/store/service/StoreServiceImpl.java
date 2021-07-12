@@ -1,5 +1,6 @@
 package kr.swcore.sdmes.store.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,8 +42,70 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public List<StoreDTO> listgoodsio() {
-		// TODO Auto-generated method stub
-		return storeDao.listgoodsio();
+		List<StoreDTO> resultList = storeDao.listgoodsio();
+		List<StoreDTO> returnList = new ArrayList<StoreDTO>();
+
+		String str = "";
+		Boolean save = false;
+		StoreDTO newDTO = null;
+		for(StoreDTO vo : resultList){
+			if(str.equals(vo.getGoodsTitle())){
+				if(vo.getInoutTyp().equalsIgnoreCase("I")){
+					newDTO.setInStoreQty(vo.getStoreQty());
+				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
+					newDTO.setOutStoreQty(vo.getStoreQty());
+				}
+				str = "";
+			} else {
+				if(newDTO != null){
+					returnList.add(newDTO);
+					save = false;
+				}
+
+				newDTO = new StoreDTO();
+				newDTO.setGoodsTitle(vo.getGoodsTitle());
+				newDTO.setGoodsType(vo.getGoodsType());
+				newDTO.setGoodsUnit(vo.getGoodsUnit());
+				newDTO.setGoodsModel(vo.getGoodsModel());
+				newDTO.setStoreioNo(vo.getStoreioNo());
+				if(vo.getInoutTyp().equalsIgnoreCase("I")){
+					newDTO.setInStoreQty(vo.getStoreQty());
+				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
+					newDTO.setOutStoreQty(vo.getStoreQty());
+				}
+				str = vo.getGoodsTitle();
+				save = true;
+			}
+		}
+
+		if(save){
+			resultList.add(newDTO);
+			save = false;
+		}
+
+		for(int i=0; i<returnList.size(); i++){
+			int InStoreQty = 0, OutSotreQty = 0, DiffStoreQty = 0;
+			if(returnList.get(i).getInStoreQty() != null && returnList.get(i).getInStoreQty() != ""){
+				InStoreQty = Integer.valueOf(returnList.get(i).getInStoreQty());
+			} else {
+				returnList.get(i).setInStoreQty("0");
+			}
+
+			if(returnList.get(i).getOutStoreQty() != null && returnList.get(i).getOutStoreQty() != ""){
+				OutSotreQty = Integer.valueOf(returnList.get(i).getOutStoreQty());
+			} else {
+				returnList.get(i).setOutStoreQty("0");
+			}
+
+			if(InStoreQty > OutSotreQty){
+				DiffStoreQty = InStoreQty - OutSotreQty;
+				returnList.get(i).setDiffStoreQty(String.valueOf(DiffStoreQty));
+			} else {
+				returnList.get(i).setDiffStoreQty("0");
+			}
+		}
+
+		return returnList;
 	}
 
 	@Override

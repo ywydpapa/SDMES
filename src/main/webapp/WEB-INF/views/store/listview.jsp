@@ -49,10 +49,12 @@
 		</colgroup>
 		<tr>
 			<td>재고구분</td>
-			<td><select id="STORE_TYPE" class="form-control form-control-sm">
-				<option value="GDS">상품</option>				
-				<option value="SUP">자재</option>
-			</select></td>
+			<td>
+				<select id="STORE_TYPE" class="form-control form-control-sm">
+					<option value="GDS">상품</option>
+					<option value="SUP">자재</option>
+				</select>
+			</td>
 			<td></td>
 		</tr>
 </table>
@@ -65,7 +67,6 @@
 				<tbody>
 				</tbody>
 			</table>
-			
 		</div>
 		<div class="item cont">
 			<div id="detailstore" class="detailstore">

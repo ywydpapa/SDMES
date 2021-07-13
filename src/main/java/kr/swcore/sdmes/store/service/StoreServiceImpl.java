@@ -19,7 +19,8 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<StoreDTO> listStore() {
 		// TODO Auto-generated method stub
-		return storeDao.listStore();
+		StoreDTO dto = new StoreDTO();
+		return storeDao.listStore(dto);
 	}
 
 	@Override
@@ -41,8 +42,13 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<StoreDTO> listgoodsio() {
-		List<StoreDTO> resultList = storeDao.listgoodsio();
+	public List<StoreDTO> listgoodsio(Integer storeioNo) {
+		if(storeioNo != null){
+			StoreDTO result = storeDao.storedetail(storeioNo);
+			return storeDao.listgoodsio(result);
+		}
+		
+		List<StoreDTO> resultList = storeDao.listgoodGroupIo();
 		List<StoreDTO> returnList = new ArrayList<StoreDTO>();
 
 		String str = "";
@@ -109,7 +115,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<StoreDTO> listsuppio() {
+	public List<StoreDTO> listsuppio(Integer storeioNo) {
 		// TODO Auto-generated method stub
 		return storeDao.listsuppio();
 	}

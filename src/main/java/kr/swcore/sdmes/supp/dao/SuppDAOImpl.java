@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import kr.swcore.sdmes.store.dto.StoreDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +23,14 @@ public class SuppDAOImpl implements SuppDAO {
 	}
 
 	@Override
-	public List<SuppDTO> listSupp01() {
+	public List<SuppDTO> listSupp01(SuppDTO dto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("supp.listsupp01");
+	}
+
+	@Override
+	public List<SuppDTO> listSuppGroupIo() {
+		return sqlSession.selectList("store.listsuppGroupIo");
 	}
 
 	@Override

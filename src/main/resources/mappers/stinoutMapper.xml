@@ -29,7 +29,21 @@ where storeioNo= #{storeioNo}
 	from swcmes_store a 
 	left join swcmes_goods sg on sg.goodsNo = a.goodsNo 
 	left join swcmes_code sc on sc.codeNo = a.locateCode 
-where a.attrib not like 'XXX%' and suppNo is null order by goodsType, regDate, modDate  
+	where a.attrib not like 'XXX%' and suppNo is null
+	<if test="goodsNo != null and goodsNo != ''">
+		and a.goodsNo = #{goodsNo}
+	</if>
+	order by goodsType, regDate, modDate
+</select>
+
+<select id="listgoodGroupIo" resultType="StoreDTO">
+	SELECT storeioNo, sg.goodsTitle,sg.goodsType,sg.goodsUnit,sg.goodsModel,a.inoutTyp, sum(a.storeQty) storeQty
+	from swcmes_store a
+			 left join swcmes_goods sg on sg.goodsNo = a.goodsNo
+			 left join swcmes_code sc on sc.codeNo = a.locateCode
+	where a.attrib not like 'XXX%' and suppNo is null
+	group by inoutTyp, sg.goodsTitle, a.goodsNo
+	order by sg.goodsTitle, sg.goodsModel, storeioNo desc, inoutTyp
 </select>
 
 <select id="listsuppio" resultType="StoreDTO">
@@ -37,7 +51,21 @@ where a.attrib not like 'XXX%' and suppNo is null order by goodsType, regDate, m
 	from swcmes_store a 
 	left join swcmes_supp ss on ss.suppNo = a.suppNo 
 	left join swcmes_code sc on sc.codeNo = a.locateCode
-	where a.attrib not like 'XXX%' and goodsNo is null order by suppType, regDate, modDate 
+	where a.attrib not like 'XXX%' and goodsNo is null
+	<if test="suppNo != null and suppNo != ''">
+		and a.suppNo = #{suppNo}
+	</if>
+	order by suppType, regDate, modDate
+</select>
+
+<select id="listsuppGroupIo" resultType="StoreDTO">
+	SELECT a.storeioNo, sg.suppTitle, sg.suppType, sg.suppUnit, sg.suppModel, a.inoutTyp, sum(a.storeQty) storeQty
+	from swcmes_store a
+			 left join swcmes_supp sg on sg.suppNo = a.suppNo
+			 left join swcmes_code sc on sc.codeNo = a.locateCode
+	where a.attrib not like 'XXX%' and a.goodsNo is null
+	group by inoutTyp, sg.suppTitle, a.suppNo
+	order by sg.suppTitle, sg.suppModel, storeioNo desc, inoutTyp
 </select>
 
 <insert id="insertstore">

@@ -7,7 +7,7 @@ import kr.swcore.sdmes.supp.dto.SuppDTO;
 public interface SuppService {
 
 	SuppDTO suppDetail(Integer goodsNo);
-	List<SuppDTO> listSupp01();
+	List<SuppDTO> listSupp01(Integer storeioNo);
 	Integer insertSupp(SuppDTO dto);
 	Integer updateSupp(SuppDTO dto);
 	Integer deleteSupp(SuppDTO dto);

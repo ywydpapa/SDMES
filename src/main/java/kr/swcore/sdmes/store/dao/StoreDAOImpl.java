@@ -16,9 +16,9 @@ public class StoreDAOImpl implements StoreDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<StoreDTO> listStore() {
+	public List<StoreDTO> listStore(StoreDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("store.liststore");
+		return sqlSession.selectList("store.liststore", dto);
 	}
 
 	@Override
@@ -40,9 +40,14 @@ public class StoreDAOImpl implements StoreDAO {
 	}
 
 	@Override
-	public List<StoreDTO> listgoodsio() {
+	public List<StoreDTO> listgoodsio(StoreDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("store.listgoodsio");
+		return sqlSession.selectList("store.listgoodsio", dto);
+	}
+
+	@Override
+	public List<StoreDTO> listgoodGroupIo() {
+		return sqlSession.selectList("store.listgoodGroupIo");
 	}
 
 	@Override

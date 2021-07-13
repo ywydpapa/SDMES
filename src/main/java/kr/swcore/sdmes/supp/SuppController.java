@@ -24,7 +24,7 @@ public class SuppController {
 	@RequestMapping("listview.do")
 	public ModelAndView listview(ModelAndView mav) {
 		mav.setViewName("supp/listview");
-		mav.addObject("list01", suppService.listSupp01());
+		mav.addObject("list01", suppService.listSupp01(null));
 		return mav;
 	}
 	
@@ -32,7 +32,7 @@ public class SuppController {
 	@RequestMapping("listSupp01.do")
 	public ModelAndView listsupp01(ModelAndView mav) {
 		mav.setViewName("supp/list01supp");
-		mav.addObject("list01", suppService.listSupp01());
+		mav.addObject("list01", suppService.listSupp01(null));
 		return mav;
 	}
 	
@@ -52,7 +52,8 @@ public class SuppController {
 		if (codeInsert >0) {
 			param.put("code","10001"); 
 		}
-		else {param.put("code","20001");
+		else {
+			param.put("code","20001");
 		}
 		return ResponseEntity.ok(param);
 	}

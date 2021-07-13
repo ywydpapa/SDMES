@@ -80,7 +80,7 @@ public class StoreController {
 		mav.setViewName("store/suppio");
 		mav.addObject("dto", storeService.storedetail(storeioNo));
 		mav.addObject("list01", storeService.listsuppio(storeioNo));
-		mav.addObject("supps", suppService.listSupp01(storeioNo));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}

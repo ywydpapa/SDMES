@@ -9,7 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="liststorereq" resultType="StoreDTO">
-	SELECT * from swcmes_store where attrib not like 'XXX%' and attrib like '000%'  
+	SELECT ss.suppType, ss.suppTitle, ss.suppModel, sg.goodsType ,sg.goodsTitle,sg.goodsModel, a.* from swcmes_store a 
+		left join swcmes_supp ss on a.suppNo = ss.suppNo 
+		left join swcmes_goods sg on sg.goodsNo = a.goodsNo 
+	where a.attrib not like 'XXX%' and a.attrib like '000%'  
 </select>
 
 <select id="detailstoreio" resultType="StoreDTO">

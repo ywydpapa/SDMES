@@ -254,10 +254,10 @@ function fnUpdateSuppIo(){
 
 
 $(document).ready(function() {
-	var url ="${path}/store/listgoodsReq.do";
+	var url ="${path}/store/listReq.do";
 	fn_Reload02(url);
-	var url3 ="${path}/store/goodsReq.do";
-	fn_Reload03(url3);
+//	var url3 ="${path}/store/detailReq.do";
+//	fn_Reload03(url3);
 } );
 
 function newreq() {

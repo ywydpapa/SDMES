@@ -22,7 +22,7 @@
 			<td colspan="2"><select id="selgoodsNo" class="form-control">
 					<option value="">선택</option>
 					<c:forEach var="rowg" items="${goods}">
-						<option value="${rowg.goodsNo}" <c:if test="${dto.goodsNo eq rowg.goodsNo}">selected</c:if> >${rowg.goodsTitle}(${rowg.goodsType})</option>
+						<option value="${rowg.goodsNo}" <c:if test="${dto.goodsNo eq rowg.goodsNo}">selected</c:if> >${rowg.goodsTitle}(${rowg.goodsModel})</option>
 					</c:forEach>
 			</select></td>
 		</tr>

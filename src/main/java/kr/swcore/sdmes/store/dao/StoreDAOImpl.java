@@ -51,9 +51,14 @@ public class StoreDAOImpl implements StoreDAO {
 	}
 
 	@Override
-	public List<StoreDTO> listsuppio() {
+	public List<StoreDTO> listsuppio(StoreDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("store.listsuppio");
+		return sqlSession.selectList("store.listsuppio", dto);
+	}
+
+	@Override
+	public List<StoreDTO> listSuppGroupIo() {
+		return sqlSession.selectList("store.listsuppGroupIo");
 	}
 
 	@Override

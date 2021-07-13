@@ -11,7 +11,9 @@ public interface StoreDAO {
 	List<StoreDTO> listStorereq();
 	List<StoreDTO> listgoodsio(StoreDTO dto);
 	List<StoreDTO> listgoodGroupIo();
-	List<StoreDTO> listsuppio();
+	List<StoreDTO> listsuppio(StoreDTO dto);
+
+	List<StoreDTO> listSuppGroupIo();
 	Integer insertStore(StoreDTO dto);
 	Integer updateStore(StoreDTO dto);
 	Integer deleteStore(StoreDTO dto);

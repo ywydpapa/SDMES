@@ -18,76 +18,8 @@ public class SuppServiceImpl implements SuppService {
 	SuppDAO suppDao;
 	
 	@Override
-	public List<SuppDTO> listSupp01(Integer storeioNo) {
-		if(storeioNo != null){
-			SuppDTO result = suppDao.suppDetail(storeioNo);
-			return suppDao.listSupp01(result);
-		}
-
-		List<StoreDTO> resultList = suppDao.listSuppGroupIo();
-		List<SuppDTO> returnList = new ArrayList<SuppDTO>();
-
-		String str = "";
-		Boolean save = false;
-		SuppDTO newDTO = null;
-		for(StoreDTO vo : resultList){
-			if(str.equals(vo.getSuppTitle())){
-				if(vo.getInoutTyp().equalsIgnoreCase("I")){
-					newDTO.setInStoreQty(vo.getStoreQty());
-				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
-					newDTO.setOutStoreQty(vo.getStoreQty());
-				}
-				str = "";
-			} else {
-				if(newDTO != null){
-					returnList.add(newDTO);
-					save = false;
-				}
-
-				newDTO = new SuppDTO();
-				newDTO.setSuppTitle(vo.getSuppTitle());
-				newDTO.setSuppType(vo.getSuppType());
-				newDTO.setSuppUnit(vo.getSuppUnit());
-				newDTO.setSuppModel(vo.getSuppModel());
-				newDTO.setStoreioNo(vo.getStoreioNo());
-				if(vo.getInoutTyp().equalsIgnoreCase("I")){
-					newDTO.setInStoreQty(vo.getStoreQty());
-				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
-					newDTO.setOutStoreQty(vo.getStoreQty());
-				}
-				str = vo.getSuppTitle();
-				save = true;
-			}
-		}
-
-		if(save){
-			returnList.add(newDTO);
-			save = false;
-		}
-
-		for(int i=0; i<returnList.size(); i++){
-			int InStoreQty = 0, OutSotreQty = 0, DiffStoreQty = 0;
-			if(returnList.get(i).getInStoreQty() != null && returnList.get(i).getInStoreQty() != ""){
-				InStoreQty = Integer.valueOf(returnList.get(i).getInStoreQty());
-			} else {
-				returnList.get(i).setInStoreQty("0");
-			}
-
-			if(returnList.get(i).getOutStoreQty() != null && returnList.get(i).getOutStoreQty() != ""){
-				OutSotreQty = Integer.valueOf(returnList.get(i).getOutStoreQty());
-			} else {
-				returnList.get(i).setOutStoreQty("0");
-			}
-
-			if(InStoreQty > OutSotreQty){
-				DiffStoreQty = InStoreQty - OutSotreQty;
-				returnList.get(i).setDiffStoreQty(String.valueOf(DiffStoreQty));
-			} else {
-				returnList.get(i).setDiffStoreQty("0");
-			}
-		}
-
-		return returnList;
+	public List<SuppDTO> listSupp01(SuppDTO dto) {
+		return suppDao.listSupp01(dto);
 	}
 
 	@Override

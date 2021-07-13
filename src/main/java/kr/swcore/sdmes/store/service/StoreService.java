@@ -3,6 +3,7 @@ package kr.swcore.sdmes.store.service;
 import java.util.List;
 
 import kr.swcore.sdmes.store.dto.StoreDTO;
+import kr.swcore.sdmes.supp.dto.SuppDTO;
 
 public interface StoreService {
 

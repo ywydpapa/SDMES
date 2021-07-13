@@ -79,8 +79,8 @@ public class StoreController {
 	@RequestMapping("listsuppio.do")
 	public ModelAndView listsio(ModelAndView mav) {
 		mav.setViewName("store/listsuppio");
-		mav.addObject("list01", suppService.listSupp01(null));
-//		mav.addObject("supps", suppService.listSupp01(null));
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
 		return mav;
 	}
 
@@ -89,7 +89,7 @@ public class StoreController {
 		mav.setViewName("store/suppio");
 		mav.addObject("dto", storeService.storedetail(storeioNo));
 		mav.addObject("list01", storeService.listsuppio(storeioNo));
-		mav.addObject("supps", suppService.listSupp01(storeioNo));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -118,7 +118,7 @@ public class StoreController {
 	public ModelAndView buyreqlist(ModelAndView mav) {
 		mav.setViewName("store/listviewReq");
 		mav.addObject("list01", storeService.listStorereq());
-		mav.addObject("supp", suppService.listSupp01());
+		mav.addObject("supp", suppService.listSupp01(null));
     	mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -126,8 +126,8 @@ public class StoreController {
 	@RequestMapping("buyrequest.do")
 	public ModelAndView buyreq(ModelAndView mav) {
 		mav.setViewName("store/buyrequest");
-		mav.addObject("list01", storeService.listgoodsio());
-		mav.addObject("supp", suppService.listSupp01());
+		mav.addObject("list01", storeService.listgoodsio(null));
+		mav.addObject("supp", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -135,8 +135,8 @@ public class StoreController {
 	@RequestMapping("suppio.do")
 	public ModelAndView sio(ModelAndView mav) {
 		mav.setViewName("store/suppio");
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -144,8 +144,8 @@ public class StoreController {
 	@RequestMapping("suppReq.do")
 	public ModelAndView sreq(ModelAndView mav) {
 		mav.setViewName("store/suppReq");
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}

@@ -9,7 +9,6 @@ public interface SuppDAO {
 
 	SuppDTO suppDetail(Integer suppNo);
 	List<SuppDTO> listSupp01(SuppDTO dto);
-	List<StoreDTO> listSuppGroupIo();
 	Integer insertSupp(SuppDTO dto);
 	Integer updateSupp(SuppDTO dto);
 	Integer deleteSupp(SuppDTO dto);

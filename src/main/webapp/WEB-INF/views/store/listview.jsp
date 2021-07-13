@@ -82,15 +82,15 @@ $("#STORE_TYPE").change(function(){
 	if (sele == 'GDS'){
 		var url ="${path}/store/listgoodsio.do";
 		fn_Reload02(url);
-		var url3 ="${path}/store/goodsio.do";
-		fn_Reload03(url3);
+		<%--var url3 ="${path}/store/goodsio.do";--%>
+		<%--fn_Reload03(url3);--%>
 	}
 	else
 		{
 		var url ="${path}/store/listsuppio.do";
 		fn_Reload02(url);	
-		var url3 ="${path}/store/suppio.do";
-		fn_Reload03(url3);
+		<%--var url3 ="${path}/store/suppio.do";--%>
+		<%--fn_Reload03(url3);--%>
 		}
 	
 });

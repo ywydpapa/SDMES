@@ -102,4 +102,29 @@ public class ContServiceImpl implements ContService {
 		return contDao.setPorder(dto);
 	}
 
+	@Override
+	public List<ContDTO> listReq() {
+		// TODO Auto-generated method stub
+		return contDao.listReq();
+	}
+
+	@Override
+	public Integer insertReq(HttpSession session, ContDTO dto) {
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		Integer reuslt = 0;
+		try{
+			contDao.insertReq(dto);
+			if(!dto.getTempFileld().equals("")){
+				ContFileDTO contFileDTO = new ContFileDTO();
+				contFileDTO.setContNo(dto.getContNo());
+				contFileDTO.setTempFileld(dto.getTempFileld());
+				contFileDTO.setCompNo(compNo);
+				contFileDAO.uploadFileWithNew(contFileDTO);
+			}
+			reuslt = 1;
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return reuslt;
+	}
 }

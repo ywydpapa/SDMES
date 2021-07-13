@@ -10,8 +10,10 @@ public interface ContService {
 
 	ContDTO contDetail(Integer contNo);
 	List<ContDTO> listCont();
+	List<ContDTO> listReq();
 	List<ContDTO> listPorder();
 	Integer insertCont(HttpSession session, ContDTO dto);
+	Integer insertReq(HttpSession session, ContDTO dto);
 	Integer updateCont(ContDTO dto);
 	Integer deleteCont(ContDTO dto);
 	Integer insertaddGoods(ContDTO dto);

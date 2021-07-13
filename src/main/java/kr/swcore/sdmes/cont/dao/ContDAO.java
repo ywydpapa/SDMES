@@ -11,6 +11,7 @@ public interface ContDAO {
 	List<ContDTO> listReq();
 	List<ContDTO> listPorder();
 	Integer insertCont(ContDTO dto);
+	Integer insertReq(ContDTO dto);
 	Integer updateCont(ContDTO dto);
 	Integer deleteCont(ContDTO dto);
 	Integer insertaddGoods(ContDTO dto);

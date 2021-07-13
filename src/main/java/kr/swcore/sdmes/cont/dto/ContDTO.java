@@ -26,6 +26,8 @@ public class ContDTO {
 	private String codeDesc;
 	private String contNation;
 	private Integer compNo;
+	private Integer contPic;
+	private String goodsModel;
 
 	// extends DTO
 	private String tempFileld;

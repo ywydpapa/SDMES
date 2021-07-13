@@ -87,4 +87,10 @@ public class ContDAOImpl implements ContDAO {
 		return sqlSession.selectList("cont.listreq");
 	}
 
+	@Override
+	public Integer insertReq(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("cont.insertreq", dto);
+	}
+
 }

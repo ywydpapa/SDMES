@@ -48,6 +48,13 @@ public class ContController {
 		return mav;
 	}
 	
+	@RequestMapping("reqlistview.do")
+	public ModelAndView reqlistview(ModelAndView mav) {
+		mav.setViewName("cont/reqlistview");
+		mav.addObject("list01", contService.listReq());
+		return mav;
+	}
+
 	@RequestMapping("porderlistview.do")
 	public ModelAndView porderlistview(ModelAndView mav) {
 		mav.setViewName("porder/listview");
@@ -61,6 +68,14 @@ public class ContController {
 		mav.addObject("list01", contService.listCont());
 		return mav;
 	}
+	
+	@RequestMapping("listreq.do")
+	public ModelAndView listreq(ModelAndView mav) {
+		mav.setViewName("cont/listreq");
+		mav.addObject("list01", contService.listReq());
+		return mav;
+	}
+
 
 	@RequestMapping("listporder.do")
 	public ModelAndView listporder(ModelAndView mav) {
@@ -74,15 +89,30 @@ public class ContController {
 	public ModelAndView wcont(HttpSession session, ModelAndView mav) {
 		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
 		Integer userNo = (Integer) session.getAttribute("userNo");
-
 		mav.setViewName("cont/detailcont");
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("pic", userService.listUser());
 		mav.addObject("fileList",null);
 		mav.addObject("tempFileld", compNo+"-"+userNo+"-"+System.currentTimeMillis());
 		return mav;
 	}
+	
+	@RequestMapping("writereq.do")
+	public ModelAndView wreq(HttpSession session, ModelAndView mav) {
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		Integer userNo = (Integer) session.getAttribute("userNo");
+		mav.setViewName("cont/detailreq");
+		mav.addObject("goods", goodsService.listGoods());
+		mav.addObject("cust",codeService.listCode02(43));
+		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("pic", userService.listUser());
+		mav.addObject("fileList",null);
+		mav.addObject("tempFileld", compNo+"-"+userNo+"-"+System.currentTimeMillis());
+		return mav;
+	}
+
 	
 	@RequestMapping("writeporder.do")
 	public ModelAndView wporder(ModelAndView mav) {
@@ -111,6 +141,25 @@ public class ContController {
 		return mav;
 	}
 	
+	@RequestMapping("/reqdetail/{contNo}")
+	public ModelAndView reqdetail(HttpSession session, @PathVariable("contNo") Integer contNo, ModelAndView mav) {
+		mav.setViewName("cont/detailreq");
+		mav.addObject("dto",contService.contDetail(contNo));
+		mav.addObject("goods", goodsService.listGoods());
+		mav.addObject("addgoods",contService.listaddGoods(contNo));
+		mav.addObject("cust",codeService.listCode02(43));
+		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("pic", userService.listUser());
+
+		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
+		ContFileDTO contDTO = new ContFileDTO();
+		contDTO.setContNo(contNo);
+		contDTO.setCompNo(compNo);
+		mav.addObject("fileList",contFileService.listFile(session, contDTO));
+		return mav;
+	}
+
+	
 	@RequestMapping("/porderdetail/{contNo}")
 	public ModelAndView podgddetail(@PathVariable("contNo") Integer contNo, ModelAndView mav) {
 		mav.setViewName("porder/detailporder");
@@ -130,6 +179,19 @@ public class ContController {
 		}
 		return ResponseEntity.ok(param);
 	}
+	
+	@RequestMapping("insertreq.do")
+	public ResponseEntity<?> insertreq(HttpSession session, @ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int codeInsert = contService.insertReq(session, dto);
+		if (codeInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+
 	
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(@ModelAttribute ContDTO dto) {

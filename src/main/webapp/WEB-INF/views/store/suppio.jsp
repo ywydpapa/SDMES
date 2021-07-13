@@ -63,7 +63,7 @@
 	</tbody>
 </table>
 
-<table class="table table-striped table-bordered nowrap>
+<table class="table table-striped table-bordered nowrap">
 	<thead>
 	<tr>
 		<th scope="col" width="100" align="center">구분</th>

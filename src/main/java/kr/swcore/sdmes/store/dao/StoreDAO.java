@@ -16,6 +16,7 @@ public interface StoreDAO {
 	List<StoreDTO> listSuppGroupIo();
 	Integer insertStore(StoreDTO dto);
 	Integer updateStore(StoreDTO dto);
+	Integer updateStoreReq(StoreDTO dto);
 	Integer deleteStore(StoreDTO dto);
 	Integer insertStoreReq(StoreDTO dto);
 }

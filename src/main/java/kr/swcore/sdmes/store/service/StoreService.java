@@ -14,6 +14,7 @@ public interface StoreService {
 	List<StoreDTO> listsuppio(Integer storeioNo);
 	Integer insertStore(StoreDTO dto);
 	Integer updateStore(StoreDTO dto);
+	Integer updateStoreReq(StoreDTO dto);
 	Integer deleteStore(StoreDTO dto);
 	Integer insertStoreReq(StoreDTO dto);
 }

@@ -79,4 +79,10 @@ public class StoreDAOImpl implements StoreDAO {
 		return sqlSession.selectList("store.liststorereq");
 	}
 
+	@Override
+	public Integer updateStoreReq(StoreDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("store.updatestorereq", dto);
+	}
+
 }

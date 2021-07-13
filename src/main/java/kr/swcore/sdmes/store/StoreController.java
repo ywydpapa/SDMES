@@ -193,6 +193,18 @@ public class StoreController {
 		return ResponseEntity.ok(param);
 	}
 	
+	@RequestMapping("updateReq.do")
+	public ResponseEntity<?> updateReq(@ModelAttribute StoreDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int codeInsert = storeService.updateStoreReq(dto);
+		if (codeInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+	
 	@RequestMapping("update.do")
 	public ResponseEntity<?> update(@ModelAttribute StoreDTO dto) {
 		Map<String, Object> param = new HashMap<String, Object>();

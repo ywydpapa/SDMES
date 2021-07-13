@@ -94,6 +94,21 @@ update swcmes_store
 	where storeioNo = #{storeioNo}
 </update>
 
+<update id="updatestorereq">
+update swcmes_store
+	set 
+	inoutTyp = #{inoutTyp}
+	,goodsNo = #{goodsNo}
+	,suppNo = #{suppNo}
+	,storeUnit = #{storeUnit}
+	,storeQty = #{storeQty}
+	,locateCode = #{locateCode}
+	,storeAmount = #{storeAmount}
+	,modDate = now()
+	,comment = #{comment}
+	where storeioNo = #{storeioNo}
+</update>
+
 <update id="deletestore">
 update swcmes_store
 	set attrib = 'XXXXX'

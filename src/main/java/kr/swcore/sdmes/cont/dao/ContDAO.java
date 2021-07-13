@@ -13,6 +13,7 @@ public interface ContDAO {
 	Integer insertCont(ContDTO dto);
 	Integer insertReq(ContDTO dto);
 	Integer updateCont(ContDTO dto);
+	Integer updateReq(ContDTO dto);
 	Integer reqOk(ContDTO dto);
 	Integer reqRj(ContDTO dto);
 	Integer deleteCont(ContDTO dto);

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supp">
+
+<select id="listsupp01" resultType="SuppDTO">
+	SELECT * from swcmes_supp where attrib not like 'XXX%' order by suppType  
+</select>
+
+<select id="detailsupp" resultType="SuppDTO">
+	SELECT * from swcmes_supp where suppNo =#{suppNo}  
+</select>
+
+<insert id="insertsupp">
+	insert into swcmes_supp 
+	(suppTitle,suppModel,suppUnit,suppPrice,sortNo,regDate,useYn,suppType,attrib,comment) 
+	values (#{suppTitle},#{suppModel},#{suppUnit},#{suppPrice},#{sortNo},now(),#{useYn},#{suppType},'10000',#{comment})
+</insert>
+
+<update id="updatesupp">
+update swcmes_supp
+	set 
+	suppTitle = #{suppTitle}
+	,suppModel = #{suppModel} 
+	,suppUnit = #{suppUnit}
+	,suppPrice = #{suppPrice}
+	,sortNo = #{sortNo}
+	,modDate = now()
+	,useYn = #{useYn}
+	,suppType = #{suppType} 
+	,comment = #{comment}
+	where suppNo = #{suppNo}
+</update>
+
+<update id="deletesupp">
+update swcmes_supp
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where suppNo = #{suppNo}
+</update>
+
+</mapper>

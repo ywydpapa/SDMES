@@ -252,6 +252,19 @@ public class ContController {
 		}
 		return ResponseEntity.ok(param);
 	}
+
+	@RequestMapping("updateReq.do")
+	public ResponseEntity<?> updreq(@ModelAttribute ContDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int codeInsert = contService.updateReq(dto);
+		if (codeInsert >0) {
+			param.put("code","10001"); 
+		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
+
 	
 	@RequestMapping("reqOk.do")
 	public ResponseEntity<?> reqok(@ModelAttribute ContDTO dto) {

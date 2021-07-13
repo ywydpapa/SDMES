@@ -105,4 +105,10 @@ public class ContDAOImpl implements ContDAO {
 		return sqlSession.update("cont.reqrj", dto);
 	}
 
+	@Override
+	public Integer updateReq(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cont.updatereq",dto);
+	}
+
 }

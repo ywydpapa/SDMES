@@ -108,10 +108,10 @@ public class ContFileController {
         contFileDTO.setCompNo(compNo);
 
         ContFileDTO resultFile = contFileService.downloadFile(session, contFileDTO);
-        String fileName = new String(resultFile.getFileName().getBytes("UTF-8"), "ISO-8859-1");
+        String fileName = resultFile.getFileName();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.add("Content-Disposition",fileName);
+        headers.add("Content-Disposition", new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(resultFile.getFileContent(), headers, HttpStatus.OK);
 
         return entity;

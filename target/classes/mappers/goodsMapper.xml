@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+
+<select id="listgoods01" resultType="GoodsDTO">
+	SELECT * from swcmes_goods where attrib not like 'XXX%' order by goodsType  
+</select>
+
+<select id="listgoods" resultType="GoodsDTO">
+	SELECT * from swcmes_goods where attrib not like 'XXX%' and useYn = 'Y' order by goodsType  
+</select>
+
+<select id="detailgoods" resultType="GoodsDTO">
+	SELECT * from swcmes_goods where goodsNo =#{goodsNo}  
+</select>
+
+<insert id="insertgoods">
+	insert into swcmes_goods 
+	(goodsTitle,goodsModel,goodsUnit,goodsPrice,sortNo,regDate,useYn,goodsType,attrib,comment) 
+	values (#{goodsTitle},#{goodsModel},#{goodsUnit},#{goodsPrice},#{sortNo},now(),#{useYn},#{goodsType},'10000',#{comment})
+</insert>
+
+<update id="updategoods">
+update swcmes_goods
+	set goodsTitle = #{goodsTitle}
+	,goodsModel = #{goodsModel} 
+	,goodsUnit = #{goodsUnit}
+	,goodsPrice = #{goodsPrice}
+	,sortNo = #{sortNo}
+	,modDate = now()
+	,useYn = #{useYn}
+	,goodsType = #{goodsType} 
+	,comment = #{comment}
+	 where goodsNo = #{goodsNo}
+</update>
+
+<update id="deletegoods">
+update swcmes_goods
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where goodsNo = #{goodsNo}
+</update>
+
+</mapper>

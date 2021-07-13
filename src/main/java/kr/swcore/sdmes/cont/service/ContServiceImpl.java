@@ -139,4 +139,10 @@ public class ContServiceImpl implements ContService {
 		// TODO Auto-generated method stub
 		return contDao.reqRj(dto);
 	}
+
+	@Override
+	public Integer updateReq(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.updateReq(dto);
+	}
 }

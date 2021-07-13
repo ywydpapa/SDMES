@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code">
+
+<select id="listcode01" resultType="CodeDTO">
+	SELECT * from swcmes_code where codeLevel = 1 and attrib not like 'XXX%'  
+</select>
+
+<select id="listcode02" resultType="CodeDTO">
+	SELECT * from swcmes_code where codeLevel = 2 and attrib not like 'XXX%' and motherCode= #{motherCode}   
+</select>
+
+<select id="listcode03" resultType="CodeDTO">
+	SELECT * from swcmes_code where codeLevel = 3 and attrib not like 'XXX%' and motherCode= #{motherCode}
+</select>
+
+<select id="detailcode" resultType="CodeDTO">
+	SELECT * from swcmes_code where codeNo =#{codeNo}  
+</select>
+
+<insert id="insertcode">
+	insert into swcmes_code 
+	(compNo,mesCode,codeDesc,codeValue,sortNo,regDate,codeLevel,useYn,motherCode, attrib) 
+	values (#{compNo},#{mesCode},#{codeDesc},#{codeValue},#{sortNo},now(),#{codeLevel},#{useYn},#{motherCode},'10000')
+</insert>
+
+<update id="updatecode">
+update swcmes_code
+	set 
+	mesCode = #{mesCode}
+	,codeDesc = #{codeDesc}
+	,codeValue = #{codeValue}
+	,sortNo = #{sortNo}
+	,useYn = #{useYn}
+	,modDate = now()
+	where codeNo = #{codeNo}
+</update>
+
+<update id="deletecode">
+update swcmes_code
+	set attrib = 'XXXXX'
+	,modDate = now()
+	where codeNo = #{codeNo}
+</update>
+
+</mapper>

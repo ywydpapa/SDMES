@@ -51,7 +51,6 @@
 			<td>구분</td>
 			<td><select id="STORE_TYPE" class="form-control form-control-sm">
 				<option value="SUP">자재</option>
-				<option value="GDS">상품</option>
 			</select></td>
 			<td><button class="btn btn-md btn-success" onclick="newreq()">새데이터</button></td>
 		</tr>

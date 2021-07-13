@@ -250,6 +250,7 @@
 			if(data.code == 10001){
 				var url = "${path}/cont/listreq.do";
 				fn_Reload02(url);
+				newreq();
 				}else{
 				alert("저장 실패");
 				}
@@ -279,6 +280,7 @@
 			if(data.code == 10001){
 				var url = "${path}/cont/listreq.do";
 				fn_Reload02(url);
+				newreq();
 				}else{
 				alert("저장 실패");
 				}
@@ -301,13 +303,13 @@
 		mescontdata.contPic = $("#contPic").val();
 		console.log(mescontdata);
 		$.ajax({
-			url : "${path}/cont/updatereq.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			url : "${path}/cont/updateReq.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 			data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터
 			method : "POST", // HTTP 요청 메소드(GET, POST 등)
 			dataType : "json" // 서버에서 보내줄 데이터의 타입
 		}).done(function(data) {
 			if(data.code == 10001){
-				var url = "${path}/cont/listReq.do";
+				var url = "${path}/cont/listreq.do";
 				fn_Reload02(url);
 				}else{
 				alert("저장 실패");

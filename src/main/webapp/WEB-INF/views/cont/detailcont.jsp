@@ -9,8 +9,8 @@
 				<div class="table-responsive">
 					<table id="contdtlTable" class="table table-sm bst02">
 						<colgroup>
-							<col width="15%" />
-							<col width="35%" />
+							<col width="20%" />
+							<col width="30%" />
 							<col width="15%" />
 							<col width="20%" />
 							<col width="15%" />
@@ -54,6 +54,18 @@
 								</select>
 								</td>
 							</tr>
+							<tr >
+								<th scope="row" style="text-align: center;">계약담당</th>
+								<td colspan="1">
+								<select id="contPic" class="form-control">
+								<option value="">담당자 선택</option>
+								<c:forEach var="pic" items="${pic}">
+										<option value="${pic.userNo}"<c:if test="${dto.contPic eq pic.userNo}">selected</c:if> >${pic.userName}</option>
+								</c:forEach>
+								</select>
+								</td>
+							</tr>
+							
 							<tr>
 								<th scope="row">첨부파일 등록</th>
 								<td colspan="2">
@@ -106,7 +118,7 @@
 									<select class="form-control" id="contgoods">
 										<option value="">선택</option>
 										<c:forEach var="goods" items="${goods}">
-											<option value="${goods.goodsNo}">${goods.goodsTitle}</option>
+											<option value="${goods.goodsNo}">${goods.goodsTitle}(${addg.goodsModel})</option>
 										</c:forEach>
 									 </select>
 								</td>
@@ -119,7 +131,7 @@
 							<c:forEach var="addg" items="${addgoods}">
 								<tr class="addgoods">
 									<td></td>
-									<td style="text-align:center">${addg.goodsTitle}</td>
+									<td style="text-align:center">${addg.goodsTitle}(${addg.goodsModel})</td>
 									<td style="text-align:right">${addg.goodsQty}</td>
 									<td></td>
 									<td><button onclick="fn_delgoods('${addg.contdtlNo}',this)">삭제</button></td>
@@ -153,7 +165,7 @@
 		border-collapse: collapse;
 		border: 2px solid #000;
 	}
-	.scrolltbody th { border: 1px solid #000; background: #888888; }
+	.scrolltbody th { border: 1px solid #000; background: #A9E1ED; }
 	.scrolltbody td { border: 1px solid #000; border-top: 0; }
 	.scrolltbody tbody {
 		display: block;
@@ -249,6 +261,7 @@
 		mescontdata.contNation = $("#contNation").val();
 		mescontdata.comment = $("#comment").val();
 		mescontdata.contTitle = $("#contTitle").val();
+		mescontdata.contPic = $("#contPic").val();
 		console.log(mescontdata);
 		$.ajax({
 			url : "${path}/cont/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소

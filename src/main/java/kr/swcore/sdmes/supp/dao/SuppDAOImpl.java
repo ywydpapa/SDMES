@@ -25,11 +25,12 @@ public class SuppDAOImpl implements SuppDAO {
 	@Override
 	public List<SuppDTO> listSupp01(SuppDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("supp.listsupp01");
+		return sqlSession.selectList("supp.listsupp01", dto);
 	}
 
 	@Override
-	public List<SuppDTO> listSuppGroupIo() {
+	public List<StoreDTO> listSuppGroupIo() {
+		// TODO : sotre.xml or supp.xml One Select
 		return sqlSession.selectList("store.listsuppGroupIo");
 	}
 

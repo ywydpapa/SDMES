@@ -85,7 +85,7 @@ public class StoreServiceImpl implements StoreService {
 		}
 
 		if(save){
-			resultList.add(newDTO);
+			returnList.add(newDTO);
 			save = false;
 		}
 

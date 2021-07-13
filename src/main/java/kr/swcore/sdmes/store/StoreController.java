@@ -79,8 +79,8 @@ public class StoreController {
 	@RequestMapping("listsuppio.do")
 	public ModelAndView listsio(ModelAndView mav) {
 		mav.setViewName("store/listsuppio");
-		mav.addObject("list01", storeService.listsuppio(null));
-		mav.addObject("supps", suppService.listSupp01(null));
+		mav.addObject("list01", suppService.listSupp01(null));
+//		mav.addObject("supps", suppService.listSupp01(null));
 		return mav;
 	}
 

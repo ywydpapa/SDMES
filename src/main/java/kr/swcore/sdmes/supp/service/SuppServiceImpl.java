@@ -24,13 +24,13 @@ public class SuppServiceImpl implements SuppService {
 			return suppDao.listSupp01(result);
 		}
 
-		List<SuppDTO> resultList = suppDao.listSuppGroupIo();
+		List<StoreDTO> resultList = suppDao.listSuppGroupIo();
 		List<SuppDTO> returnList = new ArrayList<SuppDTO>();
 
 		String str = "";
 		Boolean save = false;
 		SuppDTO newDTO = null;
-		for(SuppDTO vo : resultList){
+		for(StoreDTO vo : resultList){
 			if(str.equals(vo.getSuppTitle())){
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());
@@ -61,7 +61,7 @@ public class SuppServiceImpl implements SuppService {
 		}
 
 		if(save){
-			resultList.add(newDTO);
+			returnList.add(newDTO);
 			save = false;
 		}
 

@@ -45,7 +45,7 @@ public class StoreController {
 	@RequestMapping("listviewReq.do")
 	public ModelAndView listviewReq(ModelAndView mav) {
 		mav.setViewName("store/listviewReq");
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listStorereq());
 		mav.addObject("goods", goodsService.listGoods01());
 		return mav;
 	}
@@ -104,6 +104,15 @@ public class StoreController {
 		return mav;
 	}
 
+	
+	@RequestMapping("buyreqlistview.do")
+	public ModelAndView buyreqlist(ModelAndView mav) {
+		mav.setViewName("store/listviewReq");
+		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("supp", suppService.listSupp01());
+		mav.addObject("locc",codeService.listCode02(40));
+		return mav;
+	}
 	
 	@RequestMapping("buyrequest.do")
 	public ModelAndView buyreq(ModelAndView mav) {

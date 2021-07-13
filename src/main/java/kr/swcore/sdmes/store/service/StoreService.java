@@ -8,6 +8,7 @@ public interface StoreService {
 
 	StoreDTO storedetail(Integer storeioNo);
 	List<StoreDTO> listStore();
+	List<StoreDTO> listStorereq();
 	List<StoreDTO> listgoodsio();
 	List<StoreDTO> listsuppio();
 	Integer insertStore(StoreDTO dto);

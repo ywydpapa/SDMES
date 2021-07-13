@@ -126,4 +126,10 @@ public class StoreServiceImpl implements StoreService {
 		return storeDao.insertStoreReq(dto);
 	}
 
+	@Override
+	public List<StoreDTO> listStorereq() {
+		// TODO Auto-generated method stub
+		return storeDao.listStorereq();
+	}
+
 }

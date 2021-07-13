@@ -63,4 +63,10 @@ public class StoreDAOImpl implements StoreDAO {
 		return sqlSession.insert("store.insertstoreReq", dto);
 	}
 
+	@Override
+	public List<StoreDTO> listStorereq() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("store.liststorereq");
+	}
+
 }

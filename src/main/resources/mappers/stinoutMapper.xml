@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="store">
 
 <select id="liststore" resultType="StoreDTO">
-	SELECT * from swcmes_store where attrib not like 'XXX%'  
+	SELECT * from swcmes_store where attrib not like 'XXX%' and attrib not like '000%'  
+</select>
+
+<select id="liststorereq" resultType="StoreDTO">
+	SELECT * from swcmes_store where attrib not like 'XXX%' and attrib like '000%'  
 </select>
 
 <select id="detailstoreio" resultType="StoreDTO">

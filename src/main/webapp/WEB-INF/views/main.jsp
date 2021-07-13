@@ -53,17 +53,26 @@ function fnSetPage(url, data){
               계약관리
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-              <a class="dropdown-item" href="javascript:fnSetPage('${path}/cont/listview.do')">계약 목록</a>
-              <a class="dropdown-item" href="javascript:fnSetPage('${path}/cont/porderlistview.do')">생산관리 등록</a>
+              <a class="dropdown-item" href="javascript:fnSetPage('${path}/cont/listview.do')">계약 관리</a>
+              <a class="dropdown-item" href="javascript:fnSetPage('${path}/cont/reqlistview.do')">계약 요청</a>
             </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              생산관리
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              <a class="dropdown-item" href="javascript:fnSetPage('${path}/cont/porderlistview.do')">생산수량 등록</a>
+            </div>
+          </li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               재고관리
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
               <a class="dropdown-item" href="javascript:fnSetPage('${path}/store/listview.do')">상품/자재 입출고 관리</a>
-              <a class="dropdown-item" href="javascript:fnSetPage('${path}/store/buyrequest.do')">자재 구매신청</a>
+              <a class="dropdown-item" href="javascript:fnSetPage('${path}/store/buyreqlistview.do')">자재 구매신청</a>
             </div>
           </li>
           <li class="nav-item dropdown">

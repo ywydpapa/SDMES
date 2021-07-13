@@ -72,7 +72,6 @@
 		<th scope="col" width="100" align="center">입고량</th>
 		<th scope="col" width="100" align="center">출고량</th>
 		<th scope="col" width="100" align="center">발행일자</th>
-		<th scope="col" width="100" align="center">구매신청</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -84,7 +83,6 @@
 			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
 			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
 			<td>${row.regDate}</td>
-			<td style="text-align:center"><c:if test="${row.attrib eq '00000'}">O</c:if></td>
 		</tr>
 	</c:forEach>
 	</tbody>

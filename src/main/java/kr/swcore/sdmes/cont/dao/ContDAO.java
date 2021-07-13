@@ -8,6 +8,7 @@ public interface ContDAO {
 
 	ContDTO contDetail(Integer contNo);
 	List<ContDTO> listCont();
+	List<ContDTO> listReq();
 	List<ContDTO> listPorder();
 	Integer insertCont(ContDTO dto);
 	Integer updateCont(ContDTO dto);

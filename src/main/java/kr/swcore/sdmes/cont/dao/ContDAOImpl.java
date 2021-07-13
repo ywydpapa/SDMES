@@ -81,4 +81,10 @@ public class ContDAOImpl implements ContDAO {
 		return sqlSession.update("cont.setPorder", dto);
 	}
 
+	@Override
+	public List<ContDTO> listReq() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("cont.listreq");
+	}
+
 }

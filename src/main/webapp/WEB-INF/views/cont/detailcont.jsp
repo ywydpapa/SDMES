@@ -179,7 +179,7 @@
 	.scrolltbody th:nth-of-type(4), .scrolltbody td:nth-of-type(4) { min-width: 150px; max-width: 150px; width: 150px; text-overflow: ellipsis; overflow: hidden;}
 	/*.scrolltbody th:nth-of-type(5), .scrolltbody td:nth-of-type(5) { min-width: 75px; }*/
 	.scrolltbody th:last-child { min-width: 95px; }
-	.scrolltbody td:last-child { min-width: calc( 95px - 19px );  }
+	.scrolltbody td:last-child { min-width: calc( 95px - 19px );}
 </style>
 <!--//상품등록-->
 <script>

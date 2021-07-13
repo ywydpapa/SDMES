@@ -93,4 +93,16 @@ public class ContDAOImpl implements ContDAO {
 		return sqlSession.insert("cont.insertreq", dto);
 	}
 
+	@Override
+	public Integer reqOk(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cont.reqok", dto);
+	}
+
+	@Override
+	public Integer reqRj(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("cont.reqrj", dto);
+	}
+
 }

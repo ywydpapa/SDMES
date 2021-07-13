@@ -15,6 +15,8 @@ public interface ContService {
 	Integer insertCont(HttpSession session, ContDTO dto);
 	Integer insertReq(HttpSession session, ContDTO dto);
 	Integer updateCont(ContDTO dto);
+	Integer reqOk(ContDTO dto);
+	Integer reqRj(ContDTO dto);
 	Integer deleteCont(ContDTO dto);
 	Integer insertaddGoods(ContDTO dto);
 	List<ContDTO> listaddGoods(Integer contNo);

@@ -127,4 +127,16 @@ public class ContServiceImpl implements ContService {
 		}
 		return reuslt;
 	}
+
+	@Override
+	public Integer reqOk(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.reqOk(dto);
+	}
+
+	@Override
+	public Integer reqRj(ContDTO dto) {
+		// TODO Auto-generated method stub
+		return contDao.reqRj(dto);
+	}
 }

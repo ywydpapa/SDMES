@@ -79,6 +79,43 @@ update swcmes_cont
 	where contNo = #{contNo}
 </update>
 
+<update id="reqok">
+update swcmes_cont
+	set 
+	custNo = #{custNo}
+	,contAmount = #{contAmount}
+	,contDate = #{contDate} 
+	,contTitle = #{contTitle}
+	,deliveryDate = #{deliveryDate}
+	,contDate = #{contDate}
+	,contNation = #{contNation} 
+	,porderNo = #{porderNo}
+	,comment = #{comment}
+	,contPic = #{contPic}
+	,modDate = now()
+	,attrib = '10000'
+	where contNo = #{contNo}
+</update>
+
+<update id="reqrj">
+update swcmes_cont
+	set 
+	custNo = #{custNo}
+	,contAmount = #{contAmount}
+	,contDate = #{contDate} 
+	,contTitle = #{contTitle}
+	,deliveryDate = #{deliveryDate}
+	,contDate = #{contDate}
+	,contNation = #{contNation} 
+	,porderNo = #{porderNo}
+	,comment = #{comment}
+	,contPic = #{contPic}
+	,modDate = now()
+	,attrib = '000rj'
+	where contNo = #{contNo}
+</update>
+
+
 <update id="deletecont">
 update swcmes_cont
 	set attrib = 'XXXXX'

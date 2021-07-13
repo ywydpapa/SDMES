@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDTO> listuser() {
+	public List<UserDTO> listUser() {
 		// TODO Auto-generated method stub
 		return userDao.listUser();
 	}

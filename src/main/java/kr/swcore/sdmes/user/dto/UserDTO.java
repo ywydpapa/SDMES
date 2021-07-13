@@ -17,5 +17,4 @@ public class UserDTO {
 	private String attrib;
 	private String Npasswd;
 	private String Ppasswd;
-	
 }

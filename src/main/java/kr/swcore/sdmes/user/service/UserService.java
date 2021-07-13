@@ -15,5 +15,5 @@ public interface UserService {
 	public UserDTO viewUser(UserDTO dto);
 	public void logout(HttpSession session);
 	public int updPasswd(UserDTO dto);
-	List<UserDTO> listUser();
+	public List<UserDTO> listUser();
 }

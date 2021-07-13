@@ -74,6 +74,11 @@ public class StoreDAOImpl implements StoreDAO {
 	}
 
 	@Override
+	public Integer updateStoreAprv(StoreDTO dto) {
+		return sqlSession.update("store.updateStoreAprv", dto);
+	}
+
+	@Override
 	public List<StoreDTO> listStorereq() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("store.liststorereq");

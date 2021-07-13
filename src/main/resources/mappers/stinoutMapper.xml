@@ -109,6 +109,12 @@ update swcmes_store
 	where storeioNo = #{storeioNo}
 </update>
 
+<update id="updateStoreAprv">
+	update swcmes_store
+	set attrib = '10000'
+	where storeioNo = #{storeioNo}
+</update>
+
 <update id="deletestore">
 update swcmes_store
 	set attrib = 'XXXXX'

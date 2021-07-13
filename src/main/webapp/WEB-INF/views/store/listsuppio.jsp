@@ -10,6 +10,7 @@
 		<th scope="col" width="100" align="center">입고량</th>
 		<th scope="col" width="100" align="center">출고량</th>
 		<th scope="col" width="100" align="center">잔량</th>
+		<th scope="col" width="100" align="center">구매신청</th>
 	</tr>
 </thead>
 <tbody>
@@ -23,6 +24,7 @@
 			<td style="text-align: right"><fmt:formatNumber value="${row.inStoreQty}" pattern="#,###" /></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.outStoreQty}" pattern="#,###" /></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.diffStoreQty}" pattern="#,###" /></td>
+			<td style="text-align:center"><c:if test="${row.attrib eq '00000'}">O</c:if></td>
 		</tr>
 	</c:forEach>
 </tbody>

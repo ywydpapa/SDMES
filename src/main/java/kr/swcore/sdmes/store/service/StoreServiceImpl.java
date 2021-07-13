@@ -201,6 +201,11 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public Integer updateStoreAprv(StoreDTO dto) {
+		return storeDao.updateStoreAprv(dto);
+	}
+
+	@Override
 	public List<StoreDTO> listStorereq() {
 		// TODO Auto-generated method stub
 		return storeDao.listStorereq();

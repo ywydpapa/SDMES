@@ -72,6 +72,7 @@
 		<th scope="col" width="100" align="center">입고량</th>
 		<th scope="col" width="100" align="center">출고량</th>
 		<th scope="col" width="100" align="center">발행일자</th>
+		<th scope="col" width="100" align="center">구매신청</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -83,13 +84,33 @@
 			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
 			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
 			<td>${row.regDate}</td>
+			<td style="text-align:center"><c:if test="${row.attrib eq '00000'}">O</c:if></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
 <script>
 	function allowReq(){
-
+		var messtoredata = {};
+		messtoredata.storeioNo = $("#storeioNo").val();
+		$.ajax({
+			url : "${path}/store/updateStoreAprv.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : messtoredata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		})
+		.done(function(data) {
+			if(data.code == 10001){
+				alert("구매허가 승인");
+				var url = "${path}/store/listsuppio.do";
+				fn_Reload02(url);
+			}else{
+				alert("구매허가 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 
 	function fnUpdateSuppIo(){

@@ -17,4 +17,5 @@ public interface StoreService {
 	Integer updateStoreReq(StoreDTO dto);
 	Integer deleteStore(StoreDTO dto);
 	Integer insertStoreReq(StoreDTO dto);
+	Integer updateStoreAprv(StoreDTO dto);
 }

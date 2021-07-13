@@ -1,5 +1,7 @@
 package kr.swcore.sdmes.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -13,4 +15,5 @@ public interface UserService {
 	public UserDTO viewUser(UserDTO dto);
 	public void logout(HttpSession session);
 	public int updPasswd(UserDTO dto);
+	List<UserDTO> listUser();
 }

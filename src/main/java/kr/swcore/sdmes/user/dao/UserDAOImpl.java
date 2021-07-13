@@ -1,5 +1,7 @@
 package kr.swcore.sdmes.user.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +38,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int updPasswd(UserDTO dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("user.updPasswd" ,dto);
+		return sqlSession.update("user.updPasswd",dto);
+	}
+
+	@Override
+	public List<UserDTO> listUser() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("user.listuser");
 	}
 
 	

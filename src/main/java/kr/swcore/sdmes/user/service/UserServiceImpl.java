@@ -1,5 +1,7 @@
 package kr.swcore.sdmes.user.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -43,5 +45,11 @@ public class UserServiceImpl implements UserService {
 	public int updPasswd(UserDTO dto) {
 		// TODO Auto-generated method stub
 		return userDao.updPasswd(dto);
+	}
+
+	@Override
+	public List<UserDTO> listuser() {
+		// TODO Auto-generated method stub
+		return userDao.listUser();
 	}
 }

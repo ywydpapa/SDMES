@@ -20,6 +20,7 @@ import kr.swcore.sdmes.code.service.CodeService;
 import kr.swcore.sdmes.cont.dto.ContDTO;
 import kr.swcore.sdmes.cont.service.ContService;
 import kr.swcore.sdmes.goods.service.GoodsService;
+import kr.swcore.sdmes.user.service.UserService;
 
 @Controller
 @RequestMapping("/cont/*")
@@ -36,6 +37,9 @@ public class ContController {
 	
 	@Inject
 	CodeService codeService;
+	
+	@Inject
+	UserService userService;
 	
 	@RequestMapping("listview.do")
 	public ModelAndView listview(ModelAndView mav) {
@@ -97,6 +101,7 @@ public class ContController {
 		mav.addObject("addgoods",contService.listaddGoods(contNo));
 		mav.addObject("cust",codeService.listCode02(43));
 		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("pic", userService.listUser());
 
 		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
 		ContFileDTO contDTO = new ContFileDTO();

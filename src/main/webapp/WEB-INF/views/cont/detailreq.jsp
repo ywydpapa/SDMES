@@ -307,7 +307,7 @@
 			dataType : "json" // 서버에서 보내줄 데이터의 타입
 		}).done(function(data) {
 			if(data.code == 10001){
-				var url = "${path}/cont/listreq.do";
+				var url = "${path}/cont/listReq.do";
 				fn_Reload02(url);
 				}else{
 				alert("저장 실패");

@@ -63,27 +63,79 @@
 	</tbody>
 </table>
 
-<%--<table class="table table-striped table-bordered nowrap" id="storelistTable">--%>
-<%--	<thead>--%>
-<%--	<tr>--%>
-<%--		<th scope="col" width="100" align="center">구분</th>--%>
-<%--		<th scope="col" width="200" align="center">상품명</th>--%>
-<%--		<th scope="col" width="100" align="center">단위</th>--%>
-<%--		<th scope="col" width="100" align="center">입고량</th>--%>
-<%--		<th scope="col" width="100" align="center">출고량</th>--%>
-<%--		<th scope="col" width="100" align="center">발행일자</th>--%>
-<%--	</tr>--%>
-<%--	</thead>--%>
-<%--	<tbody>--%>
-<%--	<c:forEach var="row" items="${list01}">--%>
-<%--		<tr>--%>
-<%--			<td class="first">${row.goodsType}</td>--%>
-<%--			<td><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}')">${row.goodsTitle}(${row.goodsModel})</a></td>--%>
-<%--			<td>${row.goodsUnit}</td>--%>
-<%--			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>
-<%--			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>
-<%--			<td>${row.codeDesc}</td>--%>
-<%--		</tr>--%>
-<%--	</c:forEach>--%>
-<%--	</tbody>--%>
-<%--</table>--%>
+<table class="table table-striped table-bordered nowrap" id="storelistTable">
+	<thead>
+	<tr>
+		<th scope="col" width="100" align="center">구분</th>
+		<th scope="col" width="200" align="center">상품명</th>
+		<th scope="col" width="100" align="center">단위</th>
+		<th scope="col" width="100" align="center">입고량</th>
+		<th scope="col" width="100" align="center">출고량</th>
+		<th scope="col" width="100" align="center">발행일자</th>
+	</tr>
+	</thead>
+	<tbody>
+	<c:forEach var="row" items="${list01}">
+		<tr>
+			<td class="first">${row.goodsType}</td>
+			<td><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}')">${row.goodsTitle}(${row.goodsModel})</a></td>
+			<td>${row.goodsUnit}</td>
+			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
+			<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>
+			<td>${row.regDate}</td>
+		</tr>
+	</c:forEach>
+	</tbody>
+</table>
+
+<script>
+	function fnUpdateGoodsIo(){
+		var messtoredata = {};
+		messtoredata.storeioNo = $("#storeioNo").val();
+		messtoredata.goodsNo = $("#selgoodsNo").val();
+		messtoredata.inoutTyp = $("#inoutType").val();
+		messtoredata.storeQty = $("#storeQty").val().replace(/[\D\s\._\-]+/g, "");
+		messtoredata.storeUnit = $("#storeUnit").val();
+		messtoredata.locateCode = $("#locateCode").val();
+		messtoredata.comment = $("#comment").val();
+		console.log(messtoredata);
+		$.ajax({
+			url : "${path}/store/update.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : messtoredata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		})
+		.done(function(data) {
+			if(data.code == 10001){
+				var url = "${path}/store/listgoodsio.do";
+				fn_Reload02(url);
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_Reload02(url, data){
+		$("#storelistTable").empty();
+		$("#storelistTable").load(url, data, function(){
+			setTimeout(function(){
+				var list = $("#storelistTable > tbody > tr");
+				if(list.length > 0){
+					var tr = list[0];
+					$(tr).find("a").get(0).click();	// a link force click!!
+				}
+			}, 100);
+		});
+	}
+
+	function fn_Reload03(url, data){
+		$("#detailstore").empty();
+		$("#detailstore").load(url, data, function(){
+			setTimeout(function(){
+			}, 500);
+		});
+	}
+</script>

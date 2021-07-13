@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.swcore.sdmes.code.service.CodeService;
@@ -37,7 +38,7 @@ public class StoreController {
 	@RequestMapping("listview.do")
 	public ModelAndView listview(ModelAndView mav) {
 		mav.setViewName("store/listview");
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
 		return mav;
 	}
@@ -60,7 +61,7 @@ public class StoreController {
 	@RequestMapping("listgoodsio.do")
 	public ModelAndView listgio(ModelAndView mav) {
 		mav.setViewName("store/listgoodsio");
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
 		return mav;
 	}
@@ -69,18 +70,26 @@ public class StoreController {
 	public ModelAndView gddetail(@PathVariable("storeioNo") Integer storeioNo, ModelAndView mav) {
 		mav.setViewName("store/goodsio");
 		mav.addObject("dto", storeService.storedetail(storeioNo));
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listgoodsio(storeioNo));
 		mav.addObject("goods", goodsService.listGoods01());
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
-	
+
+	@RequestMapping("listsuppio.do")
+	public ModelAndView listsio(ModelAndView mav) {
+		mav.setViewName("store/listsuppio");
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
+		return mav;
+	}
+
 	@RequestMapping("/detailsuppio/{storeioNo}")
 	public ModelAndView dddetail(@PathVariable("storeioNo") Integer storeioNo, ModelAndView mav) {
 		mav.setViewName("store/suppio");
 		mav.addObject("dto", storeService.storedetail(storeioNo));
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
+		mav.addObject("list01", storeService.listsuppio(storeioNo));
+		mav.addObject("supps", suppService.listSupp01(storeioNo));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -89,7 +98,7 @@ public class StoreController {
 	@RequestMapping("goodsio.do")
 	public ModelAndView gio(ModelAndView mav) {
 		mav.setViewName("store/goodsio");
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
@@ -98,7 +107,7 @@ public class StoreController {
 	@RequestMapping("goodsReq.do")
 	public ModelAndView greq(ModelAndView mav) {
 		mav.setViewName("store/goodsReq");
-		mav.addObject("list01", storeService.listgoodsio());
+		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
@@ -108,8 +117,8 @@ public class StoreController {
 	@RequestMapping("buyreqlistview.do")
 	public ModelAndView buyreqlist(ModelAndView mav) {
 		mav.setViewName("store/listviewReq");
-		mav.addObject("list01", storeService.listgoodsio());
-		mav.addObject("supp", suppService.listSupp01());
+		mav.addObject("list01", storeService.listgoodsio(null));
+		mav.addObject("supp", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -117,25 +126,17 @@ public class StoreController {
 	@RequestMapping("buyrequest.do")
 	public ModelAndView buyreq(ModelAndView mav) {
 		mav.setViewName("store/buyrequest");
-		mav.addObject("list01", storeService.listgoodsio());
-		mav.addObject("supp", suppService.listSupp01());
+		mav.addObject("list01", storeService.listgoodsio(null));
+		mav.addObject("supp", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
-		return mav;
-	}
-
-	@RequestMapping("listsuppio.do")
-	public ModelAndView listsio(ModelAndView mav) {
-		mav.setViewName("store/listsuppio");
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
 		return mav;
 	}
 	
 	@RequestMapping("suppio.do")
 	public ModelAndView sio(ModelAndView mav) {
 		mav.setViewName("store/suppio");
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}
@@ -143,8 +144,8 @@ public class StoreController {
 	@RequestMapping("suppReq.do")
 	public ModelAndView sreq(ModelAndView mav) {
 		mav.setViewName("store/suppReq");
-		mav.addObject("list01", storeService.listsuppio());
-		mav.addObject("supps", suppService.listSupp01());
+		mav.addObject("list01", storeService.listsuppio(null));
+		mav.addObject("supps", suppService.listSupp01(null));
 		mav.addObject("locc",codeService.listCode02(40));
 		return mav;
 	}

@@ -99,8 +99,13 @@ function fn_Reload02(url, data){
 	$("#storelistTable").empty();
 	$("#storelistTable").load(url, data, function(){
 		setTimeout(function(){
-		}, 500);
-});
+			var list = $("#storelistTable > tbody > tr");
+			if(list.length > 0){
+				var tr = list[0];
+				$(tr).find("a").get(0).click();	// a link force click!!
+			}
+		}, 100);
+	});
 }
 
 function fn_Reload03(url, data){
@@ -141,8 +146,8 @@ function setfirst(){
 $(document).ready(function() {
 	var url ="${path}/store/listgoodsio.do";
 	fn_Reload02(url);
-	var url3 ="${path}/store/goodsio.do";
-	fn_Reload03(url3);
+	<%--var url3 ="${path}/store/goodsio.do";--%>
+	<%--fn_Reload03(url3);--%>
 } );
 
 function newdata() {

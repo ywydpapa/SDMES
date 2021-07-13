@@ -9,8 +9,8 @@ public interface StoreService {
 	StoreDTO storedetail(Integer storeioNo);
 	List<StoreDTO> listStore();
 	List<StoreDTO> listStorereq();
-	List<StoreDTO> listgoodsio();
-	List<StoreDTO> listsuppio();
+	List<StoreDTO> listgoodsio(Integer storeioNo);
+	List<StoreDTO> listsuppio(Integer storeioNo);
 	Integer insertStore(StoreDTO dto);
 	Integer updateStore(StoreDTO dto);
 	Integer deleteStore(StoreDTO dto);

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,8 +47,8 @@ public class ContFileServiceImpl implements ContFileService{
             Long fileSize = file.getSize();
 
             contFileDTO.setFileId(uuid);
-            contFileDTO.setFileName(file.getOriginalFilename());
-            contFileDTO.setFileDesc(fileDesc);
+            contFileDTO.setFileName(new String(file.getOriginalFilename().getBytes("8859_1"), StandardCharsets.UTF_8));
+            contFileDTO.setFileDesc(new String(fileDesc.getBytes("8859_1"), StandardCharsets.UTF_8));
             contFileDTO.setFileContent(file.getBytes());
             contFileDTO.setFileSize(fileSize);
             contFileDTO.setFileType(checkMimeType);

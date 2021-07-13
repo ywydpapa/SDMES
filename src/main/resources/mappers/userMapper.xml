@@ -4,6 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
+<select id="listuser" resultType="UserDto">
+		select * from swc_user where compNo = '100003' and attrib not like 'XXX%'
+</select>
+
 <select id="loginCheck" resultType="String">
  		SELECT userName from swc_user where userId=#{userId} and userPasswd=PASSWORD(#{userPasswd}) 
 </select>

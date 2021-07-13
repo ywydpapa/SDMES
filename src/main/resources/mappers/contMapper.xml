@@ -8,7 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
 		left join swcmes_code sc on a.custNo = sc.codeNo 
 		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
-		where a.attrib not like 'XXX%' group by a.contNo 
+		where a.attrib not like 'XXX%' or a.attrib not like '000%' group by a.contNo 
+</select>
+
+<select id="listreq" resultType="ContDTO">
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		left join swcmes_code sc on a.custNo = sc.codeNo 
+		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
+		where a.attrib not like 'XXX%' or a.attrib like '000%' group by a.contNo 
 </select>
 
 <select id="listporder" resultType="ContDTO">

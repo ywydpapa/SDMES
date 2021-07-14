@@ -164,6 +164,7 @@ public class ContController {
 	public ModelAndView podgddetail(@PathVariable("contNo") Integer contNo, ModelAndView mav) {
 		mav.setViewName("porder/detailporder");
 		mav.addObject("list1",contService.listaddGoods(contNo));
+		mav.addObject("cont",contService.contDetail(contNo));
 		return mav;
 	}
 

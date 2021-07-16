@@ -5,21 +5,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cont">
 
 <select id="listcont" resultType="ContDTO">
-		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQtyComplete),0) prdQtyComplete, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQtyComplete),0)-ifnull(sum(scg.prdQtyPart),0) remQty, a.* from swcmes_cont a
 		left join swcmes_code sc on a.custNo = sc.codeNo 
 		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
 		where a.attrib not like 'XXX%' and a.attrib not like '000%' group by a.contNo 
 </select>
 
 <select id="listreq" resultType="ContDTO">
-		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQtyComplete),0) prdQtyComplete, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQtyComplete),0)-ifnull(sum(scg.prdQtyPart),0) remQty, a.* from swcmes_cont a
 		left join swcmes_code sc on a.custNo = sc.codeNo 
 		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
 		where a.attrib not like 'XXX%' and a.attrib like '000%' group by a.contNo 
 </select>
 
 <select id="listporder" resultType="ContDTO">
-		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQty),0) prdQty, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQty),0) remQty, a.* from swcmes_cont a 
+		SELECT sc.codeDesc,ifnull(sum(scg.goodsQty),0) goodsQty,IFNULL(sum(scg.prdQtyComplete),0) prdQtyComplete, ifnull(sum(scg.goodsQty),0)-ifnull(sum(scg.prdQtyComplete),0)-ifnull(sum(scg.prdQtyPart),0) remQty, a.* from swcmes_cont a
 		left join swcmes_code sc on a.custNo = sc.codeNo 
 		left join swcmes_cont_goods scg on a.contNo = scg.contNo and scg.attrib not like 'XXX%'
 		where a.attrib not like 'XXX%' and a.attrib like '2%' group by a.contNo 
@@ -56,7 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <select id = "addgoodslist" resultType="ContDTO">
-	select a.*, sg.goodsTitle, IFNULL(a.goodsQty,0)-IFNULL(a.prdQty,0) remQty from swcmes_cont_goods a
+	select a.*, sg.goodsTitle, sg.goodsModel, IFNULL(a.goodsQty,0)-IFNULL(a.prdQtyComplete,0)-IFNULL(a.prdQtyPart,0) remQty
+	from swcmes_cont_goods a
 	left join swcmes_goods sg on sg.goodsNo = a.goodsNo 
 	where a.attrib not like 'XXXX%' and a.contNo = #{contNo}
 </select>
@@ -150,8 +151,9 @@ update swcmes_cont_goods
 <update id="updateaddgoods">
 update swcmes_cont_goods
 	set 
-	 prdQty = ifnull(prdQty,0)+#{prdQty}  
-	,modDate = now()
+	 prdQtyComplete = ifnull(prdQtyComplete,0)+#{prdQtyComplete},
+	 prdQtyPart = ifnull(prdQtyPart,0)+#{prdQtyPart},
+	 modDate = now()
 	where contdtlNo = #{contdtlNo}
 </update>
 

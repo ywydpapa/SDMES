@@ -29,9 +29,10 @@
 								</td>
 							</tr>
 							<tr >
-								<th scope="row" style="text-align: center;">납품예정일자</th>
+								<th scope="row" style="text-align: center;">계약일자</th>
+
 								<td>
-									<input type="date" style="text-align: right;" class="form-control" id="deliveryDate" value="${dto.deliveryDate}">
+									<input type="date" style="text-align: right;" class="form-control" id="contDate" value="${dto.contDate}">
 								</td>
 								<th scope="row" style="text-align: center;">계약금액</th>
 								<td colspan="2">
@@ -39,10 +40,9 @@
 								</td>
 							</tr>
 							<tr >
-								<th scope="row" style="text-align: center;">계약일자</th>
-								<td><input type="date" style="text-align: right;"
-									class="form-control" id="contDate"
-									value="${dto.contDate}">
+								<th scope="row" style="text-align: center;">납품예정일자</th>
+								<td>
+									<input type="date" style="text-align: right;" class="form-control" id="deliveryDate" value="${dto.deliveryDate}">
 								</td>
 								<th scope="row" style="text-align: center;">납품국가</th>
 								<td colspan="2">
@@ -118,7 +118,7 @@
 									<select class="form-control" id="contgoods">
 										<option value="">선택</option>
 										<c:forEach var="goods" items="${goods}">
-											<option value="${goods.goodsNo}">${goods.goodsTitle}(${addg.goodsModel})</option>
+											<option value="${goods.goodsNo}">${goods.goodsTitle}(${goods.goodsModel})</option>
 										</c:forEach>
 									 </select>
 								</td>
@@ -144,6 +144,7 @@
 			<div id="udtbtn">
 				<button class="btn btn-md btn-primary " onClick="<c:if test="${empty dto.contNo}">fn_newReq1()</c:if><c:if test="${not empty dto.contNo}">fn_updateReq1()</c:if>">
 				<c:if test="${empty dto.contNo}">새계약 요청 저장</c:if><c:if test="${not empty dto.contNo}">요청계약 수정</c:if></button>
+				<c:if test="${not empty dto.contNo && sessionScope.userRole eq 'ADMIN'}"><button class="btn btn-md btn-warning" onclick="fn_deleteContreq('${dto.contNo}');">요청계약 삭제</button></c:if>
 				<c:if test="${not empty dto.contNo}">
 				<c:if test="${userRole eq 'ADMIN'}"><button class="btn btn-md btn-primary " onClick="fn_updateReqok()">승인</button></c:if>
 				<c:if test="${userRole eq 'ADMIN'}"><button class="btn btn-md btn-primary " onClick="fn_updateReqrj()">반려</button></c:if>
@@ -254,6 +255,31 @@
 				}else{
 				alert("저장 실패");
 				}
+		}).fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
+	}
+
+	function fn_deleteContreq(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return false;
+		}
+		var mescontdata = {};
+		mescontdata.contNo = $("#contNo").val();
+		$.ajax({
+			url : "${path}/cont/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : mescontdata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		}).done(function(data) {
+			if(data.code == 10001){
+				var url = "${path}/cont/listreq.do";
+				fn_Reload02(url);
+				var url3 ="${path}/cont/writereq.do";
+				fn_Reload03(url3);
+			}else{
+				alert("삭제 실패");
+			}
 		}).fail(function(xhr, status, errorThrown) {
 			alert("통신 실패");
 		});

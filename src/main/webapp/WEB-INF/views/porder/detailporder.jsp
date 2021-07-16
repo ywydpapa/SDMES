@@ -5,30 +5,37 @@
 <table id="initable" class="table table-bordered nowrap " style="margin: auto">
 	<colgroup>
 		<col width="25%" />
-		<col width="20%" />
-		<col width="20%" />
-		<col width="20%" />
-		<col width="15%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
 	</colgroup>
 	<thead>
 	<tr>
-		<th style="text-align:center">상품명</th>
-		<th style="text-align:center">생산목표량</th>
-		<th style="text-align:center">기존생산량</th>
-		<th style="text-align:center">잔여량</th>
-		<th style="text-align:center">금회생산량</th>
+		<th style="text-align:center; vertical-align: middle;">상품명</th>
+		<th style="text-align:center; vertical-align: middle;">생산목표량</th>
+		<th style="text-align:center; vertical-align: middle;">생산량<br/>(완제품)</th>
+		<th style="text-align:center; vertical-align: middle;">생산량<br/>(반제품)</th>
+		<th style="text-align:center; vertical-align: middle;">잔여량</th>
+		<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(완제품)</th>
+		<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(반제품)</th>
 	</tr>
 	</thead>
 	<tbody>
 	<c:forEach varStatus="status" var="row2" items="${list1}">
 		<tr>
-			<td style="text-align:center">
-				<input class="cdNo" type="hidden" value="${row2.contdtlNo}"><input id="contNo" type="hidden" value="${row2.contNo}">
-					${row2.goodsTitle}(${row2.goodsModel})
-			<td style="text-align:right"><fmt:formatNumber value="${row2.goodsQty}" pattern="#,###" /></td>
-			<td style="text-align:right"><fmt:formatNumber value="${row2.prdQty}" pattern="#,###" /></td>
-			<td style="text-align:right"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
-			<td><input class="form-control PrdQty" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
+			<td style="text-align:center; vertical-align: middle;">
+				<input class="cdNo" type="hidden" value="${row2.contdtlNo}">
+				<input id="contNo" type="hidden" value="${row2.contNo}">
+				${row2.goodsTitle}(${row2.goodsModel})
+			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.goodsQty}" pattern="#,###" /></td>
+			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyComplete}" pattern="#,###" /></td>
+			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyPart}" pattern="#,###" /></td>
+			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
+			<td><input class="form-control PrdQtyComplete" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
+			<td><input class="form-control PrdQtyPart" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -40,41 +47,40 @@
 	<button class="btn btn-md btn-success" value="저장" id="btn-upd-row1" onclick="fn_updateLines()">변경사항저장</button>
 </div>
 <div style="display:none" id = "printdiv">
-	<table id="initable" class="table table-bordered nowrap " style="margin: auto">
+	<table class="table table-bordered nowrap " style="margin: auto">
 		<colgroup>
 			<col width="25%" />
-			<col width="25%" />
-			<col width="25%" />
-			<col width="25%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
 		</colgroup>
 		<thead>
 		<tr>
-			<th colspan="4" style="text-align:center"><h3>작업지시서</h3></th>
-		</tr>
-		<tr>
-			<th colspan="1" style="text-align:center"><h4>계약명</h4></th>
-			<th colspan="3" style="text-align:center"><h4></h4>${cont.contTitle}</th>
-		</tr>
-		<tr>
-			<th colspan="1" style="text-align:center"><h4>납품예정일</h4></th>
-			<th colspan="3" style="text-align:center"><h4></h4>${cont.deliveryDate}</th>
-		</tr>
-		<tr>
-			<th style="text-align:center">상품명</th>
-			<th style="text-align:center">생산목표량</th>
-			<th style="text-align:center">기존생산량</th>
-			<th style="text-align:center">잔여량</th>
+			<th style="text-align:center; vertical-align: middle;">상품명</th>
+			<th style="text-align:center; vertical-align: middle;">생산목표량</th>
+			<th style="text-align:center; vertical-align: middle;">생산량<br/>(완제품)</th>
+			<th style="text-align:center; vertical-align: middle;">생산량<br/>(반제품)</th>
+			<th style="text-align:center; vertical-align: middle;">잔여량</th>
+			<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(완제품)</th>
+			<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(반제품)</th>
 		</tr>
 		</thead>
 		<tbody>
 		<c:forEach varStatus="status" var="row2" items="${list1}">
 			<tr>
-				<td style="text-align:center">
-					<input class="cdNo" type="hidden" value="${row2.contdtlNo}"><input id="contNo" type="hidden" value="${row2.contNo}">
+				<td style="text-align:center; vertical-align: middle;">
+					<input class="cdNo" type="hidden" value="${row2.contdtlNo}">
+					<input id="contNo" type="hidden" value="${row2.contNo}">
 						${row2.goodsTitle}(${row2.goodsModel})
-				<td style="text-align:right"><fmt:formatNumber value="${row2.goodsQty}" pattern="#,###" /></td>
-				<td style="text-align:right"><fmt:formatNumber value="${row2.prdQty}" pattern="#,###" /></td>
-				<td style="text-align:right"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
+				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.goodsQty}" pattern="#,###" /></td>
+				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyComplete}" pattern="#,###" /></td>
+				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyPart}" pattern="#,###" /></td>
+				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
+				<td><input class="form-control PrdQtyComplete" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
+				<td><input class="form-control PrdQtyPart" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -105,23 +111,31 @@
 	}
 
 	function fn_updateLines(){
-		var $Aarr = $(".cdNo");
-		var $Barr = $(".PrdQty");
+		var $Aarr = $("#initable").find(".cdNo");
+		// var $Barr = $(".PrdQty");
+		var $Carr = $(".PrdQtyComplete");
+		var $Darr = $(".PrdQtyPart");
 		for (var i=0; i<$Aarr.length; i++){
 			var mesdata = {};
 			mesdata.contdtlNo = $Aarr[i].value;
-			mesdata.prdQty = Number($Barr[i].value.replace(/[\D\s\._\-]+/g, ""));
+			// mesdata.prdQty = Number($Barr[i].value.replace(/[\D\s\._\-]+/g, ""));
+			mesdata.prdQtyComplete = Number($Carr[i].value.replace(/[\D\s\._\-]+/g, ""));
+			mesdata.prdQtyPart = Number($Darr[i].value.replace(/[\D\s\._\-]+/g, ""));
 			console.log(mesdata);
+
 			$.ajax({
 				url : "${path}/cont/updateaddgoods.do",
 				data : mesdata,
 				method : "POST",
-				dataType : "json"
+				dataType : "json",
+				async : false,
 			})
-					.done(function(data) {
-					});
+			.done(function(data) {
+			});
 		}
-		reload2();
+		// reload2();
+		var url2 = "${path}/cont/listporder.do";
+		fn_Reload02(url2);
 		var url3 = "${path}/cont/porderdetail/"+$("#contNo").val();
 		fn_Reload03(url3);
 	}

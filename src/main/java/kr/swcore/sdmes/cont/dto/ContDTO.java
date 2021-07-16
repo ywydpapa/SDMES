@@ -20,6 +20,8 @@ public class ContDTO {
 	private Integer goodsNo;
 	private Integer goodsQty;
 	private Integer prdQty;
+	private Integer prdQtyComplete;
+	private Integer prdQtyPart;
 	private Integer remQty;
 	private Integer goodsPrice;
 	private String goodsTitle;

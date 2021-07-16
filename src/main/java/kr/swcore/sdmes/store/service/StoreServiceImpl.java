@@ -74,6 +74,7 @@ public class StoreServiceImpl implements StoreService {
 				newDTO.setGoodsType(vo.getGoodsType());
 				newDTO.setGoodsUnit(vo.getGoodsUnit());
 				newDTO.setGoodsModel(vo.getGoodsModel());
+				newDTO.setAttrib(vo.getAttrib());
 				newDTO.setStoreioNo(vo.getStoreioNo());
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());
@@ -147,6 +148,7 @@ public class StoreServiceImpl implements StoreService {
 				newDTO.setSuppType(vo.getSuppType());
 				newDTO.setSuppUnit(vo.getSuppUnit());
 				newDTO.setSuppModel(vo.getSuppModel());
+				newDTO.setAttrib(vo.getAttrib());
 				newDTO.setStoreioNo(vo.getStoreioNo());
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());

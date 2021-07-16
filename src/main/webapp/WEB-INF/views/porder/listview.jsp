@@ -50,7 +50,7 @@
 					<th scope="col" width="100" align="center">납품일자</th>
 					<th scope="col" width="100" align="center">납품처</th>
 					<th scope="col" width="100" align="center">생산목표</th>
-					<th scope="col" width="100" align="center">생산완료</th>
+					<th scope="col" width="100" align="center">생산완료<br/>(완제품)</th>
 					<th scope="col" width="100" align="center">잔여량</th>
 				</tr>
 				</thead>
@@ -62,7 +62,7 @@
 						<td>${row.deliveryDate}</td>
 						<td>${row.codeDesc}</td>
 						<td style="text-align: right"><fmt:formatNumber value="${row.goodsQty}" pattern="#,###" /></td>
-						<td style="text-align: right"><fmt:formatNumber value="${row.prdQty}" pattern="#,###" /></td>
+						<td style="text-align: right"><fmt:formatNumber value="${row.prdQtyComplete}" pattern="#,###" /></td>
 						<td style="text-align: right"><fmt:formatNumber value="${row.remQty}" pattern="#,###" /></td>
 					</tr>
 				</c:forEach>

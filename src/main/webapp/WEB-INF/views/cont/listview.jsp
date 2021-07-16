@@ -64,9 +64,9 @@
 							<td style="text-align:center"><c:if test="${row.attrib eq '20000'}">O</c:if></td>
 						</tr>
 					</c:forEach>
-					<tr>
-					<td colspan = "6" style="text-align:right"><button class= "btn btn-md btn-primary" id="newcon" onclick="newcon()">새계약 추가</button></td>
-					</tr>
+<%--					<tr>--%>
+<%--					<td colspan = "6" style="text-align:right"><button class= "btn btn-md btn-primary" id="newcon" onclick="newcon()">새계약 추가</button></td>--%>
+<%--					</tr>--%>
 				</tbody>
 			</table>
 		</div>

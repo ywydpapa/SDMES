@@ -56,9 +56,19 @@
 		</tr>
 		<tr>
 			<td colspan="5" style="text-align: right">
-			<c:if test="${userRole eq 'ADMIN'}"><c:if test="${dto.attrib eq '00000'}"><button class="btn btn-md btn-success" onclick = "allowReq()">구매허가</button></c:if></c:if>
+			<c:if test="${userRole eq 'ADMIN'}">
+				<c:if test="${dto.attrib eq '00000'}">
+					<button class="btn btn-md btn-success" onclick = "allowReq()">구매허가</button>
+				</c:if>
+			</c:if>
 			<button class="btn btn-md btn-success" onclick = "<c:if test="${empty storeioNo}">fnInsertSuppIo()</c:if><c:if test="${not empty storeioNo}">fnUpdateSuppIo()</c:if>">
-			<c:if test="${empty storeioNo}">저장</c:if><c:if test="${not empty storeioNo}">수정</c:if></button></td>
+				<c:if test="${empty storeioNo}">저장</c:if><c:if test="${not empty storeioNo}">수정</c:if>
+			</button>
+			<c:if test="${not empty storeioNo}">
+				<button class="btn btn-md btn-warning" onclick="fnDeleteGoods();">삭제</button>
+			</c:if>
+			</td>
+
 		</tr>
 	</tbody>
 </table>
@@ -140,6 +150,32 @@
 		.fail(function(xhr, status, errorThrown) {
 			alert("통신 실패");
 		});
+	}
+
+	function fnDeleteGoods(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return false;
+		}
+		var messtoredata = {};
+		messtoredata.storeioNo = $("#storeioNo").val();
+		console.log(messtoredata);
+		$.ajax({
+			url : "${path}/store/delete.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data : messtoredata, // HTTP 요청과 함께 서버로 보낼 데이터
+			method : "POST", // HTTP 요청 메소드(GET, POST 등)
+			dataType : "json" // 서버에서 보내줄 데이터의 타입
+		})
+				.done(function(data) {
+					if(data.code == 10001){
+						var url = "${path}/store/listgoodsio.do";
+						fn_Reload02(url);
+					}else{
+						alert("저장 실패");
+					}
+				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+				.fail(function(xhr, status, errorThrown) {
+					alert("통신 실패");
+				});
 	}
 
 	function fn_Reload02(url, data){

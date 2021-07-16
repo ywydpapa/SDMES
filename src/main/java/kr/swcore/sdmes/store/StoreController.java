@@ -218,16 +218,16 @@ public class StoreController {
 	}
 	
 	@RequestMapping("delete.do")
-			public ResponseEntity<?> delete(@ModelAttribute StoreDTO dto) {
-			Map<String, Object> param = new HashMap<String, Object>();
-			int codeUpdate = storeService.deleteStore(dto);
-			if (codeUpdate >0) {
-				param.put("code","10001"); 
-			}
-			else {param.put("code","20001");
-			}
-			return ResponseEntity.ok(param);
+	public ResponseEntity<?> delete(@ModelAttribute StoreDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int codeUpdate = storeService.deleteStore(dto);
+		if (codeUpdate >0) {
+			param.put("code","10001");
 		}
+		else {param.put("code","20001");
+		}
+		return ResponseEntity.ok(param);
+	}
 
 	@RequestMapping("updateStoreAprv.do")
 	public ResponseEntity<?> updateStoreAprv(@ModelAttribute StoreDTO dto) {

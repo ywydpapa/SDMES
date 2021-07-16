@@ -37,13 +37,14 @@ where storeioNo= #{storeioNo}
 </select>
 
 <select id="listgoodGroupIo" resultType="StoreDTO">
-	SELECT storeioNo, sg.goodsTitle,sg.goodsType,sg.goodsUnit,sg.goodsModel,a.inoutTyp, sum(a.storeQty) storeQty
+	SELECT storeioNo, sg.goodsTitle,sg.goodsType,sg.goodsUnit,sg.goodsModel,a.inoutTyp, sum(a.storeQty) storeQty,
+		   if(sum(if(a.attrib = '00000',1,0)) > 0, '00000', '10000') attrib
 	from swcmes_store a
 			 left join swcmes_goods sg on sg.goodsNo = a.goodsNo
 			 left join swcmes_code sc on sc.codeNo = a.locateCode
 	where a.attrib not like 'XXX%' and suppNo is null
 	group by inoutTyp, sg.goodsTitle, a.goodsNo
-	order by sg.goodsTitle, sg.goodsModel, storeioNo desc, inoutTyp
+	order by sg.goodsTitle, sg.goodsModel, inoutTyp asc, storeioNo desc
 </select>
 
 <select id="listsuppio" resultType="StoreDTO">
@@ -59,13 +60,14 @@ where storeioNo= #{storeioNo}
 </select>
 
 <select id="listsuppGroupIo" resultType="StoreDTO">
-	SELECT a.storeioNo, sg.suppTitle, sg.suppType, sg.suppUnit, sg.suppModel, a.inoutTyp, sum(a.storeQty) storeQty
+	SELECT a.storeioNo, sg.suppTitle, sg.suppType, sg.suppUnit, sg.suppModel, a.inoutTyp, sum(a.storeQty) storeQty,
+		   if(sum(if(a.attrib = '00000',1,0)) > 0, '00000', '10000') attrib
 	from swcmes_store a
 			 left join swcmes_supp sg on sg.suppNo = a.suppNo
 			 left join swcmes_code sc on sc.codeNo = a.locateCode
 	where a.attrib not like 'XXX%' and a.goodsNo is null
 	group by inoutTyp, sg.suppTitle, a.suppNo
-	order by sg.suppTitle, sg.suppModel, storeioNo desc, inoutTyp
+	order by sg.suppTitle, sg.suppModel, inoutTyp asc, storeioNo desc
 </select>
 
 <insert id="insertstore">

@@ -55,9 +55,9 @@
 				</thead>
 				<tbody>
 					<c:forEach var="row" items="${list01}">
-						<tr>
+						<tr id="${row.contNo}">
 							<td class="first from-control">${row.contNo}</td>
-							<td><a href="javascript:fn_Reload03('${path}/cont/detail/${row.contNo}')">${row.contTitle}</a></td>
+							<td><a href="javascript:fn_Reload03('${path}/cont/detail/${row.contNo}','',${row.contNo})">${row.contTitle}</a></td>
 							<td style="text-align: right"><fmt:formatNumber value="${row.contAmount}" pattern="#,###" /></td>
 							<td>${row.deliveryDate}</td>
 							<td>${row.codeDesc}</td>
@@ -87,7 +87,9 @@ function fn_Reload02(url, data){
 });
 }
 
-function fn_Reload03(url, data){
+function fn_Reload03(url, data, id){
+	$("#contlistTable tbody tr").css("background-color", "");
+	$("#"+id).closest('tr').css("background-color", "#dfffd4");
 	$("#detailcont").empty();
 	$("#detailcont").load(url, data, function(){
 		setTimeout(function(){

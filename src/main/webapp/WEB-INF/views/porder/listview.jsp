@@ -56,9 +56,9 @@
 				</thead>
 				<tbody>
 				<c:forEach var="row" items="${list01}">
-					<tr>
+					<tr id="${row.contNo}">
 						<td class="first from-control">${row.contNo}</td>
-						<td><a href="javascript:fn_Reload03('${path}/cont/porderdetail/${row.contNo}')">${row.contTitle}</a></td>
+						<td><a href="javascript:fn_Reload03('${path}/cont/porderdetail/${row.contNo}','',${row.contNo})">${row.contTitle}</a></td>
 						<td>${row.deliveryDate}</td>
 						<td>${row.codeDesc}</td>
 						<td style="text-align: right"><fmt:formatNumber value="${row.goodsQty}" pattern="#,###" /></td>
@@ -86,7 +86,10 @@
 		});
 	}
 
-	function fn_Reload03(url, data){
+	function fn_Reload03(url, data, id){
+		$("#contlistTable tbody tr").css("background-color", "");
+		$("#"+id).closest('tr').css("background-color", "#dfffd4");
+		console.log(id);
 		$("#detailcont").empty();
 		$("#detailcont").load(url, data, function(){
 			setTimeout(function(){
@@ -124,7 +127,7 @@
 		var $target;
 		$target = $("#contlistTable > tbody > tr > td > a");
 		var tempArr = $target.eq(0).attr('href').split('/');
-		var num = tempArr[tempArr.length - 1].replace(')','').replace('"','').replace('\'','');
+		var num = tempArr[tempArr.length - 1].replace(')','').replace('"','').replace('\'','').split(',')[0];
 		var url ="${path}/cont/porderdetail/"+num;
 		$.ajax({
 			type: "GET",

@@ -31,7 +31,7 @@
 								<th scope="row">모델명</th>
 								<td><input type="text" style="text-align: right;"
 									class="form-control" id="suppModel"
-									name="suppModel" value="${dto.suppModel}" placeholder="">
+									name="suppModel" value='${dto.suppModel}' placeholder="">
 								</td>
 								<th scope="row">표시순위</th>
 								<td colspan="2"><input type="number" style="text-align: right;"

@@ -144,24 +144,24 @@
 		});
 	}
 
-	function fn_Reload02(url, data){
-		$("#storelistTable").empty();
-		$("#storelistTable").load(url, data, function(){
-			setTimeout(function(){
-				var list = $("#storelistTable > tbody > tr");
-				if(list.length > 0){
-					var tr = list[0];
-					$(tr).find("a").get(0).click();	// a link force click!!
-				}
-			}, 100);
-		});
-	}
+	// function fn_Reload02(url, data){
+	// 	$("#storelistTable").empty();
+	// 	$("#storelistTable").load(url, data, function(){
+	// 		setTimeout(function(){
+	// 			var list = $("#storelistTable > tbody > tr");
+	// 			if(list.length > 0){
+	// 				var tr = list[0];
+	// 				$(tr).find("a").get(0).click();	// a link force click!!
+	// 			}
+	// 		}, 100);
+	// 	});
+	// }
 
-	function fn_Reload03(url, data){
-		$("#detailstore").empty();
-		$("#detailstore").load(url, data, function(){
-			setTimeout(function(){
-			}, 500);
-		});
-	}
+	// function fn_Reload03(url, data){
+	// 	$("#detailstore").empty();
+	// 	$("#detailstore").load(url, data, function(){
+	// 		setTimeout(function(){
+	// 		}, 500);
+	// 	});
+	// }
 </script>

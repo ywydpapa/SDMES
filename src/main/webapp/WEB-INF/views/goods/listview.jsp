@@ -72,7 +72,7 @@
 					<c:forEach var="row" items="${list01}">
 						<tr>
 							<td class="first from-control">${row.goodsType}</td>
-							<td><a href="javascript:fn_Reload03('${path}/goods/goodsdetail/${row.goodsNo}')">${row.goodsTitle}</a></td>
+							<td id="${row.goodsNo}"><a href="javascript:fn_Reload03('${path}/goods/goodsdetail/${row.goodsNo}','',${row.goodsNo})">${row.goodsTitle}</a></td>
 							<td>${row.goodsModel}</td>
 							<td>${row.goodsUnit}</td>
 							<td style="text-align: right"><fmt:formatNumber value="${row.goodsPrice}" pattern="#,###" /></td>
@@ -99,11 +99,19 @@ function fn_Reload02(url, data){
 	$("#goodslistTable").empty();
 	$("#goodslistTable").load(url, data, function(){
 		setTimeout(function(){
+			var list = $("#goodslistTable > tbody > tr");
+			if(list.length > 0){
+				var tr = list[0];
+				$(tr).find("a").get(0).click();	// a link force click!!
+			}
 		}, 500);
 });
 }
 
-function fn_Reload03(url, data){
+function fn_Reload03(url, data, id){
+	$("#goodslistTable tbody tr td").css("background-color", "");
+	$("#"+id).closest('tr').find('td').not(".first").css("background-color", "#dfffd4");
+
 	$("#detailgoods").empty();
 	$("#detailgoods").load(url, data, function(){
 		setTimeout(function(){
@@ -111,55 +119,60 @@ function fn_Reload03(url, data){
 });
 }
 function setfirst(){
-var i = 1;
-var str;
-var element = $(".first");
-var firstElement;
-element.each(function() {
-	console.dir(i + $(this).text());
-	if (str == undefined && firstElement == undefined) {
-		str = $(".first")[0].innerText;
-		firstElement = $(".first")[0];
-		return;
-	}
-	if (str == $(this).text()) {
-		i++;
-		console.dir('--> ' + i + $(this).text());
-		$(this).remove();
-	} else {
-		$(firstElement).attr('rowspan', i);
-		i = 1;
-		str = $(this).text();
-		firstElement = $(this);
-	}
-});
-// 마지막꺼까지 반영
-$(firstElement).attr('rowspan', i);
+	var i = 1;
+	var str;
+	var element = $(".first");
+	var firstElement;
+	element.each(function() {
+		console.dir(i + $(this).text());
+		if (str == undefined && firstElement == undefined) {
+			str = $(".first")[0].innerText;
+			firstElement = $(".first")[0];
+			return;
+		}
+		if (str == $(this).text()) {
+			i++;
+			console.dir('--> ' + i + $(this).text());
+			$(this).remove();
+		} else {
+			$(firstElement).attr('rowspan', i);
+			i = 1;
+			str = $(this).text();
+			firstElement = $(this);
+		}
+	});
+	// 마지막꺼까지 반영
+	$(firstElement).attr('rowspan', i);
 }
 
 function tableDetailLoad(){
 	var $target;
 	$target = $("#goodslistTable > tbody > tr > td > a");
 	var tempArr = $target.eq(0).attr('href').split('/');
-	var num = tempArr[tempArr.length - 1].replace(')','').replace('"','').replace('\'','');
+	var num = tempArr[tempArr.length - 1].replace(')','').replace('"','').replace('\'','').split(',')[0];
 	var url ="${path}/goods/goodsdetail/"+num;
-		$.ajax({
-			type: "GET",
-			url : url,
-			dataType : "html",
-			success : function(html){
-				$("#detailgoods").empty();
-				$("#detailgoods").append(html);
-			},
-			error : function(xhr){
-				console.log(xhr);
-			}
-		});
-	} 
+	$.ajax({
+		type: "GET",
+		url : url,
+		dataType : "html",
+		success : function(html){
+			$("#detailgoods").empty();
+			$("#detailgoods").append(html);
+		},
+		error : function(xhr){
+			console.log(xhr);
+		}
+	});
+}
 
 
 $(document).ready(function() {
 setfirst();
-tableDetailLoad();
+// tableDetailLoad();
+	var list = $("#goodslistTable > tbody > tr");
+	if(list.length > 0){
+		var tr = list[0];
+		$(tr).find("a").get(0).click();	// a link force click!!
+	}
 } );
 </script>

@@ -16,7 +16,7 @@
 	<c:forEach var="row" items="${list01}">
 		<tr>
 			<td class="first">${row.goodsType}</td>
-			<td><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}')">${row.goodsTitle}(${row.goodsModel})</a></td>
+			<td id="${row.storeioNo}"><a href="javascript:fn_Reload03('${path}/store/detailgoodsio/${row.storeioNo}','',${row.storeioNo})">${row.goodsTitle}(${row.goodsModel})</a></td>
 			<td>${row.goodsUnit}</td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.inStoreQty}" pattern="#,###" /></td>
 			<td style="text-align: right"><fmt:formatNumber value="${row.outStoreQty}" pattern="#,###" /></td>

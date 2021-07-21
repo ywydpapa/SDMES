@@ -17,7 +17,7 @@
 	<c:forEach var="row" items="${list01}">
 		<tr>
 			<td class="first">${row.suppType}</td>
-			<td><a href="javascript:fn_Reload03('${path}/store/detailsuppio/${row.storeioNo}')">${row.suppTitle}(${row.suppModel})</a></td>
+			<td id="${row.storeioNo}"><a href="javascript:fn_Reload03('${path}/store/detailsuppio/${row.storeioNo}','',${row.storeioNo})">${row.suppTitle}(${row.suppModel})</a></td>
 			<td>${row.suppUnit}</td>
 <%--							<td style="text-align: right"><c:if test="${row.inoutTyp eq 'I'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>
 <%--							<td style="text-align: right"><c:if test="${row.inoutTyp eq 'O'}"><fmt:formatNumber value="${row.storeQty}" pattern="#,###" /></c:if></td>--%>

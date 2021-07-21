@@ -72,7 +72,7 @@
 					<c:forEach var="row" items="${list01}">
 						<tr>
 							<td class="first from-control">${row.suppType}</td>
-							<td><a href="javascript:fn_Reload03('${path}/supp/suppdetail/${row.suppNo}')">${row.suppTitle}</a></td>
+							<td id="${row.suppNo}"><a href="javascript:fn_Reload03('${path}/supp/suppdetail/${row.suppNo}','',${row.suppNo})">${row.suppTitle}</a></td>
 							<td>${row.suppModel}</td>
 							<td>${row.suppUnit}</td>
 							<td style="text-align: right"><fmt:formatNumber value="${row.suppPrice}" pattern="#,###" /></td>
@@ -99,11 +99,19 @@ function fn_Reload02(url, data){
 	$("#supplistTable").empty();
 	$("#supplistTable").load(url, data, function(){
 		setTimeout(function(){
+			var list = $("#supplistTable > tbody > tr");
+			if(list.length > 0){
+				var tr = list[0];
+				$(tr).find("a").get(0).click();	// a link force click!!
+			}
 		}, 500);
 });
 }
 
-function fn_Reload03(url, data){
+function fn_Reload03(url, data, id){
+	$("#supplistTable tbody tr td").css("background-color", "");
+	$("#"+id).closest('tr').find('td').not(".first").css("background-color", "#dfffd4");
+
 	$("#detailsupp").empty();
 	$("#detailsupp").load(url, data, function(){
 		setTimeout(function(){
@@ -156,11 +164,16 @@ function tableDetailLoad(){
 				console.log(xhr);
 			}
 		});
-	} 
+	}
 
 
 $(document).ready(function() {
 setfirst();
-tableDetailLoad();
+// tableDetailLoad();
+	var list = $("#supplistTable > tbody > tr");
+	if(list.length > 0){
+		var tr = list[0];
+		$(tr).find("a").get(0).click();	// a link force click!!
+	}
 } );
 </script>

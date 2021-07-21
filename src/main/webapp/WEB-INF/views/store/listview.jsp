@@ -108,12 +108,15 @@ function fn_Reload02(url, data){
 	});
 }
 
-function fn_Reload03(url, data){
+function fn_Reload03(url, data, id){
+	$("#storelistTable tbody tr td").css("background-color", "");
+	$("#"+id).closest('tr').find('td').not(".first").css("background-color", "#dfffd4");
+
 	$("#detailstore").empty();
 	$("#detailstore").load(url, data, function(){
 		setTimeout(function(){
 		}, 500);
-});
+	});
 }
 
 function setfirst(){

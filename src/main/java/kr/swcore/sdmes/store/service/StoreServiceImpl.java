@@ -134,7 +134,7 @@ public class StoreServiceImpl implements StoreService {
 		Boolean save = false;
 		StoreDTO newDTO = null;
 		for(StoreDTO vo : resultList){
-			if(title.equals(vo.getSuppTitle()) && model.equals(vo.getGoodsModel())){
+			if(title.equals(vo.getSuppTitle()) && model.equals(vo.getSuppModel())){
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());
 				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
@@ -161,7 +161,7 @@ public class StoreServiceImpl implements StoreService {
 					newDTO.setOutStoreQty(vo.getStoreQty());
 				}
 				title = vo.getSuppTitle();
-				model = vo.getGoodsModel();
+				model = vo.getSuppModel();
 				save = true;
 			}
 		}

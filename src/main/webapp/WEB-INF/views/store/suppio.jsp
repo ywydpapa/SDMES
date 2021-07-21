@@ -165,17 +165,17 @@
 			method : "POST", // HTTP 요청 메소드(GET, POST 등)
 			dataType : "json" // 서버에서 보내줄 데이터의 타입
 		})
-				.done(function(data) {
-					if(data.code == 10001){
-						var url = "${path}/store/listgoodsio.do";
-						fn_Reload02(url);
-					}else{
-						alert("저장 실패");
-					}
-				}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-				.fail(function(xhr, status, errorThrown) {
-					alert("통신 실패");
-				});
+		.done(function(data) {
+			if(data.code == 10001){
+				var url = "${path}/store/listsuppio.do";
+				fn_Reload02(url);
+			}else{
+				alert("저장 실패");
+			}
+		}) // HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			alert("통신 실패");
+		});
 	}
 
 	// function fn_Reload02(url, data){

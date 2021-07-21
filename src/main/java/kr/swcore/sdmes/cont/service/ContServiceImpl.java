@@ -7,6 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import kr.swcore.sdmes.cont.dao.ContFileDAO;
 import kr.swcore.sdmes.cont.dto.ContFileDTO;
+import kr.swcore.sdmes.goods.dao.GoodsDAO;
+import kr.swcore.sdmes.goods.dto.GoodsDTO;
+import kr.swcore.sdmes.store.dao.StoreDAO;
+import kr.swcore.sdmes.store.dto.StoreDTO;
 import kr.swcore.sdmes.util.SessionInfoGet;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,12 @@ public class ContServiceImpl implements ContService {
 
 	@Inject
 	ContFileDAO contFileDAO;
+
+	@Inject
+	StoreDAO storeDAO;
+
+	@Inject
+	GoodsDAO goodsDAO;
 	
 	@Override
 	public ContDTO contDetail(Integer contNo) {
@@ -87,7 +97,27 @@ public class ContServiceImpl implements ContService {
 	@Override
 	public Integer updateaddgoods(ContDTO dto) {
 		// TODO Auto-generated method stub
-		return contDao.updateaddgoods(dto);
+		Integer result = 0;
+		try {
+			contDao.updateaddgoods(dto);
+			if(dto.getPrdQtyComplete() > 0){
+				GoodsDTO goodsDTO = new GoodsDTO();
+				goodsDTO = goodsDAO.goodsDetail(dto.getGoodsNo());
+
+				StoreDTO storeDTO = new StoreDTO();
+				storeDTO.setInoutTyp("I");	// 입고
+				storeDTO.setGoodsNo(String.valueOf(dto.getGoodsNo()));
+				storeDTO.setAttrib(null);
+				storeDTO.setStoreUnit(goodsDTO.getGoodsUnit());
+				storeDTO.setStoreQty(String.valueOf(dto.getPrdQtyComplete()));
+				storeDTO.setLocateCode(null);
+				storeDTO.setComment(null);
+				storeDAO.insertStore(storeDTO);
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override

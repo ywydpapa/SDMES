@@ -49,9 +49,11 @@
 		</colgroup>
 		<tr>
 			<td>구분</td>
-			<td><select id="STORE_TYPE" class="form-control form-control-sm">
+			<td>
+				<select id="STORE_TYPE" class="form-control form-control-sm">
 				<option value="SUP">자재</option>
-			</select></td>
+				</select>
+			</td>
 			<td><button class="btn btn-md btn-success" onclick="newreq()">새데이터</button></td>
 		</tr>
 </table>
@@ -100,7 +102,10 @@ function fn_Reload02(url, data){
 });
 }
 
-function fn_Reload03(url, data){
+function fn_Reload03(url, data, id){
+	$("#storelistTable tbody tr td").css("background-color", "");
+	$("#"+id).closest('tr').find('td').not(".first").css("background-color", "#dfffd4");
+
 	$("#detailstore").empty();
 	$("#detailstore").load(url, data, function(){
 		setTimeout(function(){

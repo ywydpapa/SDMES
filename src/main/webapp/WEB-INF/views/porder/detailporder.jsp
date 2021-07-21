@@ -29,13 +29,14 @@
 			<td style="text-align:center; vertical-align: middle;">
 				<input class="cdNo" type="hidden" value="${row2.contdtlNo}">
 				<input id="contNo" type="hidden" value="${row2.contNo}">
+				<input id="goodsNo" class="goodsNo" type="hidden" value="${row2.goodsNo}">
 				${row2.goodsTitle}(${row2.goodsModel})
 			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.goodsQty}" pattern="#,###" /></td>
 			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyComplete}" pattern="#,###" /></td>
 			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyPart}" pattern="#,###" /></td>
-			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
-			<td><input class="form-control PrdQtyComplete" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
-			<td><input class="form-control PrdQtyPart" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
+			<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.goodsQty - row2.prdQtyComplete}" pattern="#,###" /></td>
+			<td><input class="form-control PrdQtyComplete" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max="${row2.goodsQty - row2.prdQtyComplete}" ></td>
+			<td><input class="form-control PrdQtyPart" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" max= "${row2.remQty}" ></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -89,6 +90,7 @@
 
 <script>
 	$(document).ready(function() {
+
 	});
 
 	function numberWithCommas(x) {
@@ -115,12 +117,14 @@
 		// var $Barr = $(".PrdQty");
 		var $Carr = $(".PrdQtyComplete");
 		var $Darr = $(".PrdQtyPart");
+		var $Earr = $(".goodsNo");
 		for (var i=0; i<$Aarr.length; i++){
 			var mesdata = {};
 			mesdata.contdtlNo = $Aarr[i].value;
 			// mesdata.prdQty = Number($Barr[i].value.replace(/[\D\s\._\-]+/g, ""));
-			mesdata.prdQtyComplete = Number($Carr[i].value.replace(/[\D\s\._\-]+/g, ""));
-			mesdata.prdQtyPart = Number($Darr[i].value.replace(/[\D\s\._\-]+/g, ""));
+			mesdata.prdQtyComplete = Number($Carr[i].value);
+			mesdata.prdQtyPart = Number($Darr[i].value);
+			mesdata.goodsNo = Number($Earr[i].value);
 			console.log(mesdata);
 
 			$.ajax({

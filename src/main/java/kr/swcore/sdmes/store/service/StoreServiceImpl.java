@@ -52,17 +52,19 @@ public class StoreServiceImpl implements StoreService {
 		List<StoreDTO> resultList = storeDao.listgoodGroupIo();
 		List<StoreDTO> returnList = new ArrayList<StoreDTO>();
 
-		String str = "";
+		String title = "";
+		String model = "";
 		Boolean save = false;
 		StoreDTO newDTO = null;
 		for(StoreDTO vo : resultList){
-			if(str.equals(vo.getGoodsTitle())){
+			if(title.equals(vo.getGoodsTitle()) && model.equals(vo.getGoodsModel())){
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());
 				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
 					newDTO.setOutStoreQty(vo.getStoreQty());
 				}
-				str = "";
+				title = "";
+				model = "";
 			} else {
 				if(newDTO != null){
 					returnList.add(newDTO);
@@ -81,7 +83,8 @@ public class StoreServiceImpl implements StoreService {
 				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
 					newDTO.setOutStoreQty(vo.getStoreQty());
 				}
-				str = vo.getGoodsTitle();
+				title = vo.getGoodsTitle();
+				model = vo.getGoodsModel();
 				save = true;
 			}
 		}
@@ -126,17 +129,19 @@ public class StoreServiceImpl implements StoreService {
 		List<StoreDTO> resultList = storeDao.listSuppGroupIo();
 		List<StoreDTO> returnList = new ArrayList<StoreDTO>();
 
-		String str = "";
+		String title = "";
+		String model = "";
 		Boolean save = false;
 		StoreDTO newDTO = null;
 		for(StoreDTO vo : resultList){
-			if(str.equals(vo.getSuppTitle())){
+			if(title.equals(vo.getSuppTitle()) && model.equals(vo.getGoodsModel())){
 				if(vo.getInoutTyp().equalsIgnoreCase("I")){
 					newDTO.setInStoreQty(vo.getStoreQty());
 				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
 					newDTO.setOutStoreQty(vo.getStoreQty());
 				}
-				str = "";
+				title = "";
+				model = "";
 			} else {
 				if(newDTO != null){
 					returnList.add(newDTO);
@@ -155,7 +160,8 @@ public class StoreServiceImpl implements StoreService {
 				} else if(vo.getInoutTyp().equalsIgnoreCase("O")){
 					newDTO.setOutStoreQty(vo.getStoreQty());
 				}
-				str = vo.getSuppTitle();
+				title = vo.getSuppTitle();
+				model = vo.getGoodsModel();
 				save = true;
 			}
 		}

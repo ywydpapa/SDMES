@@ -89,7 +89,7 @@
 	function fn_Reload03(url, data, id){
 		$("#contlistTable tbody tr").css("background-color", "");
 		$("#"+id).closest('tr').css("background-color", "#dfffd4");
-		console.log(id);
+
 		$("#detailcont").empty();
 		$("#detailcont").load(url, data, function(){
 			setTimeout(function(){
@@ -149,6 +149,12 @@
 	}
 
 	$(document).ready(function() {
-		tableDetailLoad();
+		// tableDetailLoad();
+
+		var list = $("#contlistTable > tbody > tr");
+		if(list.length > 0){
+			var tr = list[0];
+			$(tr).find("a").get(0).click();	// a link force click!!
+		}
 	});
 </script>

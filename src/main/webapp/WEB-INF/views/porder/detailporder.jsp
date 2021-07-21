@@ -138,10 +138,17 @@
 			});
 		}
 		// reload2();
-		var url2 = "${path}/cont/listporder.do";
-		fn_Reload02(url2);
-		var url3 = "${path}/cont/porderdetail/"+$("#contNo").val();
-		fn_Reload03(url3);
+
+		var list = $("#contlistTable > tbody > tr");
+		if(list.length > 0){
+			var tr = list[0];
+			$(tr).find("a").get(0).click();	// a link force click!!
+		}
+
+		<%--var url2 = "${path}/cont/listporder.do";--%>
+		<%--fn_Reload02(url2);--%>
+		<%--var url3 = "${path}/cont/porderdetail/"+$("#contNo").val();--%>
+		<%--fn_Reload03(url3);--%>
 	}
 
 </script>

@@ -41,6 +41,7 @@ public class UserController {
 			session.setAttribute("userRole", userInfo.getUserRole());
 			session.setAttribute("compNo", userInfo.getCompNo());
 		}else{
+			mav.addObject("msg", "Fail");
 			mav.setViewName("user/login");
 		}
 		return mav;

@@ -57,4 +57,10 @@ public class CodeServiceImpl implements CodeService {
 		return codeDao.deleteCode(dto);
 	}
 
+	@Override
+	public List<CodeDTO> listCode02con(Integer motherCode) {
+		// TODO Auto-generated method stub
+		return codeDao.listCode02con(motherCode);
+	}
+
 }

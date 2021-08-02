@@ -63,7 +63,7 @@ public class StoreController {
 		mav.addObject("dto", storeService.storedetail(storeioNo));
 		mav.addObject("list01", storeService.listgoodsio(storeioNo));
 		mav.addObject("goods", goodsService.listGoods01());
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 	
@@ -81,7 +81,7 @@ public class StoreController {
 		mav.addObject("dto", storeService.storedetail(storeioNo));
 		mav.addObject("list01", storeService.listsuppio(storeioNo));
 		mav.addObject("supps", suppService.listSupp01(null));
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 
@@ -91,7 +91,7 @@ public class StoreController {
 		mav.setViewName("store/goodsio");
 		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 	
@@ -100,7 +100,7 @@ public class StoreController {
 		mav.setViewName("store/goodsReq");
 		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("goods", goodsService.listGoods01());
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 
@@ -123,7 +123,7 @@ public class StoreController {
 		mav.setViewName("store/buyrequest");
 		mav.addObject("dto", storeService.storedetail(storeioNo));
 		mav.addObject("supp", suppService.listSupp01(null));
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 	
@@ -132,7 +132,7 @@ public class StoreController {
 		mav.setViewName("store/buyrequest");
 		mav.addObject("list01", storeService.listgoodsio(null));
 		mav.addObject("supp", suppService.listSupp01(null));
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 	
@@ -141,7 +141,7 @@ public class StoreController {
 		mav.setViewName("store/suppio");
 		mav.addObject("list01", storeService.listsuppio(null));
 		mav.addObject("supps", suppService.listSupp01(null));
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 	
@@ -150,7 +150,7 @@ public class StoreController {
 		mav.setViewName("store/suppReq");
 		mav.addObject("list01", storeService.listsuppio(null));
 		mav.addObject("supps", suppService.listSupp01(null));
-		mav.addObject("locc",codeService.listCode02(40));
+		mav.addObject("locc",codeService.listCode02con(40));
 		return mav;
 	}
 

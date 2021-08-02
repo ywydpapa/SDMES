@@ -32,6 +32,12 @@ public class CodeDAOImpl implements CodeDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("code.listcode02",motherCode);
 	}
+	
+	@Override
+	public List<CodeDTO> listCode02con(Integer motherCode) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("code.listcode02con",motherCode);
+	}
 
 	@Override
 	public List<CodeDTO> listCode03(Integer motherCode) {

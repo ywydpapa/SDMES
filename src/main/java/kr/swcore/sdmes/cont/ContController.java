@@ -91,8 +91,8 @@ public class ContController {
 		Integer userNo = (Integer) session.getAttribute("userNo");
 		mav.setViewName("cont/detailcont");
 		mav.addObject("goods", goodsService.listGoods());
-		mav.addObject("cust",codeService.listCode02(43));
-		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("cust",codeService.listCode02con(43));
+		mav.addObject("nation",codeService.listCode02con(46));
 		mav.addObject("pic", userService.listUser());
 		mav.addObject("fileList",null);
 		mav.addObject("tempFileld", compNo+"-"+userNo+"-"+System.currentTimeMillis());
@@ -105,8 +105,8 @@ public class ContController {
 		Integer userNo = (Integer) session.getAttribute("userNo");
 		mav.setViewName("cont/detailreq");
 		mav.addObject("goods", goodsService.listGoods());
-		mav.addObject("cust",codeService.listCode02(43));
-		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("cust",codeService.listCode02con(43));
+		mav.addObject("nation",codeService.listCode02con(46));
 		mav.addObject("pic", userService.listUser());
 		mav.addObject("fileList",null);
 		mav.addObject("tempFileld", compNo+"-"+userNo+"-"+System.currentTimeMillis());
@@ -118,7 +118,7 @@ public class ContController {
 	public ModelAndView wporder(ModelAndView mav) {
 		mav.setViewName("cont/detailporder");
 		mav.addObject("goods", goodsService.listGoods());
-		mav.addObject("cust",codeService.listCode02(43));
+		mav.addObject("cust",codeService.listCode02con(43));
 		return mav;
 	}
 
@@ -129,8 +129,8 @@ public class ContController {
 		mav.addObject("dto",contService.contDetail(contNo));
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("addgoods",contService.listaddGoods(contNo));
-		mav.addObject("cust",codeService.listCode02(43));
-		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("cust",codeService.listCode02con(43));
+		mav.addObject("nation",codeService.listCode02con(46));
 		mav.addObject("pic", userService.listUser());
 
 		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);
@@ -147,8 +147,8 @@ public class ContController {
 		mav.addObject("dto",contService.contDetail(contNo));
 		mav.addObject("goods", goodsService.listGoods());
 		mav.addObject("addgoods",contService.listaddGoods(contNo));
-		mav.addObject("cust",codeService.listCode02(43));
-		mav.addObject("nation",codeService.listCode02(46));
+		mav.addObject("cust",codeService.listCode02con(43));
+		mav.addObject("nation",codeService.listCode02con(46));
 		mav.addObject("pic", userService.listUser());
 
 		Integer compNo = (Integer) SessionInfoGet.getCompNo(session);

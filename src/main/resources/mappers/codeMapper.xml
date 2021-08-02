@@ -9,7 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="listcode02" resultType="CodeDTO">
-	SELECT * from swcmes_code where codeLevel = 2 and attrib not like 'XXX%' and motherCode= #{motherCode}   
+	SELECT * from swcmes_code where codeLevel = 2 and attrib not like 'XXX%' and motherCode= #{motherCode}    
+</select>
+
+<select id="listcode02con" resultType="CodeDTO">
+	SELECT * from swcmes_code where codeLevel = 2 and attrib not like 'XXX%' and motherCode= #{motherCode} and useYn='Y' order by sortNo    
 </select>
 
 <select id="listcode03" resultType="CodeDTO">

@@ -1427,8 +1427,6 @@ TAcAAGRycy9tZWRpYS9pbWFnZTEuanBlZ1BLBQYAAAAABgAGAIUBAAC7EwAAAAA=
 			<col width="10%" />
 			<col width="10%" />
 			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
 		</colgroup>
 		<thead>
 		<tr>
@@ -1437,8 +1435,6 @@ TAcAAGRycy9tZWRpYS9pbWFnZTEuanBlZ1BLBQYAAAAABgAGAIUBAAC7EwAAAAA=
 			<th style="text-align:center; vertical-align: middle;">생산량<br/>(완제품)</th>
 			<th style="text-align:center; vertical-align: middle;">생산량<br/>(반제품)</th>
 			<th style="text-align:center; vertical-align: middle;">잔여량</th>
-			<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(완제품)</th>
-			<th style="text-align:center; vertical-align: middle;">금회생산량<br/>(반제품)</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -1452,8 +1448,6 @@ TAcAAGRycy9tZWRpYS9pbWFnZTEuanBlZ1BLBQYAAAAABgAGAIUBAAC7EwAAAAA=
 				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyComplete}" pattern="#,###" /></td>
 				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.prdQtyPart}" pattern="#,###" /></td>
 				<td style="text-align:right; vertical-align: middle;"><fmt:formatNumber value="${row2.remQty}" pattern="#,###" /></td>
-				<td><input class="form-control PrdQtyComplete" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
-				<td><input class="form-control PrdQtyPart" type="number" style="width:100%;hight:100%;border:0;text-align:right;" value="0" min="0" max= "${row2.remQty}" ></td>
 			</tr>
 		</c:forEach>
 		</tbody>

@@ -12,12 +12,12 @@
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>구분</th>
+			<th style="vertical-align:middle;background-color:#F8E0F1">구분</th>
 			<td><select class="form-control" id="inoutType">
 					<option value="I" <c:if test="${dto.inoutTyp eq 'I'}">selected</c:if>>구매신청</option>
 					<option value="O" <c:if test="${dto.inoutTyp eq 'O'}">selected</c:if>>반출신청</option>
 			</select></td>
-			<th scope="row">자재명<input type="hidden" id="storeioNo"
+			<th style="vertical-align:middle;background-color:#F8E0F1" scope="row">자재명<input type="hidden" id="storeioNo"
 				value="${dto.storeioNo}"></th>
 			<td colspan="2"><select id="selsuppNo" class="form-control">
 					<option value="">선택</option>
@@ -27,25 +27,25 @@
 			</select></td>
 		</tr>
 		<tr>
-			<th scope="row">수량</th>
+			<th style="vertical-align:middle;background-color:#F8E0F1" scope="row">수량</th>
 			<td><input type="text" style="text-align: right;"
 				class="form-control num_only num_comma num_sum CHK" id="storeQty"
 				name="storeQty"
 				value="<fmt:formatNumber value="${dto.storeQty}" pattern="#,###"/>"
 				placeholder=""></td>
-			<th scope="row">단위</th>
+			<th style="vertical-align:middle;background-color:#F8E0F1" scope="row">단위</th>
 			<td colspan="2"><input type="text" style="text-align: right;"
 				class="form-control num_only num_comma num_sum CHK" id="suppUnit"
 				name="suppUnit" value="${dto.suppUnit}" placeholder=""></td>
 		</tr>
 		<tr>
-		<th scope="row">신청금액</th>
+		<th style="vertical-align:middle;background-color:#F8E0F1" scope="row">신청금액</th>
 			<td><input type="text" style="text-align: right;"
 				class="form-control num_only num_comma num_sum CHK" id="storeAmount"
 				name="storeAmount"
 				value="<fmt:formatNumber value="${dto.storeAmount}" pattern="#,###"/>"
 				placeholder=""></td>
-			<th>위치</th>
+			<th style="vertical-align:middle;background-color:#F8E0F1">위치</th>
 			<td><select class="form-control" id="locateCode">
 					<c:forEach var="rowg" items="${locc}">
 						<option value="${rowg.codeNo}" <c:if test="${dto.locateCode eq rowg.codeNo}">selected</c:if>>${rowg.codeDesc}(${rowg.mesCode})</option>

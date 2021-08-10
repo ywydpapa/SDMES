@@ -45,23 +45,21 @@
 		<colgroup>
 			<col width="10%" />
 			<col width="40%" />
-			<col width="10%" />
 		</colgroup>
-		<tr>
-			<td>재고구분</td>
+		<tr class="table-primary">
+			<td class="align-middle">재고구분</td>
 			<td>
 				<select id="STORE_TYPE" class="form-control form-control-sm">
 					<option value="GDS">상품</option>
 					<option value="SUP">자재</option>
 				</select>
 			</td>
-			<td></td>
 		</tr>
 </table>
 <hr>
 	<div class="h-container">
 		<div class="item">
-			<table class="table table-striped table-bordered nowrap" id="storelistTable">
+			<table class="table table-bordered align-middle" id="storelistTable">
 				<thead>
 				</thead>
 				<tbody>

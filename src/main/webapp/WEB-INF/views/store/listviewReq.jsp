@@ -48,19 +48,19 @@
 			<col width="10%" />
 		</colgroup>
 		<tr>
-			<td>구분</td>
-			<td>
-				<select id="STORE_TYPE" class="form-control form-control-sm">
+			<td style="vertical-align:middle;text-align:center;background-color:#E0F8F1">구분</td>
+			<td style="vertical-align:middle;background-color:#E0F8F1">
+				<select id="STORE_TYPE" style="background-color:#E0F8F1" class="form-control">
 				<option value="SUP">자재</option>
 				</select>
 			</td>
-			<td><button class="btn btn-md btn-success" onclick="newreq()">새데이터</button></td>
+			<td style="vertical-align:middle;text-align:center;background-color:#E0F8F1"><button class="btn btn-md btn-success" onclick="newreq()">새데이터</button></td>
 		</tr>
 </table>
 <hr>
 	<div class="h-container">
 		<div class="item">
-			<table class="table table-striped table-bordered nowrap" id="storelistTable">
+			<table class="table table-bordered align-middle" id="storelistTable">
 				<thead>
 				</thead>
 				<tbody>

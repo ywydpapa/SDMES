@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 <thead>
-	<tr>
+	<tr class="table-primary">
 		<th scope="col" width="100" align="center">구분</th>
 		<th scope="col" width="200" align="center">상품명</th>
 		<th scope="col" width="100" align="center">단위</th>

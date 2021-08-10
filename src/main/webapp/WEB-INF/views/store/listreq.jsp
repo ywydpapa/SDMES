@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 	<thead>
-		<tr>
-			<th scope="col" width="100" align="center">구분</th>
-			<th scope="col" width="200" align="center">상품명</th>
-			<th scope="col" width="100" align="center">단위</th>
-			<th scope="col" width="100" align="center">구매요청량</th>
-			<th scope="col" width="100" align="center">금액</th>
+		<tr class="table-info">
+			<th>구분</th>
+			<th>상품명</th>
+			<th>단위</th>
+			<th>구매요청량</th>
+			<th>금액</th>
 		</tr>
 	</thead>
 	<tbody>

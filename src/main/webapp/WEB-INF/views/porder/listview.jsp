@@ -42,16 +42,16 @@
 <div class="listcont">
 	<div class="h-container">
 		<div class="item" id="listcont">
-			<table class="table table-bordered nowrap" id="contlistTable">
+			<table class="table table-bordered align-middle" id="contlistTable">
 				<thead>
-				<tr>
-					<th scope="col" width="100" align="center">계약번호</th>
-					<th scope="col" width="200" align="center">계약명</th>
-					<th scope="col" width="100" align="center">납품일자</th>
-					<th scope="col" width="100" align="center">납품처</th>
-					<th scope="col" width="100" align="center">생산목표</th>
-					<th scope="col" width="100" align="center">생산완료<br/>(완제품)</th>
-					<th scope="col" width="100" align="center">잔여량</th>
+				<tr class="table-info">
+					<th style="text-align:center; vertical-align: middle;">계약번호</th>
+					<th style="text-align:center; vertical-align: middle;">계약명</th>
+					<th style="text-align:center; vertical-align: middle;">납품일자</th>
+					<th style="text-align:center; vertical-align: middle;">납품처</th>
+					<th style="text-align:center; vertical-align: middle;">생산목표</th>
+					<th style="text-align:center; vertical-align: middle;">생산완료<br/>(완제품)</th>
+					<th style="text-align:center; vertical-align: middle;">잔여량</th>
 				</tr>
 				</thead>
 				<tbody>

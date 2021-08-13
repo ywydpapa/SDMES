@@ -4,7 +4,7 @@
 <c:set var="path" value ="${pageContext.request.contextPath}"/>
 			<table class="table table-bordered nowrap" id="contlistTable">
 				<thead>
-					<tr>
+					<tr class="align-middle">
 						<th scope="col" width="100" align="center">계약번호</th>
 						<th scope="col" width="200" align="center">계약명</th>
 						<th scope="col" width="100" align="center">계약금액</th>

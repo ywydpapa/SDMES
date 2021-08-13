@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <select id="detailcont" resultType="ContDTO">
-	SELECT * from swcmes_cont 
+	SELECT b.codeDesc, a.* from swcmes_cont a left join swcmes_code b on a.custNo = b.codeNo
 	where contNo= #{contNo}  
 </select>
 

@@ -47,5 +47,11 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectList("user.listuser");
 	}
 
+	@Override
+	public int updRole(UserDTO dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("user.updRole", dto);
+	}
+
 	
 }

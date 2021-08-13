@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDao.listUser();
 	}
+
+	@Override
+	public int updRole(UserDTO dto) {
+		// TODO Auto-generated method stub
+		return userDao.updRole(dto);
+	}
 }

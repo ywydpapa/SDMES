@@ -20,4 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update swc_user set userPasswd = PASSWORD(#{Npasswd}) where userId=#{userId} and userPasswd= PASSWORD(#{Ppasswd})
 </update>
 
+<update id="updRole">
+	update swc_user set userKey = #{userKey} where userId = #{userId}
+</update>
+
 </mapper>

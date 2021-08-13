@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,18 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@RequestMapping("userRole.do")
+	public String urole() {
+		return "user/uroleview";
+	}
+
+	@RequestMapping("listuser.do")
+	public ModelAndView listuser(ModelAndView mav) {
+		mav.addObject("list",userService.listUser());
+		mav.setViewName("user/listuser");
+		return mav;
+	}
+	
 	@RequestMapping(value="/login_check.do")
 	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) {
 		boolean result = userService.loginCheck(dto, session);
@@ -40,6 +53,7 @@ public class UserController {
 			session.setAttribute("userName", userInfo.getUserName());
 			session.setAttribute("userRole", userInfo.getUserRole());
 			session.setAttribute("compNo", userInfo.getCompNo());
+			session.setAttribute("userKey", userInfo.getUserKey());
 		}else{
 			mav.addObject("msg", "Fail");
 			mav.setViewName("user/login");
@@ -73,6 +87,44 @@ public class UserController {
         return ResponseEntity.ok(param);
 	}
 
+	@RequestMapping("detail/{userId}")
+	public ModelAndView detail(@PathVariable("userId") String userId,UserDTO dto,ModelAndView mav) {
+		mav.addObject("list",userService.viewUser(dto));
+		mav.setViewName("user/detailuser");
+		return mav;
+	}
+
+	@RequestMapping("listrole.do")
+	public ModelAndView listrole(ModelAndView mav) {
+		mav.addObject("list",userService.listUser());
+		mav.setViewName("user/listrole");
+		return mav;
+	}
 	
+	@RequestMapping("detailRole/{userId}")
+	public ModelAndView detailRole(@PathVariable("userId") String userId,UserDTO dto, ModelAndView mav) {
+		mav.addObject("list",userService.viewUser(dto));
+		mav.setViewName("user/detailRole");
+		return mav;
+	}
+	
+	@RequestMapping("updRole.do")
+	public ResponseEntity<?> userRoleUpdate(@ModelAttribute UserDTO dto) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int userUpdate =userService.updRole(dto);
+		if(userUpdate > 0) {
+       	param.put("code","10001");
+      }
+       else {
+        	param.put("code","20001");
+        }
+        return ResponseEntity.ok(param);
+	}
+	
+	@RequestMapping("detailnew.do")
+	public ModelAndView detailnew(ModelAndView mav) {
+		mav.setViewName("user/detailuser");
+		return mav;
+	}
 
 }

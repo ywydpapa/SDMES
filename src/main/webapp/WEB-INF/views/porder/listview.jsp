@@ -148,6 +148,18 @@
 		fn_Reload02(url2);
 	}
 
+	function fn_printporder() {
+		lineCopy();
+		var initBody = document.body.innerHTML;
+		window.onbeforeprint = function(){
+			document.body.innerHTML = document.getElementById("printdiv").innerHTML;
+		}
+		window.onafterprint = function(){
+			document.body.innerHTML = initBody;
+		}
+		window.print();
+	}
+
 	$(document).ready(function() {
 		// tableDetailLoad();
 

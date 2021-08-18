@@ -197,17 +197,6 @@
 		return x.toString().replace(/[\D\s\._\-]+/g, "");
 	}
 
-	function fn_printporder() {
-		lineCopy();
-		var initBody = document.body.innerHTML;
-		window.onbeforeprint = function(){
-			document.body.innerHTML = document.getElementById("printdiv").innerHTML;
-		}
-		window.onafterprint = function(){
-			document.body.innerHTML = initBody;
-		}
-		window.print();
-	}
 
 	function fn_updateLines(){
 		var $Aarr = $("#initable").find(".cdNo");

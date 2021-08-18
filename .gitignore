@@ -33,3 +33,4 @@ rebel.xml
 .gradle
 /build/
 .gradletasknamecache
+*.class
